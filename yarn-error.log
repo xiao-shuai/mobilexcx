@@ -1,0 +1,92 @@
+Arguments: 
+  /usr/local/bin/node /usr/local/bin/yarn add @images/makepolo.png --silent --no-progress
+
+PATH: 
+  /usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/syu/Desktop/mobile/node_modules/.bin:/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/syu/Desktop/mobile/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.12.3
+
+Node version: 
+  11.10.1
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.npm.taobao.org/@images%2fmakepolo.png: Not found
+      at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:65894:18)
+      at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:129018:22)
+      at Request.emit (events.js:197:13)
+      at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:129990:10)
+      at Request.emit (events.js:197:13)
+      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:129912:12)
+      at Object.onceWrapper (events.js:285:13)
+      at IncomingMessage.emit (events.js:202:15)
+      at endReadableNT (_stream_readable.js:1129:12)
+      at processTicksAndRejections (internal/process/next_tick.js:76:17)
+
+npm manifest: 
+  {
+  	"name": "mobile",
+  	"version": "1.0.0",
+  	"private": true,
+  	"description": "this is mobile project",
+  	"scripts": {
+  		"build:weapp": "taro build --type weapp",
+  		"build:swan": "taro build --type swan",
+  		"build:alipay": "taro build --type alipay",
+  		"build:tt": "taro build --type tt",
+  		"build:h5": "taro build --type h5",
+  		"build:rn": "taro build --type rn",
+  		"dev:weapp": "npm run build:weapp -- --watch",
+  		"dev:swan": "npm run build:swan -- --watch",
+  		"dev:alipay": "npm run build:alipay -- --watch",
+  		"dev:tt": "npm run build:tt -- --watch",
+  		"dev:h5": "npm run build:h5 -- --watch",
+  		"dev:rn": "npm run build:rn -- --watch"
+  	},
+  	"author": "",
+  	"license": "MIT",
+  	"dependencies": {
+  		"@tarojs/components": "1.3.4",
+  		"@tarojs/router": "1.3.4",
+  		"@tarojs/taro": "1.3.4",
+  		"@tarojs/taro-alipay": "1.3.4",
+  		"@tarojs/taro-h5": "1.3.4",
+  		"@tarojs/taro-swan": "1.3.4",
+  		"@tarojs/taro-tt": "1.3.4",
+  		"@tarojs/taro-weapp": "1.3.4",
+  		"nerv-devtools": "^1.3.9",
+  		"nervjs": "^1.3.9",
+  		"taro-ui": "^2.2.1"
+  	},
+  	"devDependencies": {
+  		"@types/react": "^16.4.6",
+  		"@types/webpack-env": "^1.13.6",
+  		"@tarojs/plugin-babel": "1.3.4",
+  		"@tarojs/plugin-csso": "1.3.4",
+  		"@tarojs/plugin-sass": "1.3.4",
+  		"@tarojs/plugin-uglifyjs": "1.3.4",
+  		"@tarojs/webpack-runner": "1.3.4",
+  		"babel-plugin-transform-class-properties": "^6.24.1",
+  		"babel-plugin-transform-decorators-legacy": "^1.3.4",
+  		"babel-plugin-transform-jsx-stylesheet": "^0.6.5",
+  		"babel-plugin-transform-object-rest-spread": "^6.26.0",
+  		"babel-preset-env": "^1.6.1",
+  		"babel-eslint": "^8.2.3",
+  		"eslint": "^4.19.1",
+  		"eslint-config-taro": "1.3.4",
+  		"eslint-plugin-react": "^7.8.2",
+  		"eslint-plugin-import": "^2.12.0",
+  		"eslint-plugin-taro": "1.3.4",
+  		"eslint-plugin-typescript": "^0.12.0",
+  		"typescript": "^3.0.1"
+  	}
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
