@@ -28,5 +28,9 @@
     "node_modules",
     "dist"
   ],
-  "compileOnSave": false
+  "compileOnSave": false,
+  "paths": {
+    "@pages": ["./src/pages"],
+    "@styles": ["./src/styles"],
+  }
 }
