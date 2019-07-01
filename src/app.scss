@@ -1,1 +1,18 @@
 @import "~taro-ui/dist/style/index.scss";
+
+.container{
+    width: 100%;
+    align-items: center;
+}
+.hui-text{
+    color: #9C9C9C;
+    font-size: 30px;
+}
+.hot-title{
+    font-size: 35px;
+    font-weight: 500;
+    color: #3c78d8;
+    text-align: center;
+    margin-top: 10px;
+    
+}
