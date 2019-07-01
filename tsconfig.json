@@ -32,5 +32,6 @@
   "paths": {
     "@pages": ["./src/pages"],
     "@styles": ["./src/styles"],
+    "@util": ["./src/util"],
   }
 }

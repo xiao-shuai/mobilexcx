@@ -1,6 +1,8 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button, Image} from '@tarojs/components';
-import '@/styles/common.scss'
+// import { api } from '@/util/api'
+import { api } from '@/util/api'
+import ask from '@/util/ask'
 import './cate.scss'
 import List_icon_1 from './images/list_icon_1.gif'
 import List_icon_2 from './images/list_icon_2.gif'
@@ -63,26 +65,17 @@ export default class Cate extends Component {
   componentDidMount () {
     this.getCateList()
   } 
-  componentWillReceiveProps (nextProps,nextContext) {} 
-  componentWillUnmount () {} 
-  componentDidShow () {} 
-  componentDidHide () {} 
-  componentDidCatchError () {} 
-  componentDidNotFound () {} 
 
   getCateList () {
     let that = this
     Taro.request({
-      url: 'https://sprog.makepolo.net/smallprogram/cat/index.php', 
-      header: {
-          'content-type': 'application/json' 
-      },
+      url: api.cat,
       success: function (res) {
         that.setState({
           cateList: res.data.data
         })
       }
-  });
+    })
   }
 
   jumpCateTwo (id,name) {
@@ -93,7 +86,7 @@ export default class Cate extends Component {
     const { cateList, imgList } = this.state
     return (
       <View>
-        <View className='container'>
+        <View className='inner'>
           { cateList.map((item, i) => {
             return (
               <View className="item" key={item.catid} onClick={this.jumpCateTwo.bind(this, item.catid, item.name)}>
