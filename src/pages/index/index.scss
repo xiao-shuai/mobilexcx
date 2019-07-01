@@ -1,9 +1,190 @@
+@import "~taro-ui/dist/style/components/tag.scss";
 .top_log{
-    width: 10%;
-    height: 100px;
+    width: 20%;
+    height: 70px;
+    // margin-left: 5%;
+
+}
+.search{
+    width: 65%;
+    height: 60px;
+    flex-direction: row;
+    // background-color: red;
+    border: 1px solid #3399ff;
+    border-radius: 40px;
+    margin-left: 2%;
+    display: flex;
+    align-items: center;
+
+}
+.search-icon{
+    margin-left: 2%;
+}
+.serch-text{
+    
+    margin-left: 3%;
+    
 }
 .top{
+    padding: 2%;
     width: 100%;
-    height: 100px;
-    background-color: pink;
+    // background-color: pink;
+   flex-direction: row;
+   display: flex;
+
+}
+.swper{
+    width: 100%;
+    height: 350px;
+    background-color:gold;
+    margin-top: 10px;
+}
+.tab{
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+    // background-color:blue;
+    justify-content: space-between
+}
+.tab-i{
+    width: 20%;
+    display: flex;
+    align-items: center;
+    justify-items: center; 
+    flex-direction: column
+}
+.tab-img{
+  width: 50px;
+  height: 50px;
+}
+.tab-img2{
+    width: 50px;
+  height: 50px;
+//   margin-top: -20;
+}
+.tab-name{
+    margin-top: 5px;
+    font-size: 30px;
+}
+.hot-view{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #F2F2F2;
+    flex-direction: column;
+    margin-top: 20px;
+    
+}
+.hot-view-sc{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    flex-direction: column;
+    margin-top: 20px;
+    
+}
+
+.hot-con-v{
+    display: flex;
+    width: 95%;
+    flex-direction: row;
+    justify-content:  space-between;
+    align-items: center;
+    background-color: gold;
+    margin-top: 10px;
+}
+.con-v{
+    width: 33%;
+   
+   
+}
+.hot-img{
+    margin-top: 10px;
+  
+    width: 100%;
+    height:180px ;
+}
+.hot_ms{
+    width: 100%;
+    font-size: 30px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  
+
+}
+.price_show{
+    color: red;
+    margin-top: 5px;
+    text-align: center;
+    font-size: 30px;
+}
+.video-i{
+    width: 48%;
+  
+}
+.video{
+    width: 100%;
+    height: 200px;
+}
+.icon_sp{
+    width: 30px;
+    height: 30px;
+}
+.sp_text{
+    color: #666666;
+    margin-left: 5px;
+}
+.hothy-img-one{
+    width: 30vw;
+    height: 350px;
+}
+.hothy-img{
+    width: 30vw;
+    height: 175px;
+    
+    float: left;
+}
+.hothy-r{
+    display: flex;
+    // flex-direction: row;
+    // flex-wrap: wrap;
+    float: left;
+    width: 30vw;
+    height: 350px;
+    background-color:blue;
+
+}
+.hothy-con-v{
+    width: 95vw;
+    margin-left: 3.5vw;
+}
+.conhy-v{
+    width: 30vw;
+    float: left;
+
+    margin-left: 1px;
+    // display: flex;
+    // flex-direction: row;
+    // justify-content: space-between
+}
+.hy-tag{
+    width: 95%;
+    margin-left: 2%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+    justify-content: space-between
+}
+.hy-tag-i{
+    margin-top: 20px;
+    padding: 5px;
+}
+.hot-con-v-sc{
+    width: 95%;
+
 }
