@@ -8,7 +8,7 @@ import person from '../asset/person.png'
 import sj from '../asset/sj.png'
 import sp from '../asset/sp.png'
 import company from '../asset/company.png'
-import { api } from '../../api';
+import { api } from '../../util/api';
 // import { AtButton ,AtSearchBar} from 'taro-ui'
 export default class Index extends Component {
 
