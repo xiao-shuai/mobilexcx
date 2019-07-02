@@ -1,6 +1,7 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button} from '@tarojs/components';
 import { api } from '@/util/api'
+import './CateTwo.scss'
 
 export default class CateTwo extends Component {
 
@@ -58,23 +59,23 @@ export default class CateTwo extends Component {
     })
   }
 
-  getProList (id) {
-    const that = this
-    Taro.request({
-      url: api.cat_class,
-      data: {cid: id},
-      success: function (res) {
-        // const brother = res.data.data.brother
-        // const firstBrother = id
-        // const son = res.data.data.son
-        // that.setState({
-        //   cateBrother: brother,
-        //   cateSon: son,
-        //   chooseId: firstBrother
-        // })
-        console.log(res.data)
-      }
-    })
+  jumpProList (id) {
+    // const that = this
+    // Taro.request({
+    //   url: api.cat_class,
+    //   data: {cid: id},
+    //   success: function (res) {
+    //     // const brother = res.data.data.brother
+    //     // const firstBrother = id
+    //     // const son = res.data.data.son
+    //     // that.setState({
+    //     //   cateBrother: brother,
+    //     //   cateSon: son,
+    //     //   chooseId: firstBrother
+    //     // })
+    //     console.log(res.data)
+    //   }
+    // })
   }
 
   render() {
@@ -93,7 +94,7 @@ export default class CateTwo extends Component {
           <View className='list_right'>
             {cateSon.map((item, i) => {
               return (
-                <View className='son_item' key={item.catid} onClick={this.getProList.bind(this,item.catid)}>{item.name}</View>
+                <View className='son_item' key={item.catid} onClick={this.jumpProList.bind(this,item.catid)}>{item.name}</View>
               )
             })}
           </View>
