@@ -1,5 +1,5 @@
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View, Text,Icon,Image ,Video,} from '@tarojs/components'
+import { View, Text,Icon,Image ,Video,Swiper, SwiperItem,WebView} from '@tarojs/components'
 import './index.scss'
 import { AtTag ,AtGrid} from 'taro-ui'
 import  makepolo from '../asset/makepolo.png'
@@ -19,7 +19,9 @@ export default class Index extends Component {
          video_list:[],
          hot_hy:[],
          category_tag:[],
-         hysc:[]
+         hysc:[],
+         focus_img:[],
+         jingpin:[]
     }
   }
   /**
@@ -54,8 +56,17 @@ export default class Index extends Component {
 
           let hothy=res.data.data.hot_industry
           let tag=res.data.data.category
+          let focus_img=res.data.data.focus_img
 
           let hysc=res.data.data.hysc
+          let jingpin=res.data.data.jingpin
+          for (let i in jingpin){
+            this.state.jingpin.push(jingpin[i])
+          }
+
+          for (let i in focus_img){
+            this.state.focus_img.push(focus_img[i])
+          }
 
           for (let i in last_pro){
              this.state.hot_arr.push(last_pro[i])
@@ -79,7 +90,9 @@ export default class Index extends Component {
            video_list:this.state.video_list,
            hot_hy:this.state.hot_hy,
            category_tag:this.state.category_tag,
-           hysc:this.state.hysc
+           hysc:this.state.hysc,
+           focus_img:this.state.focus_img,
+           jingpin:this.state.jingpin
          })
       })
       .catch(err=>console.log('err:',err))
@@ -128,9 +141,21 @@ export default class Index extends Component {
 
         </View>
 
-        <View className='swper'>
-         
-        </View>
+        {/* <View > */}
+         <Swiper className='swper' >
+           {
+           this.state.focus_img.length!==0&&this.state.focus_img.map((i,k)=>{
+             return <SwiperItem>
+                 <Image src={i.img_src} className='banner-img' onClick={()=>{
+                    <WebView  src={i.link}/>
+                    
+                 }}/>
+             </SwiperItem>
+           })
+           }
+           
+         </Swiper>
+        {/* </View> */}
         {/* tab */}
         <View className='tab'>
         {
@@ -221,7 +246,7 @@ export default class Index extends Component {
         </View>
            <View className='hy-tag'>
              {
-               this.state.category_tag.length!==0&&this.state.category_tag.map((i,k)=>{
+               this.state.category_tag.length!==0&&this.state.category_tag.slice(0,8).map((i,k)=>{
                return <AtTag className='hy-tag-i'>{i.name}</AtTag>
                 
                })
@@ -252,9 +277,6 @@ export default class Index extends Component {
        
        this.state.hysc.length!==0&&<AtGrid  
         
-  customStyle={{
-   backgroundColor:'white'
-  }}
  data={
    [
     {
@@ -284,12 +306,42 @@ export default class Index extends Component {
   ]
  }/>
      }
+    
 
         </View>
+        <View className='hy-tag'>
+             {
+               this.state.category_tag.length!==0&&this.state.category_tag.slice(8,20).map((i,k)=>{
+               return <AtTag className='hy-tag-i'>{i.name}</AtTag>
+                
+               })
+             }
+           
+           </View> 
 
         </View>
 
         {/* 精品推荐 */}
+
+        <View className='hot-view' style='margin-bottom: 20px;'>
+        
+        <Text className='hot-title'> 精品推荐 </Text>
+        
+        <View className='hot-con-v' style='flex-wrap: wrap;'>
+        {
+          this.state.jingpin.length!==0&&this.state.jingpin.map((i,k)=>{
+          return (
+            <View className='con-v-jp' key={k} style='margin-bottom: 20px;'>
+             <Image src={i.img} className='hot-img-jp'/>
+             <View className='hot_ms'>{i.title}</View>
+             <View className='price_show'>{i.price_show}</View>
+            </View>
+          )
+          })
+        }
+        </View>
+
+        </View>
        
       </View>
     )
