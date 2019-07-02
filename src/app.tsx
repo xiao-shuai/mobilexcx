@@ -1,5 +1,6 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import Index from './pages/index'
+
 import 'taro-ui/dist/style/index.scss'
 import './app.scss'
 import  './util/api'
@@ -24,7 +25,8 @@ class App extends Component {
       'pages/index/index',
       'pages/cate/cate',
       'pages/cateTwo/cateTwo',
-      'pages/proDetail/proDetail'
+      'pages/proDetail/proDetail',
+      'pages/search/search'
     ],
     window: {
       backgroundTextStyle: 'light',

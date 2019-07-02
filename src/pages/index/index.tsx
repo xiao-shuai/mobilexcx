@@ -9,7 +9,7 @@ import sj from '../asset/sj.png'
 import sp from '../asset/sp.png'
 import company from '../asset/company.png'
 import { api } from '../../util/api';
-// import { AtButton ,AtSearchBar} from 'taro-ui'
+
 export default class Index extends Component {
 
   constructor (props) {
@@ -110,7 +110,8 @@ export default class Index extends Component {
      let tab=[
        {
            icon:fenlei,
-           name:'分类'
+           name:'分类',
+           path:'/pages/cate/cate'
        },
        {
         icon:sp,
@@ -134,12 +135,16 @@ export default class Index extends Component {
           className={'top_log'}
           />
          
-         <View className='search' onClick={()=>{console.log(556)}}>
+         <View className='search' onClick={()=>{
+           Taro.navigateTo({
+            url: '/pages/search/search'
+          })
+           }}>
          <Icon type={'search'} size='20' className='search-icon' />
          <Text className='serch-text,hui-text'>搜索</Text>
          </View>
 
-        </View>
+        </View>               
 
         {/* <View > */}
          <Swiper className='swper' >
@@ -160,7 +165,11 @@ export default class Index extends Component {
         <View className='tab'>
         {
             tab.map((i,m)=>{
-          return <View className='tab-i' key={m}>
+          return <View className='tab-i' key={m} onClick={()=>{
+            Taro.navigateTo({
+              url:i.path
+            })
+          }}>
                  
                   <Image src={i.icon} className={m==3?'tab-img2':'tab-img'} />
                   <Text className='tab-name'>{i.name}</Text>
