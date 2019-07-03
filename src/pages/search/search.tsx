@@ -30,7 +30,7 @@ export default class Search extends Component{
           return(
               <View className='container'>
                   <AtSearchBar 
-                //   showActionButton
+                //   showActionButton  
         value={this.state.value}
         onChange={this.onChange.bind(this)}
         onActionClick={this.onActionClick.bind(this)}/>

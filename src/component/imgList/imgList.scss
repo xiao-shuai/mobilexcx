@@ -1,0 +1,45 @@
+.ImgList {
+  .title {
+    display: block;
+    color: #3963cc;
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: border-box;
+    padding-top: 24px;
+    position: relative;
+    .name {
+      margin: 0 40px;
+    }
+  }
+  .img_list {
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 30px 25px 0 25px;
+    flex-wrap: wrap;
+    .item {
+      width: 214px;
+      height: 272px;
+      text-align: center;
+      font-size: 28px;
+      position: relative;
+      padding-bottom: 30px;
+      .img {
+        width: 214px;
+        height: 162px;
+      }
+      .pro_title {
+        color: #666;
+        margin-top: 5px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .price {
+        color: #fc0505;
+      }
+    }
+  }
+}

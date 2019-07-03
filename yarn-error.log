@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn add @/styles/common.scss --silent --no-progress
+  /usr/local/bin/node /usr/local/bin/yarn add @/component/keywords/keywords --silent --no-progress
 
 PATH: 
   /usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/syu/Desktop/mobile/node_modules/.bin:/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/syu/Desktop/mobile/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -14,15 +14,15 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/@%2fstyles/common.scss: Not found
+  Error: https://registry.npm.taobao.org/@%2fcomponent/keywords/keywords: [not_found] document not found
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:65894:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:129018:22)
       at Request.emit (events.js:197:13)
       at Request.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:129990:10)
       at Request.emit (events.js:197:13)
-      at IncomingMessage.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:129912:12)
+      at Gunzip.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:129912:12)
       at Object.onceWrapper (events.js:285:13)
-      at IncomingMessage.emit (events.js:202:15)
+      at Gunzip.emit (events.js:202:15)
       at endReadableNT (_stream_readable.js:1129:12)
       at processTicksAndRejections (internal/process/next_tick.js:76:17)
 
