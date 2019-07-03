@@ -26,12 +26,8 @@ class App extends Component {
       'pages/cate/cate',
       'pages/cateTwo/cateTwo',
       'pages/proDetail/proDetail',
-<<<<<<< HEAD
-      'pages/proDetail/imgDetail/imgDetail',
-      'pages/proDetail/imgPreview/imgPreview'
-=======
+      'pages/proDetail/imgPreview/imgPreview',
       'pages/search/search'
->>>>>>> 6fad4507861478ab42e4511662152b463d2fab7d
     ],
     window: {
       backgroundTextStyle: 'light',

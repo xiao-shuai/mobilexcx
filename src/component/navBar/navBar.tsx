@@ -14,13 +14,12 @@ export default class NavBar extends Component {
   }
 
   render() {
-    const { pro, imgDetail, imgPreview } = this.props
+    const { pro, imgPreview } = this.props
     return (
       <View className='nav_box'>
         <View className='arrow'></View>
         <View className='nav_list'>
           <View className={`nav_item ${pro}`} onClick={this.jumpNavBar.bind(this,'proDetail')}>产品</View>
-          <View className={`nav_item ${imgDetail}`} onClick={this.jumpNavBar.bind(this,'imgDetail/imgDetail')}>图文详情</View>
           <View className={`nav_item ${imgPreview}`} onClick={this.jumpNavBar.bind(this,'imgPreview/imgPreview')}>图片</View>
         </View>
       </View>
