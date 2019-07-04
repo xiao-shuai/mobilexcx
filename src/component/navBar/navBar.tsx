@@ -6,8 +6,20 @@ export default class NavBar extends Component {
 
   state = {}
 
-  componentWillMount () {}
-  componentDidMount () {} 
+  componentWillReceiveProps () {
+    console.log('componentWillReceiveProps',this.props)
+  }
+  componentWillMount () {
+    console.log('componentWillMount：',this.props)
+  }
+  componentDidMount () {
+    console.log('componentDidMount',this.props)
+  } 
+  componentDidShow() {
+    console.log('componentDidShow',this.props) 
+  }
+  
+  
 
   jumpNavBar (name) {
     Taro.navigateTo({ url: `/pages/proDetail/${name}` })
