@@ -153,12 +153,7 @@ export default class Index extends Component {
 
     return (
       <View className='container'>
-        
-  <View >
-  <DescRichText desc={this.state.jiexi}></DescRichText>
-</View>
-
-
+ 
         <View className='top'>
         <Image src={makepolo} 
           className={'top_log'}

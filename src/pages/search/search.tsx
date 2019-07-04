@@ -9,7 +9,10 @@ export default class Search extends Component{
     constructor (props) {
         super(props)
         this.state = {
-          value: ''
+          value: '',
+          k_data:[],
+          kw_show:false
+         
         }
       }
     config: Config = {
@@ -19,21 +22,96 @@ export default class Search extends Component{
       onChange (value) {
           
         this.setState({
-          value: value
-        },()=>{console.log('value',value)})
+          value: value,
+          kw_show:true
+        },()=>{
+          console.log('value',value)
+          this.get_kw()
+        }
+          )
       }
       onActionClick () {
         console.log('开始搜索')
       }
 
+ ss_btn=()=>{
+  Taro.request({
+    url: api.product_list,
+    // method:'POST',
+    // header: {
+    //   'content-type': 'application/json'
+    // },
+    // data:{
+    //   catid:'', 
+    //   keywords:'等待',
+    //   page :1,
+    //   area:'',
+    //   attr:''
+    // }
+  }).then(res=>{
+     console.log('res:',res)
+  })
+  .catch(err=>{
+    console.log('err:',err)
+  })
+ } 
+ get_kw=()=>{
+  Taro.request({
+    url: api.sw+`?wd=${this.state.value}`,
+    
+  }).then(res=>{
+     console.log('res:',res)
+      
+     if(res.data!==''){
+       let list=res.data
+       let a=[]
+        for(let i in list){
+            a.push(list[i])
+        }
+        this.setState({k_data:a})
+     }
+  })
+  .catch(err=>{
+    console.log('err:',err)
+  })
+ }
+ click_kw=(e)=>{
+   console.log('ee:',e)
+   this.setState({value:e.uk,kw_show:false})
+ }
+      
+componentDidMount(){
+  
+}
+
       render(){
+         let kw=this.state.k_data
+         console.log('kw',kw)
           return(
               <View className='container'>
                   <AtSearchBar 
                 //   showActionButton  
-        value={this.state.value}
-        onChange={this.onChange.bind(this)}
-        onActionClick={this.onActionClick.bind(this)}/>
+         value={this.state.value}
+         onChange={this.onChange.bind(this)}
+         onActionClick={this.onActionClick.bind(this)}/>
+         {
+           kw==''||this.state.value==''||this.state.kw_show==false?null
+           :
+           <View className='list_wd'>
+           {
+             kw.map((i,k)=>{
+               return(
+               <View className='kw_i' onClick={()=>{
+                  this.click_kw(i)
+               }}>
+                {i.uk}
+               </View>
+               )
+             })
+           }
+         </View>
+         }
+
               </View>
           )
       }
