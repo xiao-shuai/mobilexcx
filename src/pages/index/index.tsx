@@ -8,7 +8,8 @@ import person from '../asset/person.png'
 import sj from '../asset/sj.png'
 import sp from '../asset/sp.png'
 import company from '../asset/company.png'
-import { api } from '../../util/api';
+import { api } from '../../util/api'
+import DescRichText from '../../component/taroWxParse-master/DescRichText'
 
 export default class Index extends Component {
 
@@ -19,9 +20,11 @@ export default class Index extends Component {
          video_list:[],
          hot_hy:[],
          category_tag:[],
-         hysc:[],
+         hysc:[], 
          focus_img:[],
-         jingpin:[]
+         jingpin:[],
+         jiexi:null,
+         
     }
   }
   /**
@@ -35,10 +38,30 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   } 
 
+  
+
   componentWillMount () { }
 
   componentDidMount () { 
    
+   Taro.request({
+    url:api.pro_detail,
+    data: {
+      corpid: 100019237571,
+      productid: 101030597384,
+      aid: 61010,
+      sign: ''
+      }
+   }).then(res=>{
+   console.log('sss:',res)
+    this.setState({jiexi:res.data.data.product_desc})
+
+   }
+
+   ).catch(err=>{
+    console.log('err:',err)
+   })
+
     Taro.request({
       url: api.index,
       header: {
@@ -106,7 +129,7 @@ export default class Index extends Component {
 
   render () {
 
-    console.log('remen:',this.state.hot_arr)
+    console.log('remen:',this.state.hot_arr,this.state.jiexi)
      let tab=[
        {
            icon:fenlei,
@@ -130,6 +153,12 @@ export default class Index extends Component {
 
     return (
       <View className='container'>
+        
+  <View >
+  <DescRichText desc={this.state.jiexi}></DescRichText>
+</View>
+
+
         <View className='top'>
         <Image src={makepolo} 
           className={'top_log'}
