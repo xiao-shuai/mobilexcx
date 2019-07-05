@@ -10,7 +10,7 @@ import Keywords from '@/component/keywords/keywords'
 import NavBar from '@/component/navBar/navBar'
 import Enquiry from '@/component/enquiry/enquiry'
 // import TaroBdparse from '@/component/taroBdparse/taroBdparse'
-
+import md5 from 'md5'
 export default class ProDetail extends Component {
 
   config = {
@@ -33,10 +33,48 @@ export default class ProDetail extends Component {
   }
 
   componentWillMount () {
-    this.getProDetail()
-    console.log('ididid:',this.$router.params) 
+    // this.getProDetail()
+    console.log('proid:',this.$router.params) 
   }
   componentDidMount () {
+    const that = this
+    let b=`aid=61010&productid=&${this.$router.params}&smallprogram20180716rmaekd8d4ds9`
+   let sign=  md5(b)
+   
+    let url=`${api.pro_detail}?productid=${this.$router.params.proid}&sign=${sign}`
+    console.log('sign:',sign,'url:',url)
+     Taro.request({
+       url:url
+     }).then(res=>{
+      console.log('res11:',res)
+      let imgList = res.data.data.images_list
+        let title = res.data.data.title
+        let price = res.data.data.unit_price_show
+        let minOrder = res.data.data.min_order
+        let proAttr = res.data.data.product_std_attr      
+        let corpName = res.data.data.corpname      
+        let phone = res.data.data.mobile      
+        let recommendList = res.data.data.tuijian_arr
+        let keywords = res.data.data.relate_keyword_array
+        let product_desc = res.data.data.product_desc
+        that.setState({
+          imgList,
+          title,
+          price,
+          minOrder,
+          proAttr,
+          corpName,
+          phone,
+          recommendList,
+          keywords,
+          product_desc
+        })
+        let key = 'desc'
+        let data = { desc: product_desc }
+        swan.setStorage({ key, data});
+     }).catch(err=>{
+      console.log('errr22:',err)
+     })
   } 
   componentDidShow() {
     // console.log('父组件富文本数据：',this.state)
