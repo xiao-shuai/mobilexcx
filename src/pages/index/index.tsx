@@ -6,9 +6,14 @@ import  makepolo from '../asset/makepolo.png'
 import  fenlei from '../asset/fenlei.png'
 import person from '../asset/person.png'
 import sj from '../asset/sj.png'
-import sp from '../asset/sp.png'
+import sp from '../asset/sp.png' 
 import company from '../asset/company.png'
+<<<<<<< HEAD
 import { api } from '../../util/api';
+=======
+import { api } from '../../util/api' 
+import DescRichText from '../../component/taroWxParse-master/DescRichText'
+>>>>>>> 15327c92336277849ffbdc32f7104ace63cdad25
 
 export default class Index extends Component {
 
@@ -24,7 +29,7 @@ export default class Index extends Component {
          jingpin:[]
     }
   }
-  /**
+  /** 
    * 指定config的类型声明为: Taro.Config
    *
    * 由于 typescript 对于 object 类型推导只能推出 Key 的基本类型
@@ -130,6 +135,10 @@ export default class Index extends Component {
 
     return (
       <View className='container'>
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 15327c92336277849ffbdc32f7104ace63cdad25
         <View className='top'>
         <Image src={makepolo} 
           className={'top_log'}
@@ -150,7 +159,7 @@ export default class Index extends Component {
          <Swiper className='swper' >
            {
            this.state.focus_img.length!==0&&this.state.focus_img.map((i,k)=>{
-             return <SwiperItem>
+             return <SwiperItem key={k}>
                  <Image src={i.img_src} className='banner-img' onClick={()=>{
                     <WebView  src={i.link}/>
                     
@@ -181,13 +190,18 @@ export default class Index extends Component {
         {/* 热门产品 */}
         <View className='hot-view'>
         
-        <Text className='hot-title'> 热门产品 </Text>
+        <Text className='hot-title'> 热门产品 </Text> 
         
         <View className='hot-con-v'>
-        {
+        { 
           this.state.hot_arr.length!==0&&this.state.hot_arr.map((i,k)=>{
           return (
-            <View className='con-v' key={k}>
+            <View className='con-v' key={k} onClick={()=>{
+              console.log(4456)
+              Taro.navigateTo({
+                url:`/pages/proDetail/proDetail?proid=${i.proid}`
+              })
+            }}> 
              <Image src={i.img} className='hot-img'/>
              <View className='hot_ms'>{i.title}</View>
              <View className='price_show'>{i.price_show}</View>
@@ -236,8 +250,8 @@ export default class Index extends Component {
         {
           this.state.hot_hy.length!==0&&this.state.hot_hy.map((i,k)=>{
           return (
-           <View>
-            <View className='conhy-v' key={k}>
+           <View key={k}>
+            <View className='conhy-v' >
               {
                 k==0?
                 <Image src={i.img} className='hothy-img-one'/>
@@ -256,7 +270,7 @@ export default class Index extends Component {
            <View className='hy-tag'>
              {
                this.state.category_tag.length!==0&&this.state.category_tag.slice(0,8).map((i,k)=>{
-               return <AtTag className='hy-tag-i'>{i.name}</AtTag>
+               return <AtTag className='hy-tag-i' key={k}>{i.name}</AtTag>
                 
                })
              }
@@ -321,7 +335,7 @@ export default class Index extends Component {
         <View className='hy-tag'>
              {
                this.state.category_tag.length!==0&&this.state.category_tag.slice(8,20).map((i,k)=>{
-               return <AtTag className='hy-tag-i'>{i.name}</AtTag>
+               return <AtTag className='hy-tag-i' key={k}>{i.name}</AtTag>
                 
                })
              }
