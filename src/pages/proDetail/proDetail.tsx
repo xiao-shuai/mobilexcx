@@ -28,8 +28,7 @@ export default class ProDetail extends Component {
     recommendList: [],
     keywords: [],
     product_desc: '',
-    isShow: '',
-    test: ''
+    isShow: ''
   }
 
   componentWillMount () {
@@ -38,16 +37,15 @@ export default class ProDetail extends Component {
   componentDidMount () {
   } 
   componentDidShow() {
-    // console.log('父组件富文本数据：',this.state)
   }
   
   getProDetail () {
+    const { id } = this.$router.params
     const that = this
     Taro.request({
       url: api.pro_detail,
       data: {
-        corpid: 100019237571,
-        productid: 101030597384,
+        productid: id || 101030597384,
         aid: 61010,
         sign: ''
       },
@@ -75,9 +73,10 @@ export default class ProDetail extends Component {
           keywords,
           product_desc
         })
-        let key = 'desc'
-        let data = { desc: product_desc }
-        swan.setStorage({ key, data});
+        let key = 'pid'
+        let data = { id: 101030597384 }
+        Taro.setStorage({ key, data })
+        .then(res => console.log(res))
       }
     })
   }
@@ -86,15 +85,10 @@ export default class ProDetail extends Component {
     this.setState({ isShow: 'show' })
   }
 
-  handleGetDesc () {
-    this.setState({ test: '<div>这是一个大的div</div>' },() => {
-      console.log(this.state.test)
-    })
-    console.log('test')
-  }
+
  
   render() {
-    const { imgList, title, price, minOrder, proAttr, corpName, phone, recommendList, keywords, product_desc, isShow, test } = this.state
+    const { imgList, title, price, minOrder, proAttr, corpName, phone, recommendList, keywords, product_desc, isShow } = this.state
     return (
       <View>
         <NavBar
@@ -107,7 +101,6 @@ export default class ProDetail extends Component {
         </Block>
 
         <Enquiry show={isShow} />
-
 
         <Swiper 
           className='inner'
@@ -142,8 +135,6 @@ export default class ProDetail extends Component {
           })}
         </View>
 
-
-
         <Button className='view_info' onClick={this.handleGetDesc.bind(this)}>点击查看详细>></Button>
 
         <View className='corp_info'>
@@ -167,6 +158,7 @@ export default class ProDetail extends Component {
         <ImgList 
           recommendList={recommendList}
           name='产品推荐'
+          type='pro'
         />
 
         <Keywords

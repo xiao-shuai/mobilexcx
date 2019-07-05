@@ -10,10 +10,10 @@ export default class NavBar extends Component {
     console.log('componentWillReceiveProps',this.props)
   }
   componentWillMount () {
-    console.log('componentWillMount：',this.props)
+    // console.log('componentWillMount：',this.props)
   }
   componentDidMount () {
-    console.log('componentDidMount',this.props)
+    // console.log('componentDidMount',this.props)
   } 
   componentDidShow() {
     console.log('componentDidShow',this.props) 

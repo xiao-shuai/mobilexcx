@@ -1,8 +1,11 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button} from '@tarojs/components';
 import './imgPreview.scss'
+import '../proDetail.scss'
 import NavBar from '@/component/navBar/navBar'
-import TaroBdparse from '@/component/taroBdparse/taroBdparse'
+import { api } from '@/util/api'
+import ImgList from '@/component/imgList/imgList'
+import Keywords from '@/component/keywords/keywords'
 
 export default class ImgPreview extends Component {
 
@@ -11,44 +14,96 @@ export default class ImgPreview extends Component {
   }
 
   state = {
-    desc: ''
+    pid: '',
+    proImgList: [],
+    proList: [],
+    relatedList: [],
+    keywordFirst: [],
+    keywordSecond: [],
+    curPosition: [],
+    corpInfo: {}
   }
 
   componentWillMount () {
-    this.getDesc()
+    this.getProId()
+
   }
   componentDidMount () {} 
   componentWillReceiveProps (nextProps,nextContext) {} 
-  componentWillUnmount () {} 
-  componentDidShow () {} 
-  componentDidHide () {} 
-  componentDidCatchError () {} 
-  componentDidNotFound () {} 
 
-  getDesc () {
-    const key = 'desc'
-    const that = this
-    swan.getStorage({
-      key,
-      success: res => {
-        console.log('获取成功')
-        that.setState({ desc: res.data.desc })
-      },
-      fail: () => console.log('获取失败'),
-      complete: () => console.log('获取完成')
+  getProImgDetail (pid) {
+    Taro.request({
+      url: api.pro_img,
+      data: { pid },
+      success: (res) => {
+        console.log(res.data.data)
+        const { product_imgs, list_arr, list_arr2, relate_keyword_array, relate_keyword_array2, breadcrumb, info } = res.data.data
+        this.setState({
+          proImgList: product_imgs,
+          proList: list_arr,
+          relatedList: list_arr2,
+          keywordFirst: relate_keyword_array,
+          keywordSecond: relate_keyword_array2,
+          curPosition: breadcrumb,
+          corpInfo: info
+        })
+      }
     })
   }
 
+  getProId () {
+    Taro.getStorage({ key: 'pid' })
+    .then(res => {
+      const pid = res.data.id
+      this.setState({ pid })      
+      this.getProImgDetail(pid)
+    })
+  }
+
+  jumpProDetail () {
+    Taro.navigateTo({ url: '/pages/proDetail/proDetail'})
+  }
+
   render() {
-    const { desc } = this.state
+    const { proImgList, proList, relatedList, keywordFirst, keywordSecond, curPosition, corpInfo } = this.state
     return (
       <View>
         <NavBar
           imgPreview='selected'
         />
-        <View>
-          <TaroBdparse desc={desc} />
+        <Swiper 
+          className='inner'
+          circular
+          autoplay
+          indicatorDots
+        >
+          {proImgList.map((item, i) => {
+            return (
+              <SwiperItem key={i} ><Image src={item} className='imgItem' /></SwiperItem>
+            )
+          })}
+        </Swiper>
+        <View className='pro_top inner'>
+          <View className='pro_title'>{corpInfo.corpname}</View>
         </View>
+        <View className='contect'>
+          <Button className='btn_item' onClick={this.jumpProDetail.bind(this)}>返回产品</Button>
+          <Button className='btn_item'>联系供应商</Button>
+        </View>
+        <ImgList 
+          recommendList={proList}
+          name='产品推荐'
+        />
+        <Keywords
+          keywords={keywordFirst}
+        />
+        <ImgList 
+          recommendList={relatedList}
+          name='相关推荐'
+        />
+        <Keywords
+          keywords={keywordSecond}
+        />
       </View>
     );
   }
