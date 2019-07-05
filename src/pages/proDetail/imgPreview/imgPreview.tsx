@@ -1,8 +1,8 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button} from '@tarojs/components';
 import './imgPreview.scss'
-import '../proDetail.scss'
-import NavBar from '@/component/navBar/navBar'
+import '../proPreview/proPreview.scss'
+// import NavBar from '@/component/navBar/navBar'
 import { api } from '@/util/api'
 import ImgList from '@/component/imgList/imgList'
 import Keywords from '@/component/keywords/keywords'
@@ -61,16 +61,17 @@ export default class ImgPreview extends Component {
   }
 
   jumpProDetail () {
-    Taro.navigateTo({ url: '/pages/proDetail/proDetail'})
+    const { pid } = this.state
+    Taro.navigateTo({ url: `/pages/proDetail/proDetail?id=${pid}`})
   }
 
   render() {
     const { proImgList, proList, relatedList, keywordFirst, keywordSecond, curPosition, corpInfo } = this.state
     return (
       <View>
-        <NavBar
+        {/* <NavBar
           imgPreview='selected'
-        />
+        /> */}
         <Swiper 
           className='inner'
           circular
@@ -84,7 +85,7 @@ export default class ImgPreview extends Component {
           })}
         </Swiper>
         <View className='pro_top inner'>
-          <View className='pro_title'>{corpInfo.corpname}</View>
+          <View className='pro_title'>{corpInfo.title}</View>
         </View>
         <View className='contect'>
           <Button className='btn_item' onClick={this.jumpProDetail.bind(this)}>返回产品</Button>

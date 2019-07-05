@@ -26,12 +26,6 @@ class App extends Component {
       'pages/cate/cate',
       'pages/cateTwo/cateTwo',
       'pages/proDetail/proDetail',
-<<<<<<< HEAD
-=======
-      
-      'pages/proDetail/imgDetail/imgDetail',
->>>>>>> 15327c92336277849ffbdc32f7104ace63cdad25
-      'pages/proDetail/imgPreview/imgPreview',
       'pages/search/search'
     ],
     window: {

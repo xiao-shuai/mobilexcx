@@ -8,12 +8,8 @@ import person from '../asset/person.png'
 import sj from '../asset/sj.png'
 import sp from '../asset/sp.png' 
 import company from '../asset/company.png'
-<<<<<<< HEAD
-import { api } from '../../util/api';
-=======
 import { api } from '../../util/api' 
 import DescRichText from '../../component/taroWxParse-master/DescRichText'
->>>>>>> 15327c92336277849ffbdc32f7104ace63cdad25
 
 export default class Index extends Component {
 
@@ -135,10 +131,6 @@ export default class Index extends Component {
 
     return (
       <View className='container'>
-<<<<<<< HEAD
-=======
- 
->>>>>>> 15327c92336277849ffbdc32f7104ace63cdad25
         <View className='top'>
         <Image src={makepolo} 
           className={'top_log'}
@@ -174,16 +166,16 @@ export default class Index extends Component {
         <View className='tab'>
         {
             tab.map((i,m)=>{
-          return <View className='tab-i' key={m} onClick={()=>{
-            Taro.navigateTo({
-              url:i.path
-            })
-          }}>
+          return (<View className='tab-i' key={m} onClick={()=>{
+                    Taro.navigateTo({
+                      url:i.path
+                    })
+                  }}>
                  
                   <Image src={i.icon} className={m==3?'tab-img2':'tab-img'} />
                   <Text className='tab-name'>{i.name}</Text>
                  
-                 </View>
+                 </View>)
           })
         }
         </View>

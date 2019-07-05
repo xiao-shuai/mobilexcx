@@ -10,6 +10,11 @@ export default class ImgList extends Component {
   componentDidMount () {} 
 
   jumpProDetail (id) {
+    console.log(id)
+    // let key = 'pid'
+    // let data = { id: id }
+    // Taro.setStorage({ key, data })
+    // .then(res => console.log(res))
     Taro.navigateTo({ url: `/pages/proDetail/proDetail?id=${id}` })
   }
 
