@@ -1,5 +1,6 @@
 import Taro , { Component } from '@tarojs/taro';
-import { View, Text , Swiper, SwiperItem, Image, Button, Icon} from '@tarojs/components';
+import { View, Text , Swiper, SwiperItem, Image, Button, Block } from '@tarojs/components';
+import { api } from '@/util/api'
 import './proDetail.scss'
 import Phone from '@/asset/phone.gif'
 import Cart from '@/asset/cart.gif'
@@ -7,7 +8,8 @@ import Store from '@/asset/store.gif'
 import ImgList from '@/component/imgList/imgList'
 import Keywords from '@/component/keywords/keywords'
 import NavBar from '@/component/navBar/navBar'
-import { api } from '@/util/api'
+import Enquiry from '@/component/enquiry/enquiry'
+// import TaroBdparse from '@/component/taroBdparse/taroBdparse'
 
 export default class ProDetail extends Component {
 
@@ -24,20 +26,28 @@ export default class ProDetail extends Component {
     corpName: '',
     phone: null,
     recommendList: [],
-    keywords: []
+    keywords: [],
+    product_desc: '',
+    isShow: '',
+    test: ''
   }
 
   componentWillMount () {
     this.getProDetail()
+    console.log('ididid:',this.$router.params) 
   }
-  componentDidMount () {} 
-
+  componentDidMount () {
+  } 
+  componentDidShow() {
+    // console.log('父组件富文本数据：',this.state)
+  }
+  
   getProDetail () {
     const that = this
     Taro.request({
       url: api.pro_detail,
       data: {
-        corpid: 100019237571,
+        corpid: this.$router.params,
         productid: 101030597384,
         aid: 61010,
         sign: ''
@@ -53,6 +63,7 @@ export default class ProDetail extends Component {
         let phone = res.data.data.mobile      
         let recommendList = res.data.data.tuijian_arr
         let keywords = res.data.data.relate_keyword_array
+        let product_desc = res.data.data.product_desc
         that.setState({
           imgList,
           title,
@@ -62,19 +73,43 @@ export default class ProDetail extends Component {
           corpName,
           phone,
           recommendList,
-          keywords
+          keywords,
+          product_desc
         })
+        let key = 'desc'
+        let data = { desc: product_desc }
+        swan.setStorage({ key, data});
       }
     })
   }
+
+  handleShowEnquiry () {
+    this.setState({ isShow: 'show' })
+  }
+
+  handleGetDesc () {
+    this.setState({ test: '<div>这是一个大的div</div>' },() => {
+      console.log(this.state.test)
+    })
+    console.log('test')
+  }
  
   render() {
-    const { imgList, title, price, minOrder, proAttr, corpName, phone, recommendList, keywords } = this.state
+    const { imgList, title, price, minOrder, proAttr, corpName, phone, recommendList, keywords, product_desc, isShow, test } = this.state
     return (
       <View>
         <NavBar
           pro='selected'
         />
+        <Block>
+          <View>
+            {/* <TaroBdparse desc={test} /> */}
+          </View>
+        </Block>
+
+        <Enquiry show={isShow} />
+
+
         <Swiper 
           className='inner'
           circular
@@ -87,13 +122,14 @@ export default class ProDetail extends Component {
             )
           })}
         </Swiper>
+
         <View className='pro_top inner'>
           <View className='pro_title'>{title}</View>
           <View className='price'>报价：<Text className='num'>{price}</Text></View>
           <View className='small_purchase'>最小采购量：{minOrder}</View>
         </View>
         <View className='contect'>
-          <Button className='btn_item'>请供应商联系我</Button>
+          <Button className='btn_item' onClick={this.handleShowEnquiry.bind(this)}>请供应商联系我</Button>
           <Button className='btn_item'>查看联系方式</Button>
         </View>
         <View className='inner pro_attr'>
@@ -107,7 +143,9 @@ export default class ProDetail extends Component {
           })}
         </View>
 
-        <Button className='view_info'>点击查看详细>></Button>
+
+
+        <Button className='view_info' onClick={this.handleGetDesc.bind(this)}>点击查看详细>></Button>
 
         <View className='corp_info'>
           <View className='corp_hd'>{corpName}</View>

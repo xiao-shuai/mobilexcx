@@ -1,7 +1,7 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button} from '@tarojs/components';
 import { api } from '@/util/api'
-import './CateTwo.scss'
+import './cateTwo.scss'
 
 export default class CateTwo extends Component {
 
@@ -37,7 +37,13 @@ export default class CateTwo extends Component {
           cateSon: son,
           chooseId: firstBrother
         })
+      },
+      fail: function (err) {
+        console.log('调用失败',err)
       }
+    })
+    .catch((err) => {
+      console.log(err)
     })
   }
 

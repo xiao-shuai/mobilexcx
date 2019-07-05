@@ -6,9 +6,9 @@ import  makepolo from '../asset/makepolo.png'
 import  fenlei from '../asset/fenlei.png'
 import person from '../asset/person.png'
 import sj from '../asset/sj.png'
-import sp from '../asset/sp.png'
+import sp from '../asset/sp.png' 
 import company from '../asset/company.png'
-import { api } from '../../util/api'
+import { api } from '../../util/api' 
 import DescRichText from '../../component/taroWxParse-master/DescRichText'
 
 export default class Index extends Component {
@@ -129,7 +129,7 @@ export default class Index extends Component {
 
   render () {
 
-    console.log('remen:',this.state.hot_arr,this.state.jiexi)
+    console.log('remen:',this.state.hot_arr)
      let tab=[
        {
            icon:fenlei,
@@ -205,13 +205,17 @@ export default class Index extends Component {
         {/* 热门产品 */}
         <View className='hot-view'>
         
-        <Text className='hot-title'> 热门产品 </Text>
+        <Text className='hot-title'> 热门产品 </Text> 
         
         <View className='hot-con-v'>
         {
           this.state.hot_arr.length!==0&&this.state.hot_arr.map((i,k)=>{
           return (
-            <View className='con-v' key={k}>
+            <View className='con-v' key={k} onClick={()=>{
+              Taro.navigateTo({
+                url:`/pages/proDetail/proDetail?corpid=${i.corpid}`
+              })
+            }}>
              <Image src={i.img} className='hot-img'/>
              <View className='hot_ms'>{i.title}</View>
              <View className='price_show'>{i.price_show}</View>

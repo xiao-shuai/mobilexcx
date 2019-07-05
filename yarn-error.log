@@ -1,5 +1,17 @@
 Arguments: 
+<<<<<<< HEAD
   /usr/local/bin/node /usr/local/bin/yarn add @/component/keywords/keywords --silent --no-progress
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  C:\Program Files\nodejs\node.exe C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add @/src/api --silent --no-progress
+=======
+  /usr/local/bin/node /usr/local/bin/yarn add @/styles/common.scss --silent --no-progress
+>>>>>>> 32fcf898df0fec38b09dfb656857124659940f86
+=======
+  /usr/local/bin/node /usr/local/bin/yarn add @/styles/common.scss --silent --no-progress
+>>>>>>> 6fad4507861478ab42e4511662152b463d2fab7d
+>>>>>>> origin/lei
 
 PATH: 
   /usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/syu/Desktop/mobile/node_modules/.bin:/usr/local/lib/node_modules/npm/node_modules/npm-lifecycle/node-gyp-bin:/Users/syu/Desktop/mobile/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
@@ -14,7 +26,25 @@ Platform:
   darwin x64
 
 Trace: 
+<<<<<<< HEAD
   Error: https://registry.npm.taobao.org/@%2fcomponent/keywords/keywords: [not_found] document not found
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+  Error: https://registry.npm.taobao.org/@%2fsrc/api: Not found
+      at Request.params.callback [as _callback] (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66091:18)
+      at Request.self.callback (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:129590:22)
+      at Request.emit (events.js:198:13)
+      at Request.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:130562:10)
+      at Request.emit (events.js:198:13)
+      at IncomingMessage.<anonymous> (C:\Users\Administrator\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:130484:12)
+      at Object.onceWrapper (events.js:286:20)
+      at IncomingMessage.emit (events.js:203:15)
+=======
+=======
+>>>>>>> 6fad4507861478ab42e4511662152b463d2fab7d
+  Error: https://registry.npm.taobao.org/@%2fstyles/common.scss: Not found
+>>>>>>> origin/lei
       at Request.params.callback [as _callback] (/usr/local/lib/node_modules/yarn/lib/cli.js:65894:18)
       at Request.self.callback (/usr/local/lib/node_modules/yarn/lib/cli.js:129018:22)
       at Request.emit (events.js:197:13)
@@ -22,7 +52,15 @@ Trace:
       at Request.emit (events.js:197:13)
       at Gunzip.<anonymous> (/usr/local/lib/node_modules/yarn/lib/cli.js:129912:12)
       at Object.onceWrapper (events.js:285:13)
+<<<<<<< HEAD
       at Gunzip.emit (events.js:202:15)
+=======
+      at IncomingMessage.emit (events.js:202:15)
+<<<<<<< HEAD
+>>>>>>> 32fcf898df0fec38b09dfb656857124659940f86
+=======
+>>>>>>> 6fad4507861478ab42e4511662152b463d2fab7d
+>>>>>>> origin/lei
       at endReadableNT (_stream_readable.js:1129:12)
       at processTicksAndRejections (internal/process/next_tick.js:76:17)
 

@@ -91,7 +91,7 @@ componentDidMount(){
               <View className='container'>
                   <AtSearchBar 
                 //   showActionButton  
-         value={this.state.value}
+         value={this.state.value} 
          onChange={this.onChange.bind(this)}
          onActionClick={this.onActionClick.bind(this)}/>
          {
