@@ -1,6 +1,7 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Swiper, SwiperItem, Image, Button, Block } from '@tarojs/components';
 import { api } from '@/util/api'
+import util from '@/util/util'
 import Phone from '@/asset/phone.gif'
 import Cart from '@/asset/cart.gif'
 import Store from '@/asset/store.gif'
@@ -46,15 +47,11 @@ export default class ProPreview extends Component {
   }
   
   getProDetail (id) {
-    console.log(id)
-    const productid = id
-    const aid = 61010
-    const code = `aid=${aid}&productid=${productid || 101030597384}&smallprogram20180716rmaekd8d4ds9`
-    const sign = md5(code)
+    const sign = util.md5ParsePro(id)
     Taro.request({
       url: api.pro_detail,
       data: {
-        productid: productid || 101030597384,
+        productid: id || 101030597384,
         sign: sign
       },
       success: (res) => {

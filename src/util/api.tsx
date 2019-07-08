@@ -1,5 +1,7 @@
 const domain = 'https://sprog.makepolo.net/smallprogram/'
 const host = 'https://sprog.makepolo.net/'
+const video = 'http://m.makepolo.com/'
+
 
 
 const api = {
@@ -10,7 +12,9 @@ const api = {
     pro_img: `${domain}product_picture.php`,  //产品图片页
     product_list:`${domain}product_list.php`,
     sw:`https://sprog.makepolo.net/sw.php`,
-    code: `${host}msg/inquiry_code.php`     //验证码
+    code: `${host}msg/inquiry_code.php`,     //验证码
+    enquiry: `${host}msg/inquiry_insert.php`,    //询盘
+    videoLog: `${video}product/video_log.php`   //视频播放
 }
 
 export {
