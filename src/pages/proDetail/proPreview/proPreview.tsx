@@ -25,7 +25,7 @@ export default class ProPreview extends Component {
     recommendList: [],
     keywords: [],
     product_desc: '',
-    isShow: ''
+    isShow: false
   }
 
   componentWillMount () {
@@ -90,7 +90,8 @@ export default class ProPreview extends Component {
   }
 
   handleShowEnquiry () {
-    this.setState({ isShow: 'show' })
+    let isShow = !this.state.isShow
+    this.setState({ isShow: isShow })
   }
 
 
@@ -108,7 +109,8 @@ export default class ProPreview extends Component {
           </View>
         </Block>
 
-        <Enquiry show={isShow} />
+        {isShow && <Enquiry isShow={this.handleShowEnquiry.bind(this)} />}
+        {isShow && ''}
 
         <Swiper 
           className='inner'
@@ -129,7 +131,10 @@ export default class ProPreview extends Component {
           <View className='small_purchase'>最小采购量：{minOrder}</View>
         </View>
         <View className='contect'>
-          <Button className='btn_item' onClick={this.handleShowEnquiry.bind(this)}>请供应商联系我</Button>
+          <Button 
+            className='btn_item' 
+            onClick={this.handleShowEnquiry.bind(this)}
+          >请供应商联系我</Button>
           <Button className='btn_item'>查看联系方式</Button>
         </View>
         <View className='inner pro_attr'>
