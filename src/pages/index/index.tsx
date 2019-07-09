@@ -209,7 +209,7 @@ export default class Index extends Component {
             <View className='con-v' key={k} onClick={()=>{
               console.log(4456)
               Taro.navigateTo({
-                url:`/pages/proDetail/proDetail?proid=${i.proid}`
+                url:`/pages/proDetail/proDetail?id=${i.proid}` 
               })
             }}> 
              <Image src={i.img} className='hot-img'/>

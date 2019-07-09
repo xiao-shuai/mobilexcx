@@ -223,7 +223,11 @@ componentDidMount(){
                     :
                     null
                   }
-                  <View className='list_i'>
+                  <View className='list_i' onClick={()=>{
+                    Taro.navigateTo({
+                      url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                    })
+                  }}>
 
                    <View className='list_i_left'>
                      <Image src={pp} className='pp'/>
@@ -256,7 +260,11 @@ componentDidMount(){
            {
              list_arr.length!==0&&list_arr.map((i,k)=>{
                return(
-                <View className='list_i' key={k}>
+                <View className='list_i' key={k} onClick={()=>{
+                  Taro.navigateTo({
+                    url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                  })
+                }}>
 
                 <View className='list_i_left'>
                   
@@ -286,7 +294,11 @@ componentDidMount(){
            {
              wangkelai_data!==null&&list_arr.map((i,k)=>{
                return(
-                <View className='list_i' key={k}>
+                <View className='list_i' key={k} onClick={()=>{
+                  Taro.navigateTo({
+                    url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                  })
+                }}>
 
                 <View className='list_i_left'>
                   
@@ -356,7 +368,11 @@ componentDidMount(){
            {
              this.state.video!==undefined&&this.state.video.map((i,k)=>{
               return (
-                <View className='video-i' key={k}>
+                <View className='video-i' key={k} onClick={()=>{
+                  Taro.navigateTo({
+                    url:`/pages/play/play?id=${i.proid}`
+                  })
+                }}> 
                    <Image src={i.show_image_url} className='video-img'/>
                    <Image src={play} className='play'/>
                    <View className='list_title'>{i.title}</View>
