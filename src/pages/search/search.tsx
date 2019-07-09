@@ -151,8 +151,13 @@ export default class Search extends Component{
     current: value
   })
 }
-
+componentWillMount(){
+  console.log('参数:',this.$router.params)
+}
 componentDidMount(){
+   this.setState({value:this.$router.params.key},()=>{
+     this.ss_btn()
+   })
    this.get_video()
    this.get_company_list()
 }
@@ -230,7 +235,11 @@ componentDidMount(){
                      <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
                      <View className='list_i_under'>
                        <Text className='list_title'>面议</Text>
-                       <AtButton className='xj_btn' size='small'>点此询价</AtButton>
+                       <AtButton className='xj_btn' size='small' onClick={()=>{
+                         Taro.navigateTo({
+                           url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                         })
+                       }}>点此询价</AtButton>
                      </View>
                     </View>
               
@@ -259,7 +268,11 @@ componentDidMount(){
                   <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
                   <View className='list_i_under'>
                     <Text className='list_title'>面议</Text>
-                    <AtButton className='xj_btn' size='small'>点此询价</AtButton>
+                    <AtButton className='xj_btn' size='small' onClick={()=>{
+                                               Taro.navigateTo({
+                                                url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                                              })
+                    }}>点此询价</AtButton>
                   </View>
                  </View>
            
@@ -285,7 +298,11 @@ componentDidMount(){
                   <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
                   <View className='list_i_under'>
                     <Text className='list_title'>面议</Text>
-                    <AtButton className='xj_btn' size='small'>点此询价</AtButton>
+                    <AtButton className='xj_btn' size='small' onClick={()=>{
+                                Taro.navigateTo({
+                                 url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                              })
+                    }} >点此询价</AtButton>
                   </View>
                  </View>
            
