@@ -17,13 +17,7 @@ export default class Enquiry extends Component {
   }
 
   componentWillMount () {
-    Taro.getStorage({ 
-      key: 'pid',
-      success: (res) => {
-        let proId = res.data.id
-        this.setState({ proId })
-      }
-    })
+    this.getProId()
   }
   componentDidMount () {} 
 
@@ -109,6 +103,16 @@ export default class Enquiry extends Component {
             })
           }
         },1000)
+      }
+    })
+  }
+
+  getProId () {
+    Taro.getStorage({ 
+      key: 'pid',
+      success: (res) => {
+        let proId = res.data.id
+        this.setState({ proId })
       }
     })
   }

@@ -16,7 +16,7 @@
     display: flex;
     justify-content: space-between;
     box-sizing: border-box;
-    padding: 30px 25px 0 25px;
+    padding: 30px 15px 0 15px;
     flex-wrap: wrap;
     .item {
       width: 214px;
@@ -41,5 +41,31 @@
         color: #fc0505;
       }
     }
+  }
+}
+
+.v_item {
+  width: 356px;
+  position: relative;
+  .img {
+    width: 356px;
+    height: 218px;
+  }
+  .pro_title {
+    width: 100%;
+    color: #666;
+    margin-top: 7.79px;
+    font-size: 28px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .play {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 356px;
+    height: 218px;
   }
 }

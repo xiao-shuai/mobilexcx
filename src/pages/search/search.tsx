@@ -203,7 +203,7 @@ componentDidMount(){
             <AtButton size='small' >综合</AtButton>
 
             <AtButton size='small' onClick={()=>{
-              this.setState({show:true})
+              // this.setState({show:true})
             }} >全国</AtButton>
             </View>
             {/* product_cpc_list */} 
@@ -241,7 +241,7 @@ componentDidMount(){
                        <Text className='list_title'>面议</Text>
                        <AtButton className='xj_btn' size='small' onClick={()=>{
                          Taro.navigateTo({
-                           url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                           url:`/pages/proDetail/proDetail?id=${i.product_id}&test=123`
                          })
                        }}>点此询价</AtButton>
                      </View>
