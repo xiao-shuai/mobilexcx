@@ -21,6 +21,13 @@
     color: #9C9C9C;
     font-size: 25px;
 }
+.list_title{
+ font-size: 30px;
+ overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%
+}
 .hot-title{
     font-size: 35px;
     font-weight: 500;

@@ -40,6 +40,24 @@ export default class Index extends Component {
 
   componentDidMount () { 
    
+  //  Taro.request({
+  //   url:api.pro_detail,
+  //   data: {
+  //     corpid: 100019237571,
+  //     productid: 101030597384,
+  //     aid: 61010,
+  //     sign: ''
+  //     }
+  //  }).then(res=>{
+  //  console.log('sss:',res)
+  //   this.setState({jiexi:res.data.data.product_desc})
+
+  //  }
+
+  //  ).catch(err=>{
+  //   console.log('err:',err)
+  //  })
+
     Taro.request({
       url: api.index,
       header: {

@@ -12,6 +12,8 @@ const api = {
     pro_img: `${domain}product_picture.php`,  //产品图片页
     product_list:`${domain}product_list.php`,
     sw:`https://sprog.makepolo.net/sw.php`,
+    video_search:`${domain}video_search.php`,
+    play:`${domain}play.php`,
     code: `${host}msg/inquiry_code.php`,     //验证码
     enquiry: `${host}msg/inquiry_insert.php`,    //询盘
     videoLog: `${video}product/video_log.php`   //视频播放
