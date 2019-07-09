@@ -16,7 +16,8 @@ const api = {
     play:`${domain}play.php`,
     code: `${host}msg/inquiry_code.php`,     //验证码
     enquiry: `${host}msg/inquiry_insert.php`,    //询盘
-    videoLog: `${video}product/video_log.php`   //视频播放
+    videoLog: `${video}product/video_log.php`,   //视频播放
+    company_list:`${domain}company_list.php`,//企业搜索
 }
 
 export {
