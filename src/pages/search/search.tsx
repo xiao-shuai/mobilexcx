@@ -3,6 +3,7 @@ import { View, Text,Icon,Image ,Video,Swiper, SwiperItem,WebView, Button} from '
 import './search.scss'
 import { AtSearchBar,AtTabs, AtTabsPane,AtButton,AtDrawer,AtFloatLayout} from 'taro-ui'
 import pp from '../asset/pp.png'
+import play from '../asset/play.png'
 import { api } from '../../util/api';
 
 export default class Search extends Component{
@@ -11,6 +12,8 @@ export default class Search extends Component{
         this.state = {
           value: '',
           page:1,
+          page2:1,
+          page3:1,
           k_data:[],
           kw_show:false,
           current: 0,
@@ -18,7 +21,9 @@ export default class Search extends Component{
           list_arr:[],//产品下面
           wangkelai_data:[],//产品下面
           pro_city_list:[],
-          show:false
+          show:false,
+          video_search:[],
+          company_list:[]
          
         }
       }
@@ -71,6 +76,8 @@ export default class Search extends Component{
   .catch(err=>{
     console.log('product_list err:',err)
   })
+  this.get_company_list()
+  this.get_video()
  } 
  get_kw=()=>{
   Taro.request({
@@ -102,25 +109,57 @@ export default class Search extends Component{
       url:api.video_search,
       data:{
         cid:'',
-        keyword:'led',
-        page:'',
+        keyword:this.state.value,
+        page:this.state.page2,
       }
     }).then(res=>{
     console.log('video res:',res)
+    let vv=res.data.data.list_arr
+  //  let a= Object.getOwnPropertyNames(vv)
+   let a=Object.values(vv)
+   console.log('video!!!:',a)
+
+     this.setState({video:a,v_pages:res.data.data.pages})
     }
     ).catch(err=>{
     console.log('video err:',err)
     })
  }
-      
+ get_company_list=()=>{
+   Taro.request({
+     url:api.company_list,
+     data:{
+      search_word:this.state.value,
+      page:this.state.page3
+    }
+   }).then(res=>{
+      console.log('get_company_list:',res)
+      let aa=res.data.data.corp_list
+      let bb=[]
+      for(let i in aa){
+        bb.push(aa[i])
+      }
+      this.setState({company_list:bb,com_allpages:res.data.data.pages})
+
+   }).catch(err=>{
+      console.log('err:',err)
+   })
+ }  
+
  handleClick (value) {
   this.setState({
     current: value
   })
 }
-
+componentWillMount(){
+  console.log('参数:',this.$router.params)
+}
 componentDidMount(){
+   this.setState({value:this.$router.params.key},()=>{
+     this.ss_btn()
+   })
    this.get_video()
+   this.get_company_list()
 }
 
       render(){
@@ -145,7 +184,7 @@ componentDidMount(){
            {
              kw.map((i,k)=>{
                return(
-               <View className='kw_i' onClick={()=>{
+               <View className='kw_i' key={k} onClick={()=>{
                   this.click_kw(i)
                }}>
                 {i.uk}
@@ -167,17 +206,17 @@ componentDidMount(){
               this.setState({show:true})
             }} >全国</AtButton>
             </View>
-            {/* product_cpc_list */}
+            {/* product_cpc_list */} 
             <View className='cp_list'>
               {
                 product_cpc_list.length!==0&&product_cpc_list.map((i,m)=>{
               return( 
-                <View className='cp_list_i'>
+                <View className='cp_list_i' key={m}>
                   {
                     m==0?
                    <View className='video'>
                    <Video src={i.video_address} poster={i.img_url} className='cp_video'/>
-                   <View >
+                   <View className='top_under'>
                      <View className='hui-text'>{i.crop_name}</View>
                    </View>
                   </View>
@@ -192,11 +231,15 @@ componentDidMount(){
                     </View> 
 
                     <View className='list_i_right'>
-                     <View className='list_title'>{i.title}</View>
+                     <View className='list_title' style={{width:'80%'}}>{i.title}</View>
                      <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
                      <View className='list_i_under'>
                        <Text className='list_title'>面议</Text>
-                       <AtButton className='xj_btn' size='small'>点此询价</AtButton>
+                       <AtButton className='xj_btn' size='small' onClick={()=>{
+                         Taro.navigateTo({
+                           url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                         })
+                       }}>点此询价</AtButton>
                      </View>
                     </View>
               
@@ -213,7 +256,7 @@ componentDidMount(){
            {
              list_arr.length!==0&&list_arr.map((i,k)=>{
                return(
-                <View className='list_i'>
+                <View className='list_i' key={k}>
 
                 <View className='list_i_left'>
                   
@@ -225,7 +268,11 @@ componentDidMount(){
                   <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
                   <View className='list_i_under'>
                     <Text className='list_title'>面议</Text>
-                    <AtButton className='xj_btn' size='small'>点此询价</AtButton>
+                    <AtButton className='xj_btn' size='small' onClick={()=>{
+                                               Taro.navigateTo({
+                                                url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                                              })
+                    }}>点此询价</AtButton>
                   </View>
                  </View>
            
@@ -239,7 +286,7 @@ componentDidMount(){
            {
              wangkelai_data!==null&&list_arr.map((i,k)=>{
                return(
-                <View className='list_i'>
+                <View className='list_i' key={k}>
 
                 <View className='list_i_left'>
                   
@@ -251,7 +298,11 @@ componentDidMount(){
                   <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
                   <View className='list_i_under'>
                     <Text className='list_title'>面议</Text>
-                    <AtButton className='xj_btn' size='small'>点此询价</AtButton>
+                    <AtButton className='xj_btn' size='small' onClick={()=>{
+                                Taro.navigateTo({
+                                 url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                              })
+                    }} >点此询价</AtButton>
                   </View>
                  </View>
            
@@ -260,7 +311,12 @@ componentDidMount(){
              })
            }
             </View>
-       
+       {
+        product_cpc_list.length==0&&list_arr.length==0&&wangkelai_data.length==0?
+        <View style={{textAlign:'center',color:'#CCCCCC'}}>
+          暂无信息
+        </View>
+        :
         <View className='fenye'>
         <AtButton disabled={this.state.page==1?true:false} 
         // size={'small'}
@@ -283,6 +339,9 @@ componentDidMount(){
          </AtButton>
         </View>
 
+       }
+        
+
         <AtFloatLayout isOpened={this.state.show} 
         title="这是个标题" scrollY={true}>
   这是内容区 随你怎么写这是内容区 随你怎么写这是内容区 随你怎么写这是内容区
@@ -293,10 +352,102 @@ componentDidMount(){
             </View> 
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={1}>
-          <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>视频</View>
+          <View  className='video-big'>
+           {
+             this.state.video!==undefined&&this.state.video.map((i,k)=>{
+              return (
+                <View className='video-i' key={k}>
+                   <Image src={i.show_image_url} className='video-img'/>
+                   <Image src={play} className='play'/>
+                   <View className='list_title'>{i.title}</View>
+                </View>
+              )
+             })
+           }
+            
+            </View>
+           
+           {
+             this.state.video.length==0?
+             <View style={{textAlign:'center',color:'#CCCCCC'}}>
+             暂无信息
+           </View>
+           :
+           <View className='fenye'>
+        <AtButton disabled={this.state.page2==1?true:false} 
+        // size={'small'}
+        onClick={()=>{
+           this.setState({page2:this.state.page2-1},()=>{
+            //  this.ss_btn()
+            this.get_video()
+           })
+         }}>
+           上一页
+         </AtButton>
+        <View className='yema'>{this.state.page2}/{this.state.v_pages}</View>
+        <AtButton  disabled={this.state.page2==this.state.v_pages?true:false} 
+          //  size={'small'}
+        onClick={()=>{
+           this.setState({page2:this.state.page2+1},()=>{
+            //  this.ss_btn()
+            this.get_video()
+           })
+         }}>
+           下一页
+         </AtButton>
+        </View>
+
+           }
+            
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={2}>
-          <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>企业</View>
+          <View className='qiye-big'>
+            {
+              this.state.company_list.length!==0&&this.state.company_list.map((i,k)=>{
+                return (
+                  <View className='qiye-i'>
+                   <View>{i.title}</View>
+                   <View className='hui-text addr'>{i.addr}</View>
+                   <View className='qiye_under'>
+                     <View className='hui-text addr'>主营: {i.crop_product}</View>
+                     <View className='at-icon at-icon-phone' onClick={()=>{
+                       Taro.makePhoneCall({phoneNumber:i.contact_mobile})
+                     }} style={{color:'#436EEE'}}></View>
+                   </View>
+                  </View>
+                )
+              })
+            }
+            </View>
+            {
+              this.state.company_list.length==0?
+              <View style={{textAlign:'center',color:'#CCCCCC',marginTop:'20px'}}>
+              暂无信息
+            </View>
+            :
+        <View className='fenye'>
+        <AtButton disabled={this.state.page3==1?true:false} 
+        // size={'small'}
+        onClick={()=>{
+           this.setState({page3:this.state.page3-1},()=>{
+             this.get_company_list()
+           })
+         }}>
+           上一页
+         </AtButton>
+        <View className='yema'>{this.state.page3}/{this.state.com_allpages}</View>
+        <AtButton  disabled={this.state.page3==this.state.com_allpages?true:false} 
+          //  size={'small'}
+        onClick={()=>{
+           this.setState({page3:this.state.page3+1},()=>{
+             this.get_company_list()
+           })
+         }}>
+           下一页
+         </AtButton>
+        </View>
+            }
+            
         </AtTabsPane>
       </AtTabs>
 
