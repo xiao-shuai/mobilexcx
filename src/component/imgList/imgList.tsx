@@ -8,7 +8,6 @@ export default class ImgList extends Component {
 
   componentWillMount () {}
   componentDidMount () {
-    console.log('this.props',this.props)
   } 
 
   jumpProDetail (id) {

@@ -32,18 +32,25 @@ export default class ProPreview extends Component {
   componentWillMount () {
   }
   componentDidMount () {
-    Taro.getStorage({
-      key: 'pid',
-      success: (res) => {
-        console.log('getStorage',res)
-        this.getProDetail(res.data.id)
-      }
-    })
+    this.getProId()
   } 
   componentDidShow () {
   }
   componentWillReceiveProps (nextProps) {
     console.log('收到：',nextProps)
+  }
+
+  getProId () {
+    Taro.getStorage({
+      key: 'pid',
+      success: (res) => {
+        this.getProDetail(res.data.id)
+        if (res.data.test) {
+          console.log('this.handleShowEnquiry()')
+          this.handleShowEnquiry()
+        }
+      }
+    })
   }
   
   getProDetail (id) {
