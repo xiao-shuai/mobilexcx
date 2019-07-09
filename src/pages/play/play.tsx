@@ -22,6 +22,8 @@ export default class Play extends Component {
   componentDidCatchError () {} 
   componentDidNotFound () {} 
 
+  get
+
   render() {
     return (
       <View>

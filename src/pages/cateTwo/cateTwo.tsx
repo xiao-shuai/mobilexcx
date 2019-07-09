@@ -65,23 +65,8 @@ export default class CateTwo extends Component {
     })
   }
 
-  jumpProList (id) {
-    // const that = this
-    // Taro.request({
-    //   url: api.cat_class,
-    //   data: {cid: id},
-    //   success: function (res) {
-    //     // const brother = res.data.data.brother
-    //     // const firstBrother = id
-    //     // const son = res.data.data.son
-    //     // that.setState({
-    //     //   cateBrother: brother,
-    //     //   cateSon: son,
-    //     //   chooseId: firstBrother
-    //     // })
-    //     console.log(res.data)
-    //   }
-    // })
+  handleSearch (name) {
+    Taro.navigateTo({ url: `/pages/search/search?key=${name}`})
   }
 
   render() {
@@ -100,7 +85,7 @@ export default class CateTwo extends Component {
           <View className='list_right'>
             {cateSon.map((item, i) => {
               return (
-                <View className='son_item' key={item.catid} onClick={this.jumpProList.bind(this,item.catid)}>{item.name}</View>
+                <View className='son_item' key={item.catid} onClick={this.handleSearch.bind(this,item.name)}>{item.name}</View>
               )
             })}
           </View>
