@@ -20,11 +20,9 @@ export default class Index extends Component {
          video_list:[],
          hot_hy:[],
          category_tag:[],
-         hysc:[], 
+         hysc:[],
          focus_img:[],
-         jingpin:[],
-         jiexi:null,
-         
+         jingpin:[]
     }
   }
   /** 
@@ -37,8 +35,6 @@ export default class Index extends Component {
   config: Config = {
     navigationBarTitleText: '首页'
   } 
-
-  
 
   componentWillMount () { }
 
@@ -153,7 +149,6 @@ export default class Index extends Component {
 
     return (
       <View className='container'>
- 
         <View className='top'>
         <Image src={makepolo} 
           className={'top_log'}
@@ -189,16 +184,16 @@ export default class Index extends Component {
         <View className='tab'>
         {
             tab.map((i,m)=>{
-          return <View className='tab-i' key={m} onClick={()=>{
-            Taro.navigateTo({
-              url:i.path
-            })
-          }}>
+          return (<View className='tab-i' key={m} onClick={()=>{
+                    Taro.navigateTo({
+                      url:i.path
+                    })
+                  }}>
                  
                   <Image src={i.icon} className={m==3?'tab-img2':'tab-img'} />
                   <Text className='tab-name'>{i.name}</Text>
                  
-                 </View>
+                 </View>)
           })
         }
         </View>

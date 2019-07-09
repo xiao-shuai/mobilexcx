@@ -102,7 +102,7 @@ export default class Search extends Component{
       url:api.video_search,
       data:{
         cid:'',
-        keyword:this.state.value,
+        keyword:'led',
         page:'',
       }
     }).then(res=>{
@@ -283,20 +283,17 @@ componentDidMount(){
          </AtButton>
         </View>
 
-        {/* <AtFloatLayout isOpened={this.state.show} 
+        <AtFloatLayout isOpened={this.state.show} 
         title="这是个标题" scrollY={true}>
   这是内容区 随你怎么写这是内容区 随你怎么写这是内容区 随你怎么写这是内容区
   随你怎么写这是内容区 随你怎么写这是内容区 随你怎么写
-        </AtFloatLayout> */}
+        </AtFloatLayout>
        
 
             </View> 
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={1}>
-          <View >
-            视频
-          </View>
-
+          <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>视频</View>
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={2}>
           <View style='padding: 100px 50px;background-color: #FAFBFC;text-align: center;'>企业</View>
