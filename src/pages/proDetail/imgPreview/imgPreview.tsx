@@ -94,6 +94,7 @@ export default class ImgPreview extends Component {
         <ImgList 
           recommendList={proList}
           name='产品推荐'
+          type='img'
         />
         <Keywords
           keywords={keywordFirst}
@@ -101,6 +102,7 @@ export default class ImgPreview extends Component {
         <ImgList 
           recommendList={relatedList}
           name='相关推荐'
+          type='img'
         />
         <Keywords
           keywords={keywordSecond}

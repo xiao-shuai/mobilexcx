@@ -32,6 +32,8 @@ export default class CateTwo extends Component {
         const brother = res.data.data.brother
         const firstBrother = brother[0].catid
         const son = res.data.data.son
+        console.log(brother)
+        console.log(son)
         that.setState({
           cateBrother: brother,
           cateSon: son,
@@ -65,8 +67,8 @@ export default class CateTwo extends Component {
     })
   }
 
-  handleSearch (name) {
-    Taro.navigateTo({ url: `/pages/search/search?key=${name}`})
+  handleJumpSearch (id) {
+    Taro.navigateTo({ url: `/pages/search/search?catid=${id}`})
   }
 
   render() {
@@ -85,7 +87,7 @@ export default class CateTwo extends Component {
           <View className='list_right'>
             {cateSon.map((item, i) => {
               return (
-                <View className='son_item' key={item.catid} onClick={this.handleSearch.bind(this,item.name)}>{item.name}</View>
+                <View className='son_item' key={item.catid} onClick={this.handleJumpSearch.bind(this,item.catid)}>{item.name}</View>
               )
             })}
           </View>
