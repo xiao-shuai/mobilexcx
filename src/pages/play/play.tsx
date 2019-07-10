@@ -4,6 +4,7 @@ import { api } from '@/util/api'
 import gril from '@/asset/gril.png'
 import phone from '@/asset/phone.gif'
 import ImgList from '@/component/imgList/imgList'
+// import TaroBdparse from '@/component/taroBdparse/taroBdparse'
 import './play.scss'
 import { fail } from 'assert';
 
@@ -31,8 +32,8 @@ export default class Play extends Component {
   componentDidHide () {} 
 
   getVideoData () {
-    console.log('props',this.props)
-    let proId = this.props.proId
+    console.log('this.$router.params',this.$router.params)
+    let proId = this.$router.params.proId
     if (!proId) {
       proId = Taro.getStorageSync('vid')
       if (!proId) {
@@ -94,7 +95,7 @@ export default class Play extends Component {
 
         <View className='introduce_wrap inner'>
           <View className='pro_introduce'>产品介绍</View>
-          <View className='content'>{info.detail}</View>
+          {/* <View className='content'>{info.detail}</View> */}
         </View>
 
         <ImgList 

@@ -26,7 +26,8 @@ export default class ProPreview extends Component {
     recommendList: [],
     keywords: [],
     product_desc: '',
-    isShow: false
+    isShow: false,
+    corpId: ''
   }
 
   componentWillMount () {
@@ -44,6 +45,7 @@ export default class ProPreview extends Component {
     Taro.getStorage({
       key: 'pid',
       success: (res) => {
+        console.log('this.res()',res)
         this.getProDetail(res.data.id)
         if (res.data.test) {
           console.log('this.handleShowEnquiry()')
@@ -73,6 +75,7 @@ export default class ProPreview extends Component {
         let recommendList = res.data.data.tuijian_arr
         let keywords = res.data.data.relate_keyword_array
         let product_desc = res.data.data.product_desc
+        let corpId = res.data.data.corpid
         this.setState({
           imgList,
           title,
@@ -83,7 +86,8 @@ export default class ProPreview extends Component {
           phone,
           recommendList,
           keywords,
-          product_desc
+          product_desc,
+          corpId
         })
         let key = 'pid'
         let data = { id: productid }
@@ -97,11 +101,15 @@ export default class ProPreview extends Component {
     let isShow = !this.state.isShow
     this.setState({ isShow: isShow })
   }
-
-
+  
+  handleJumpYellow (id) {
+    Taro.navigateTo({
+      url: `/pages/yellow/yellow?id=${id}`
+    })
+  }
  
   render() {
-    const { imgList, title, price, minOrder, proAttr, corpName, phone, recommendList, keywords, product_desc, isShow } = this.state
+    const { imgList, title, price, minOrder, proAttr, corpName, phone, recommendList, keywords, product_desc, isShow, corpId } = this.state
     return (
       <View>
         {/* <NavBar
@@ -155,7 +163,10 @@ export default class ProPreview extends Component {
         <Button className='view_info' onClick={this.handleGetDesc.bind(this)}>点击查看详细>></Button>
 
         <View className='corp_info'>
-          <View className='corp_hd'>{corpName}</View>
+          <View 
+            className='corp_hd'
+            onClick={this.handleJumpYellow.bind(this,corpId)}
+          >{corpName}</View>
           <View className='corp_bd'>
             <View className='item'>
               <Image className='icon_corp' src={Store} />

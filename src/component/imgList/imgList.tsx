@@ -16,7 +16,8 @@ export default class ImgList extends Component {
 
   jumpPlay (id) {
     console.log(id)
-    Taro.setStorageSync('vid', id)
+    // Taro.clearStorageSync()
+    // Taro.setStorageSync('vid', id)
     Taro.navigateTo({ url: `/pages/play/play?proId=${id}` })
   }
 
@@ -56,6 +57,15 @@ export default class ImgList extends Component {
                     <Image className='img' src={item.show_image_url} />
                     <View className='pro_title'>{item.title}</View>
                     <Image src='http://jic.makepolo.cn/html/make_video_m/img/video-play.png' className='play' />
+                  </View>
+                )
+              }),
+              'goods': recommendList.map((item, i) => {
+                return (
+                  <View className='item goods' key={item.product_id} onClick={this.jumpProDetail.bind(this, item.product_id)}>
+                    <Image className='img' src={item.img_url} />
+                    <View className='pro_title'>{item.title}</View>
+                    <View className='price'>{item.unit_price}</View>
                   </View>
                 )
               })

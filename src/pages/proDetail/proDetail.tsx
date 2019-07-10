@@ -25,17 +25,17 @@ export default class ProDetail extends Component {
 
   setProId () {
     console.log('this.$router.params',this.$router.params)
-    const { id, test } = this.$router.params
+    const { id, en } = this.$router.params
     let key = 'pid'
     let data
-    if (test) {
+    if (en) {
       data = { id: id, test: 'true' }
     } else {
       data = { id: id }
     }
     Taro.clearStorage()
     Taro.setStorage({ key, data })
-    .then(res => console.log(res))
+    .then(res => console.log('setStorage',res))
   }
 
   handleClick (value) {
@@ -47,7 +47,11 @@ export default class ProDetail extends Component {
   render() {
     const tabList = [{ title: '产品' }, { title: '图片' }]
     return (
-      <AtTabs current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
+      <AtTabs 
+        current={this.state.current} 
+        tabList={tabList} 
+        onClick={this.handleClick.bind(this)}
+      >
         <AtTabsPane current={this.state.current} index={0} >
           <View style='padding: 20px 10px;background-color: #FAFBFC;text-align: center;' >
             <ProPreview />

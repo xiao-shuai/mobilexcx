@@ -19,6 +19,7 @@
     padding: 30px 15px 0 15px;
     flex-wrap: wrap;
     .item {
+      margin-bottom: 70px;
       width: 214px;
       height: 272px;
       text-align: center;
@@ -39,6 +40,18 @@
       }
       .price {
         color: #fc0505;
+      }
+    }
+    .item.goods {
+      width: 328px;
+      height: 255px;
+      text-align: center;
+      font-size: 28px;
+      position: relative;
+      padding-bottom: 30px;
+      .img {
+        width: 328px;
+        height: 255px;
       }
     }
   }
