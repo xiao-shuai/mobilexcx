@@ -219,7 +219,7 @@ componentDidMount(){
                    <View className='top_under'>
                      <View className='hui-text'>{i.crop_name}</View>
                    </View>
-                  </View>
+                  </View> 
                     :
                     null
                   }
