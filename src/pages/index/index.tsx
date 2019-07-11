@@ -156,7 +156,7 @@ export default class Index extends Component {
          
          <View className='search' onClick={()=>{
            Taro.navigateTo({
-            url: '/pages/search/search'
+            url: `/pages/search/search`
           })
            }}>
          <Icon type={'search'} size='20' className='search-icon' />
