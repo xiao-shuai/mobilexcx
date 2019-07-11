@@ -89,10 +89,6 @@ export default class ProPreview extends Component {
           product_desc,
           corpId
         })
-        let key = 'pid'
-        let data = { id: productid }
-        Taro.setStorage({ key, data })
-        .then(res => console.log(res))
       }
     })
   }
@@ -112,9 +108,6 @@ export default class ProPreview extends Component {
     const { imgList, title, price, minOrder, proAttr, corpName, phone, recommendList, keywords, product_desc, isShow, corpId } = this.state
     return (
       <View>
-        {/* <NavBar
-          pro='selected'
-        /> */}
         <Block>
           <View>
             {/* <TaroBdparse desc={test} /> */}

@@ -117,6 +117,28 @@ export default class Index extends Component {
       .catch(err => console.log('err:', err))
   }
 
+  handleJumpProDetail (id) {
+    Taro.navigateTo({
+      url: `/pages/proDetail/proDetail?id=${id}`
+    })
+  }
+
+  handleJump (key, type) {
+    if (type === 'pro') {
+      Taro.navigateTo({
+        url: `/pages/proDetail/proDetail?id=${key}`
+      })
+    } else if (type === 'cate') {
+      Taro.navigateTo({
+        url: key
+      })
+    } else if (type === 'play') {
+      Taro.navigateTo({
+        url: `/pages/play/play?proId=${key}`
+      })
+    }
+  }
+
   componentWillUnmount() { }
 
   componentDidShow() { }
@@ -184,11 +206,7 @@ export default class Index extends Component {
         <View className='tab'>
           {
             tab.map((i, m) => {
-              return (<View className='tab-i' key={m} onClick={() => {
-                Taro.navigateTo({
-                  url: i.path
-                })
-              }}>
+              return (<View className='tab-i' key={m} onClick={this.handleJump.bind(this,i.path,'cate')}>
 
                 <Image src={i.icon} className={m == 3 ? 'tab-img2' : 'tab-img'} />
                 <Text className='tab-name'>{i.name}</Text>
@@ -206,12 +224,7 @@ export default class Index extends Component {
             {
               this.state.hot_arr.length !== 0 && this.state.hot_arr.map((i, k) => {
                 return (
-                  <View className='con-v' key={k} onClick={() => {
-                    console.log(4456)
-                    Taro.navigateTo({
-                      url: `/pages/proDetail/proDetail?proid=${i.proid}`
-                    })
-                  }}>
+                  <View className='con-v' key={k} onClick={this.handleJump.bind(this, i.proid, 'pro')} >
                     <Image src={i.img} className='hot-img' />
                     <View className='hot_ms'>{i.title}</View>
                     <View className='price_show'>{i.price_show}</View>
@@ -226,13 +239,13 @@ export default class Index extends Component {
 
         <View className='hot-view'>
 
-          <Text className='hot-title'> 马克视频 </Text>
+          <Text className='hot-title'> 马可视频 </Text>
 
           <View className='hot-con-v'>
             {
               this.state.video_list.length !== 0 && this.state.video_list.map((i, k) => {
                 return (
-                  <View className='video-i' key={k}>
+                  <View className='video-i' key={k} onClick={this.handleJump.bind(this, i.proid, 'play')}>
                     <Video src={i.video_address}
                       poster={i.show_image_url}
                       className='video'
@@ -364,7 +377,7 @@ export default class Index extends Component {
             {
               this.state.jingpin.length !== 0 && this.state.jingpin.map((i, k) => {
                 return (
-                  <View className='con-v-jp' key={k} style='margin-bottom: 20px;'>
+                  <View className='con-v-jp' key={k} style='margin-bottom: 20px;' onClick={this.handleJumpProDetail.bind(this,i.proid)}>
                     <Image src={i.img} className='hot-img-jp' />
                     <View className='hot_ms'>{i.title}</View>
                     <View className='price_show'>{i.price_show}</View>

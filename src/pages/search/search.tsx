@@ -151,6 +151,13 @@ export default class Search extends Component{
     current: value
   })
 }
+
+handleJumpProDetail (id) {
+  Taro.navigateTo({
+    url: `/pages/proDetail/proDetail?id=${id}`
+  })
+}
+
 componentWillMount(){
   console.log('参数:',this.$router.params)
 }
@@ -231,7 +238,7 @@ componentDidMount(){
                     </View> 
 
                     <View className='list_i_right'>
-                     <View className='list_title' style={{width:'80%'}}>{i.title}</View>
+                     <View className='list_title' style={{width:'80%'}} onClick={this.handleJumpProDetail.bind(this,i.product_id)}>{i.title}</View>
                      <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
                      <View className='list_i_under'>
                        <Text className='list_title'>面议</Text>
