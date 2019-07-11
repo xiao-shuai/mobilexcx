@@ -68,7 +68,7 @@ export default class CateTwo extends Component {
   }
 
   handleJumpSearch (id) {
-    Taro.navigateTo({ url: `/pages/search/search?catid=${id}`})
+    Taro.navigateTo({ url: `/pages/search/search?catid=${id.catid}&key=${id.name}`})
   }
 
   render() {
@@ -87,7 +87,7 @@ export default class CateTwo extends Component {
           <View className='list_right'>
             {cateSon.map((item, i) => {
               return (
-                <View className='son_item' key={item.catid} onClick={this.handleJumpSearch.bind(this,item.catid)}>{item.name}</View>
+                <View className='son_item' key={item.catid} onClick={this.handleJumpSearch.bind(this,item)}>{item.name}</View>
               )
             })}
           </View>

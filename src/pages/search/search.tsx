@@ -1,7 +1,8 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { View, Text,Icon,Image ,Video,Swiper, SwiperItem,WebView, Button} from '@tarojs/components'
 import './search.scss'
-import { AtSearchBar,AtTabs, AtTabsPane,AtButton,AtDrawer,AtFloatLayout} from 'taro-ui'
+import { AtSearchBar,AtTabs, AtTabsPane,AtButton,AtDrawer,AtFloatLayout,AtAccordion,
+AtList,AtListItem} from 'taro-ui'
 import pp from '../asset/pp.png'
 import play from '../asset/play.png'
 import { api } from '../../util/api';
@@ -10,7 +11,7 @@ export default class Search extends Component{
     constructor (props) {
         super(props)
         this.state = {
-          value: '',
+          value: undefined,
           page:1,
           page2:1,
           page3:1,
@@ -23,7 +24,9 @@ export default class Search extends Component{
           pro_city_list:[],
           show:false,
           video_search:[],
-          company_list:[]
+          company_list:[],
+          open: false,
+          city_id:'',
          
         }
       }
@@ -35,7 +38,7 @@ export default class Search extends Component{
           
         this.setState({
           value: value,
-          kw_show:true
+          kw_show:value==undefined||value==''?false:true
         },()=>{
           console.log('value',value)
           this.get_kw()
@@ -49,6 +52,7 @@ export default class Search extends Component{
 
  ss_btn=()=>{
   this.setState({kw_show:false})
+  console.log('this.state.city_id:',this.state.city_id)
   Taro.request({
     url: api.product_list,
     // method:'',
@@ -56,10 +60,10 @@ export default class Search extends Component{
       'content-type': 'application/json'
     },
     data:{
-      catid:'', 
+      catid:this.$router.params.catid, 
       keywords:this.state.value,
       page :this.state.page,
-      area:'',
+      area:this.state.city_id, 
       attr:''
     }
   }).then(res=>{
@@ -69,15 +73,16 @@ export default class Search extends Component{
       list_arr:res.data.data.list_arr,
       wangkelai_data:res.data.data.wangkelai_data,
       pages:res.data.data.pages,
-      pro_city_list:res.data.data.pro_city_list
+      pro_city_list:res.data.data.pro_city_list,
+      k_data:[],
      })
     
   })
   .catch(err=>{
     console.log('product_list err:',err)
   })
-  this.get_company_list()
-  this.get_video()
+  // this.get_company_list()
+  // this.get_video()
  } 
  get_kw=()=>{
   Taro.request({
@@ -107,7 +112,7 @@ export default class Search extends Component{
  get_video=()=>{
     Taro.request({
       url:api.video_search,
-      data:{
+      data:{ 
         cid:'',
         keyword:this.state.value,
         page:this.state.page2,
@@ -117,9 +122,9 @@ export default class Search extends Component{
     let vv=res.data.data.list_arr
   //  let a= Object.getOwnPropertyNames(vv)
    let a=Object.values(vv)
-   console.log('video!!!:',a)
+   console.log('video!!!:',a)  
 
-     this.setState({video:a,v_pages:res.data.data.pages})
+     this.setState({video_search:a,v_pages:res.data.data.pages})
     }
     ).catch(err=>{
     console.log('video err:',err)
@@ -147,8 +152,21 @@ export default class Search extends Component{
  }  
 
  handleClick (value) {
+   console.log('current:',value)
   this.setState({
     current: value
+  })
+  if(value==0){
+    this.ss_btn()
+  }else if(value==1){
+    this.get_video()
+  }else {
+    this.get_company_list()
+  }
+}
+handleClick2 (value) {
+  this.setState({
+    open: value
   })
 }
 
@@ -162,11 +180,12 @@ componentWillMount(){
   console.log('参数:',this.$router.params)
 }
 componentDidMount(){
+   console.log('this.$router.params.key:',this.$router.params.key)
    this.setState({value:this.$router.params.key},()=>{
-     this.ss_btn()
+    this.state.value==undefined?null:this.ss_btn()
    })
-   this.get_video()
-   this.get_company_list()
+  //  this.get_video()
+  //  this.get_company_list()
 }
 
       render(){
@@ -176,7 +195,11 @@ componentDidMount(){
          let list_arr =this.state.list_arr
          let wangkelai_data=this.state.wangkelai_data
          let pro_city_list=this.state.pro_city_list
-         console.log('kw',kw,product_cpc_list,list_arr,wangkelai_data)
+         console.log('kw',kw,product_cpc_list,list_arr,wangkelai_data,
+         'city:',pro_city_list,
+         'kw_show',this.state.kw_show,
+         'this.state.video',this.state.video_search
+         )
           return(
               <View className='container'>
                   <AtSearchBar 
@@ -185,7 +208,7 @@ componentDidMount(){
          onChange={this.onChange.bind(this)}
          onActionClick={this.onActionClick.bind(this)}/>
          {
-           kw==''||this.state.value==''||this.state.kw_show==false?null
+           kw.length==0||this.state.value==undefined||this.state.kw_show==false?null
            :
            <View className='list_wd'>
            {
@@ -196,12 +219,16 @@ componentDidMount(){
                }}>
                 {i.uk}
                </View>
-               )
+               ) 
              })
            }
          </View>
          }
          {/*list  data */}
+         
+         {
+        this.state.value==undefined?null
+        : 
          <AtTabs current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
         <AtTabsPane current={this.state.current} index={0} >
           <View  className='top-big'>
@@ -211,7 +238,7 @@ componentDidMount(){
 
             <AtButton size='small' onClick={()=>{
               this.setState({show:true})
-            }} >全国</AtButton>
+            }} >{this.state.city_name==undefined?'全国':this.state.city_name}</AtButton>
             </View>
             {/* product_cpc_list */} 
             <View className='cp_list'>
@@ -226,11 +253,15 @@ componentDidMount(){
                    <View className='top_under'>
                      <View className='hui-text'>{i.crop_name}</View>
                    </View>
-                  </View>
+                  </View> 
                     :
                     null
                   }
-                  <View className='list_i'>
+                  <View className='list_i' onClick={()=>{
+                    Taro.navigateTo({
+                      url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                    })
+                  }}>
 
                    <View className='list_i_left'>
                      <Image src={pp} className='pp'/>
@@ -263,7 +294,11 @@ componentDidMount(){
            {
              list_arr.length!==0&&list_arr.map((i,k)=>{
                return(
-                <View className='list_i' key={k}>
+                <View className='list_i' key={k} onClick={()=>{
+                  Taro.navigateTo({
+                    url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                  })
+                }}>
 
                 <View className='list_i_left'>
                   
@@ -293,7 +328,11 @@ componentDidMount(){
            {
              wangkelai_data!==null&&list_arr.map((i,k)=>{
                return(
-                <View className='list_i' key={k}>
+                <View className='list_i' key={k} onClick={()=>{
+                  Taro.navigateTo({
+                    url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                  })
+                }}>
 
                 <View className='list_i_left'>
                   
@@ -349,11 +388,56 @@ componentDidMount(){
        }
         
 
-        <AtFloatLayout isOpened={this.state.show} 
-        title="这是个标题" scrollY={true}>
-  这是内容区 随你怎么写这是内容区 随你怎么写这是内容区 随你怎么写这是内容区
-  随你怎么写这是内容区 随你怎么写这是内容区 随你怎么写
-        </AtFloatLayout>
+        <AtDrawer
+  show={this.state.show}
+  right={true} 
+  
+>
+  
+{
+  pro_city_list.length!==0&&pro_city_list.map((i,k)=>{
+    // console.log('pro_city_list111:',i.city_items)
+    
+      return(
+        <View className='cus-bt'>
+          <AtButton className='cus-bt' onClick={()=>{
+            this.setState({city_index:k})
+          }}>{i.name}</AtButton>
+          <View className='city-list cus-bt' >
+            {this.state.city_index!==k?null
+                :
+              i.city_items.map((city,j)=>{
+                return <AtButton className='cus-bt'  onClick={()=>{
+                   
+                  this.setState({city_id:city.id,show:false,city_name:city.name},()=>{
+                         this.ss_btn()
+                      console.log('ooook:',this.state.city_id) 
+                  })
+                  // this.setState({city_index:j},()=>{ 
+                  //   this.state.city_index==j?
+                  //   this.setState({city_id:city.id},()=>{
+                  //     this.ss_btn()
+                  //     console.log('ooook:',this.state.city_id)
+                  //   })
+                  //   :null
+                  // console.log('ooook:',this.state.city_id)
+                  
+                  // })
+                }}>{city.name}</AtButton>
+              })
+            }
+         
+          </View>
+        </View>
+
+      )
+  })
+}
+ 
+
+
+
+</AtDrawer>
        
 
             </View> 
@@ -361,9 +445,13 @@ componentDidMount(){
         <AtTabsPane current={this.state.current} index={1}>
           <View  className='video-big'>
            {
-             this.state.video!==undefined&&this.state.video.map((i,k)=>{
+             this.state.video_search.length!==0&&this.state.video_search.map((i,k)=>{
               return (
-                <View className='video-i' key={k}>
+                <View className='video-i' key={k} onClick={()=>{
+                  Taro.navigateTo({
+                    url:`/pages/play/play?id=${i.proid}`
+                  })
+                }}> 
                    <Image src={i.show_image_url} className='video-img'/>
                    <Image src={play} className='play'/>
                    <View className='list_title'>{i.title}</View>
@@ -375,7 +463,7 @@ componentDidMount(){
             </View>
            
            {
-             this.state.video.length==0?
+             this.state.video_search.length==0?
              <View style={{textAlign:'center',color:'#CCCCCC'}}>
              暂无信息
            </View>
@@ -456,7 +544,9 @@ componentDidMount(){
             }
             
         </AtTabsPane>
-      </AtTabs>
+        </AtTabs> 
+      }  
+      
 
               </View>
           )

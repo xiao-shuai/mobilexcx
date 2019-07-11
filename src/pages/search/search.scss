@@ -156,3 +156,13 @@ z-index: 10px;
     white-space: nowrap;
     width: 70%
 }
+.city-list{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 5px;
+}
+.cus-bt{
+    margin-top: 5px;
+}
