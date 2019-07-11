@@ -60,7 +60,7 @@ export default class Search extends Component{
       'content-type': 'application/json'
     },
     data:{
-      catid:'', 
+      catid:this.$router.params.catid, 
       keywords:this.state.value,
       page :this.state.page,
       area:this.state.city_id, 
@@ -176,7 +176,6 @@ componentDidMount(){
    console.log('this.$router.params.key:',this.$router.params.key)
    this.setState({value:this.$router.params.key},()=>{
     this.state.value==undefined?null:this.ss_btn()
-    this.ss_btn()
    })
   //  this.get_video()
   //  this.get_company_list()

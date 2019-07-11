@@ -125,7 +125,11 @@ export default class Index extends Component {
 
   render () {
 
-    console.log('remen:',this.state.hot_arr)
+    console.log(
+      // 'remen:',this.state.hot_arr,
+    // 'video_list',this.state.video_list
+    'hot_hy',this.state.hot_hy
+    )
      let tab=[
        {
            icon:fenlei,
@@ -232,7 +236,11 @@ export default class Index extends Component {
         {
           this.state.video_list.length!==0&&this.state.video_list.map((i,k)=>{
           return (
-            <View className='video-i' key={k}>
+            <View className='video-i' key={k}  onClick={()=>{
+              Taro.navigateTo({
+                url:`/pages/play/play?id=${i.proid}`
+              })
+            }}>
               <Video src={i.video_address} 
                   poster={i.show_image_url}
                   className='video'
@@ -264,9 +272,18 @@ export default class Index extends Component {
             <View className='conhy-v' >
               {
                 k==0?
-                <Image src={i.img} className='hothy-img-one'/>
+                <Image src={i.img} className='hothy-img-one' onClick={()=>{
+                  
+                  Taro.navigateTo({
+                    url:`/pages/cateTwo/cateTwo?id=${i.catid}`
+                  })
+                }}/>
                 :
-               <Image src={i.img} className='hothy-img'/>
+               <Image src={i.img} className='hothy-img' onClick={()=>{
+                Taro.navigateTo({
+                  url:`/pages/cateTwo/cateTwo?id=${i.catid}`
+                })
+               }}/>
               }
             </View>
 
@@ -280,7 +297,11 @@ export default class Index extends Component {
            <View className='hy-tag'>
              {
                this.state.category_tag.length!==0&&this.state.category_tag.slice(0,8).map((i,k)=>{
-               return <AtTag className='hy-tag-i' key={k}>{i.name}</AtTag>
+               return <AtTag className='hy-tag-i' key={k} onClick={()=>{
+                Taro.navigateTo({
+                  url:`/pages/search/search?key=${i.name}`
+                })
+               }}>{i.name}</AtTag>
                 
                })
              }
@@ -309,6 +330,12 @@ export default class Index extends Component {
      {
        
        this.state.hysc.length!==0&&<AtGrid  
+       onClick={(i,k)=>{
+         let id=this.state.hysc[k].catid
+         Taro.navigateTo({
+          url:`/pages/cateTwo/cateTwo?id=${id}`
+        })
+       }}
         
  data={
    [
@@ -345,7 +372,11 @@ export default class Index extends Component {
         <View className='hy-tag'>
              {
                this.state.category_tag.length!==0&&this.state.category_tag.slice(8,20).map((i,k)=>{
-               return <AtTag className='hy-tag-i' key={k}>{i.name}</AtTag>
+               return <AtTag className='hy-tag-i' key={k} onClick={()=>{
+                Taro.navigateTo({
+                  url:`/pages/search/search?key=${i.name}`
+                })
+               }}>{i.name}</AtTag>
                 
                })
              }
@@ -364,7 +395,11 @@ export default class Index extends Component {
         {
           this.state.jingpin.length!==0&&this.state.jingpin.map((i,k)=>{
           return (
-            <View className='con-v-jp' key={k} style='margin-bottom: 20px;'>
+            <View className='con-v-jp' key={k} style='margin-bottom: 20px;' onClick={()=>{
+              Taro.navigateTo({
+                url:`/pages/proDetail/proDetail?id=${i.proid}` 
+              })
+            }}>
              <Image src={i.img} className='hot-img-jp'/>
              <View className='hot_ms'>{i.title}</View>
              <View className='price_show'>{i.price_show}</View>

@@ -24,6 +24,7 @@ export default class Play extends Component {
   componentWillMount () {}
   componentDidMount () {
     this.getVideoData()
+    console.log('666:',)
   } 
   componentWillReceiveProps (nextProps,nextContext) {} 
   componentWillUnmount () {} 
@@ -42,7 +43,8 @@ export default class Play extends Component {
     setTimeout(() => {
       Taro.request({
         url: api.play,
-        data: { pid: proId || 101033969955 },
+        // data: { pid: proId || 101033969955 },
+        data:{pid:this.$router.params.id},
         success: (res) => {
           console.log(res.data.data)
           const { info, list_arr, video_list } = res.data.data
