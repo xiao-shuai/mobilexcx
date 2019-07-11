@@ -2,6 +2,7 @@ import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button, Image } from '@tarojs/components';
 import { AtPagination, AtTabs, AtTabsPane  } from 'taro-ui'
 import { api } from '@/util/api'
+import ask from '@/util/ask'
 import home from '@/asset/home.png'
 import phone from '@/asset/blue_phone.png'
 import star from '@/asset/fine_star.png'
@@ -45,77 +46,57 @@ export default class Yellow extends Component {
     if (!id) {
       id = 100019820814
     }
-    Taro.request({
-      url: api.corpIndex,
-      data: { corpid: id },
-      success: (res) => {
-        console.log('success', res.data)
-        const corp = res.data.data.corp_info
-        const corpId = res.data.data.corp_info.corpid
-        const corpInfo = res.data.data.corp_info.corpinfo
-        const proList = res.data.data.product_arr
-        const indexData = res.data.data
-        this.setState({
-          corp,
-          corpId,
-          corpInfo,
-          proList,
-          indexData
-        })
-      }
+    ask(api.corpIndex, { corpid: id }).then((res) => {
+      const corp = res.data.corp_info
+      const corpId = res.data.corp_info.corpid
+      const corpInfo = res.data.corp_info.corpinfo
+      const proList = res.data.product_arr
+      const indexData = res.data
+      this.setState({
+        corp,
+        corpId,
+        corpInfo,
+        proList,
+        indexData
+      })
     })
   }
 
   getCorpPro () {
     const { corpId, pages } = this.state
-    Taro.request({
-      url: api.corpPro,
-      data: {
-        corpid: corpId,
-        page: pages
-      },
-      success: (res) => {
-        console.log('getCorpPro',res.data)
-        const corpProList = res.data.data.list_arr
-        const pagesCount = res.data.data.pages
-        this.setState({
-          corpProList,
-          pagesCount
-        })
-      }
+    ask(api.corpPro, { corpid: corpId, page: pages }).then((res) => {
+      const corpProList = res.data.list_arr
+      const pagesCount = res.data.pages
+      this.setState({
+        corpProList,
+        pagesCount
+      })
     })
   }
 
   getCorpIntro () {
     const corpId = this.state.corpId
-    Taro.request({
-      url: api.corpIntro,
-      data: {
-        corpid: corpId
-      },
-      success: (res) => {
-        console.log('getCorpIntro',res.data)
-        const corpIntro = res.data.data.corp_info
-        const corpIntroInfo = res.data.data.corp_info.corpinfo
-        const employeeNum = res.data.data.employee_num
-        const turnover = res.data.data.year_earn
-        const yearExport = res.data.data.year_export
-        const oem = res.data.data.oem
-        const corpType = res.data.data.biz_mode
-        const company = res.data.data.dic_corpType
-        const data = res.data.data
-        this.setState({
-          corpIntro,
-          corpIntroInfo,
-          employeeNum,
-          turnover,
-          yearExport,
-          oem,
-          corpType,
-          company,
-          data
-        })
-      }
+    ask(api.corpIntro, { corpid: corpId }).then((res) => {
+      const corpIntro = res.data.corp_info
+      const corpIntroInfo = res.data.corp_info.corpinfo
+      const employeeNum = res.data.employee_num
+      const turnover = res.data.year_earn
+      const yearExport = res.data.year_export
+      const oem = res.data.oem
+      const corpType = res.data.biz_mode
+      const company = res.data.dic_corpType
+      const data = res.data
+      this.setState({
+        corpIntro,
+        corpIntroInfo,
+        employeeNum,
+        turnover,
+        yearExport,
+        oem,
+        corpType,
+        company,
+        data
+      })
     })
   }
 
@@ -143,16 +124,12 @@ export default class Yellow extends Component {
     if (name === 'prev'){
       if (pages === 1) return false
       pages --
-      console.log(pages)
-      console.log(pagesCount)
       this.setState({ pages },() => {
         this.getCorpPro()
       })
     } else if (name === 'next') {
       if (pages === pagesCount) return false
       pages ++
-      console.log(pages)
-      console.log(pagesCount)
       this.setState({ pages },() => {
         this.getCorpPro()
       })
@@ -162,7 +139,6 @@ export default class Yellow extends Component {
   render() {
     const tabList = [{ title: '公司首页' }, { title: '公司产品' }, { title: '公司介绍' }]
     const { corp, proList, corpInfo, corpProList, corpIntro, corpIntroInfo, data, pages, pagesCount, indexData } = this.state
-    console.log('corpProList',corpProList)
     return (
       <View>
 

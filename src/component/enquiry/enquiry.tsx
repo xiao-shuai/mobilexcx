@@ -1,6 +1,7 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button, Form, Input, Checkbox, Label } from '@tarojs/components';
 import { api } from '@/util/api'
+import ask from '@/util/ask'
 import util from '@/util/util'
 import './enquiry.scss'
 import md5 from 'md5'
@@ -53,23 +54,18 @@ export default class Enquiry extends Component {
     if (!code) return Taro.showToast({title: '请输入验证码',icon: 'none',duration: 1500})
     let timestamp = util.getTimestamp
     const sign = util.md5ParseEnquiry({ proId, mobile, linkman, code })
-    Taro.request({
-      url: api.enquiry,
-      data: {
-        aid: '61010',
-        product_id: proId,
-        linkman,
-        phone: mobile,
-        code,
-        ts: timestamp,
-        sign
-      },
-      success: (res) => {
-        console.log(res)
-        if(res.data.no !== 1) return Taro.showToast({title: '询价失败',icon: 'none',duration: 1500})
-        Taro.showToast({ title: '询价成功',icon: 'none',duration: 1500 })
-        this.onIsShow()
-      }
+    const data = {
+      aid: '61010',
+      product_id: proId,
+      linkman,
+      phone: mobile,
+      code,
+      ts: timestamp,
+      sign
+    }
+    ask(api.enquiry, data).then((res) => {
+      Taro.showToast({ title: '询价成功',icon: 'none',duration: 1500 })
+      this.onIsShow()
     })
   }
   
@@ -79,41 +75,35 @@ export default class Enquiry extends Component {
     let timestamp = util.getTimestamp
     const sign = util.md5ParseCode(mobile)
     if (!mobile) return Taro.showToast({title:'请输入手机号',icon:'none'})
-    Taro.request({
-      url: api.code,
-      data: {
-        aid: '61010',
-        type: 'send',
-        mobile: mobile,
-        ts: timestamp,
-        sign
-      },
-      success: (res) => {
-        console.log(res)
-        if (res.data.errno !== 1) return Taro.showToast({ title: res.data.msg,icon: 'none',duration: 1500 })
-        Taro.showToast({ title: res.data.msg, icon: 'none',duration: 1500 })
-        let interval = setInterval(() => {
-          currentTime --
-          this.setState({ timeText: `${currentTime}秒` })
-          if (currentTime <= 0) {
-            clearInterval(interval)
-            this.setState({
-              timeText: '从新发送',
-              currentTime: 61,
-            })
-          }
-        },1000)
-      }
+    const codeData = {
+      aid: '61010',
+      type: 'send',
+      mobile: mobile,
+      ts: timestamp,
+      sign
+    }
+    ask(api.code, codeData).then((res) => {
+      Taro.showToast({ title: res.data.msg, icon: 'none',duration: 1500 })
+      let interval = setInterval(() => {
+        currentTime --
+        this.setState({ timeText: `${currentTime}秒` })
+        if (currentTime <= 0) {
+          clearInterval(interval)
+          this.setState({
+            timeText: '从新发送',
+            currentTime: 61,
+          })
+        }
+      },1000)
     })
   }
 
   getProId () {
-    Taro.getStorage({ 
-      key: 'pid',
-      success: (res) => {
-        let proId = res.data.id
-        this.setState({ proId })
-      }
+    Taro.getStorage({
+      key: 'pid'
+    }).then((res) => {
+      let proId = res.data.id
+      this.setState({ proId })
     })
   }
 

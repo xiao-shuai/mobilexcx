@@ -1,16 +1,16 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button} from '@tarojs/components';
-import './imgPreview.scss'
-import '../proPreview/proPreview.scss'
-// import NavBar from '@/component/navBar/navBar'
 import { api } from '@/util/api'
+import ask from '@/util/ask'
 import ImgList from '@/component/imgList/imgList'
 import Keywords from '@/component/keywords/keywords'
+import './imgPreview.scss'
+import '../proPreview/proPreview.scss'
 
 export default class ImgPreview extends Component {
 
   config = {
-       navigationBarTitleText: '产品详情'
+    navigationBarTitleText: '产品详情'
   }
 
   state = {
@@ -32,22 +32,17 @@ export default class ImgPreview extends Component {
   componentWillReceiveProps (nextProps,nextContext) {} 
 
   getProImgDetail (pid) {
-    Taro.request({
-      url: api.pro_img,
-      data: { pid },
-      success: (res) => {
-        console.log(res.data.data)
-        const { product_imgs, list_arr, list_arr2, relate_keyword_array, relate_keyword_array2, breadcrumb, info } = res.data.data
-        this.setState({
-          proImgList: product_imgs,
-          proList: list_arr,
-          relatedList: list_arr2,
-          keywordFirst: relate_keyword_array,
-          keywordSecond: relate_keyword_array2,
-          curPosition: breadcrumb,
-          corpInfo: info
-        })
-      }
+    ask(api.pro_img, { pid }).then((res) => {
+      const { product_imgs, list_arr, list_arr2, relate_keyword_array, relate_keyword_array2, breadcrumb, info } = res.data
+      this.setState({
+        proImgList: product_imgs,
+        proList: list_arr,
+        relatedList: list_arr2,
+        keywordFirst: relate_keyword_array,
+        keywordSecond: relate_keyword_array2,
+        curPosition: breadcrumb,
+        corpInfo: info
+      })
     })
   }
 

@@ -1,6 +1,5 @@
 import md5 from 'md5'
 
-
 const aid = 61010
 const key = 'smallprogram20180716rmaekd8d4ds9'
 const productid = '101030597384'
