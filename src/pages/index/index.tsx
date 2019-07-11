@@ -117,7 +117,6 @@ export default class Index extends Component {
       .catch(err=>console.log('err:',err))
   }
 
-<<<<<<< HEAD
   handleJumpProDetail (id) {
     Taro.navigateTo({
       url: `/pages/proDetail/proDetail?id=${id}`
@@ -141,9 +140,6 @@ export default class Index extends Component {
   }
 
   componentWillUnmount() { }
-=======
-  componentWillUnmount () { }
->>>>>>> ddd24c55dd22fcd1e61a9a929f28bc17956a626b
 
   componentDidShow () { }
 
@@ -212,34 +208,6 @@ export default class Index extends Component {
         {/* </View> */}
         {/* tab */}
         <View className='tab'>
-<<<<<<< HEAD
-          {
-            tab.map((i, m) => {
-              return (<View className='tab-i' key={m} onClick={this.handleJump.bind(this,i.path,'cate')}>
-
-                <Image src={i.icon} className={m == 3 ? 'tab-img2' : 'tab-img'} />
-                <Text className='tab-name'>{i.name}</Text>
-
-              </View>)
-            })
-          }
-        </View>
-        {/* 热门产品 */}
-        <View className='hot-view'>
-
-          <Text className='hot-title'> 热门产品 </Text>
-
-          <View className='hot-con-v'>
-            {
-              this.state.hot_arr.length !== 0 && this.state.hot_arr.map((i, k) => {
-                return (
-                  <View className='con-v' key={k} onClick={this.handleJump.bind(this, i.proid, 'pro')} >
-                    <Image src={i.img} className='hot-img' />
-                    <View className='hot_ms'>{i.title}</View>
-                    <View className='price_show'>{i.price_show}</View>
-                  </View>
-                )
-=======
         {
             tab.map((i,m)=>{
           return (<View className='tab-i' key={m} onClick={()=>{
@@ -268,7 +236,6 @@ export default class Index extends Component {
               console.log(4456)
               Taro.navigateTo({
                 url:`/pages/proDetail/proDetail?id=${i.proid}` 
->>>>>>> ddd24c55dd22fcd1e61a9a929f28bc17956a626b
               })
             }}> 
              <Image src={i.img} className='hot-img'/>
@@ -284,28 +251,6 @@ export default class Index extends Component {
         {/* 马克视频 */}
 
         <View className='hot-view'>
-<<<<<<< HEAD
-
-          <Text className='hot-title'> 马可视频 </Text>
-
-          <View className='hot-con-v'>
-            {
-              this.state.video_list.length !== 0 && this.state.video_list.map((i, k) => {
-                return (
-                  <View className='video-i' key={k} onClick={this.handleJump.bind(this, i.proid, 'play')}>
-                    <Video src={i.video_address}
-                      poster={i.show_image_url}
-                      className='video'
-                    />
-                    <View className={'hot_ms sp_text'}>{i.title}</View>
-                    <View className={'hot-con-v'}>
-                      <Image src={company} className='icon_sp' />
-                      <View className='hot_ms sp_text'>{i.corpname}</View>
-                    </View>
-
-                  </View>
-                )
-=======
         
         <Text className='hot-title'> 马克视频 </Text>
         
@@ -316,7 +261,6 @@ export default class Index extends Component {
             <View className='video-i' key={k}  onClick={()=>{
               Taro.navigateTo({
                 url:`/pages/play/play?id=${i.proid}`
->>>>>>> ddd24c55dd22fcd1e61a9a929f28bc17956a626b
               })
             }}>
               <Video src={i.video_address} 
@@ -466,21 +410,6 @@ export default class Index extends Component {
         {/* 精品推荐 */}
 
         <View className='hot-view' style='margin-bottom: 20px;'>
-<<<<<<< HEAD
-
-          <Text className='hot-title'> 精品推荐 </Text>
-
-          <View className='hot-con-v' style='flex-wrap: wrap;'>
-            {
-              this.state.jingpin.length !== 0 && this.state.jingpin.map((i, k) => {
-                return (
-                  <View className='con-v-jp' key={k} style='margin-bottom: 20px;' onClick={this.handleJumpProDetail.bind(this,i.proid)}>
-                    <Image src={i.img} className='hot-img-jp' />
-                    <View className='hot_ms'>{i.title}</View>
-                    <View className='price_show'>{i.price_show}</View>
-                  </View>
-                )
-=======
         
         <Text className='hot-title'> 精品推荐 </Text>
         
@@ -491,7 +420,6 @@ export default class Index extends Component {
             <View className='con-v-jp' key={k} style='margin-bottom: 20px;' onClick={()=>{
               Taro.navigateTo({
                 url:`/pages/proDetail/proDetail?id=${i.proid}` 
->>>>>>> ddd24c55dd22fcd1e61a9a929f28bc17956a626b
               })
             }}>
              <Image src={i.img} className='hot-img-jp'/>
