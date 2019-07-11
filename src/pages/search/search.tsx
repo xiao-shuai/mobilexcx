@@ -268,7 +268,7 @@ componentDidMount(){
                        <Text className='list_title'>面议</Text>
                        <AtButton className='xj_btn' size='small' onClick={()=>{
                          Taro.navigateTo({
-                           url:`/pages/proDetail/proDetail?id=${i.product_id}&test=123`
+                           url:`/pages/proDetail/proDetail?id=${i.product_id}&en=true`
                          })
                        }}>点此询价</AtButton>
                      </View>

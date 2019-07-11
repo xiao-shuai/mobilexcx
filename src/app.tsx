@@ -27,7 +27,8 @@ class App extends Component {
       'pages/cateTwo/cateTwo',
       'pages/proDetail/proDetail',
       'pages/search/search',
-      'pages/play/play'
+      'pages/play/play',
+      'pages/yellow/yellow'
     ],
     window: {
       backgroundTextStyle: 'light',

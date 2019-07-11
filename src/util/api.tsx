@@ -18,6 +18,9 @@ const api = {
     enquiry: `${host}msg/inquiry_insert.php`,    //询盘
     videoLog: `${video}product/video_log.php`,   //视频播放
     company_list:`${domain}company_list.php`,//企业搜索
+    corpIndex: `${domain}company_view.php`, //公司首页
+    corpPro: `${domain}company_product.php`, //公司产品
+    corpIntro: `${domain}company_intro.php` //公司介绍
 }
 
 export {
