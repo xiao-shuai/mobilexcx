@@ -11,15 +11,26 @@ const ask = (url, data = {}) => {
     data: data,
     header: 'application/json'
   }).then((res) => {
-    let code = res.data.no || res.data.errno
+    let code = null
+    try {
+      if (res.data.no) {
+        code = res.data.no
+      } else if (res.data.errno) {
+        code = res.data.errno
+      }
+    }
+    catch (err) {
+      console.log(err)
+    }
     if (code !== 1) {
-      console.log('请求失败:', url, '错误信息：', res.data.msg)
+      console.log('请求失败:', url, '错误信息：', res.data.msg || res.data)
       return Promise.reject(res.data)
     }
     console.log('响应数据:', res.data)
     return Promise.resolve(res.data)
   }).catch((err) => {
     console.log(err)
+    return (err)
   })
 }
 

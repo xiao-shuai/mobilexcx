@@ -29,8 +29,6 @@ export default class CateTwo extends Component {
       const brother = res.data.brother
       const firstBrother = brother[0].catid
       const son = res.data.son
-      console.log(brother)
-      console.log(son)
       this.setState({
         cateBrother: brother,
         cateSon: son,

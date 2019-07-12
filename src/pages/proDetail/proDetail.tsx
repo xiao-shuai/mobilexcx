@@ -1,6 +1,7 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button} from '@tarojs/components';
 import { AtTabs, AtTabsPane } from 'taro-ui'
+import { set, get } from '@/util/global_data'
 import ProPreview from './proPreview/proPreview'
 import ImgPreview from './imgPreview/imgPreview'
 
@@ -26,6 +27,7 @@ export default class ProDetail extends Component {
   setProId () {
     console.log('this.$router.params',this.$router.params)
     const { id, en } = this.$router.params
+    this.setState({ id })
     let key = 'pid'
     let data
     if (en) {
@@ -42,7 +44,22 @@ export default class ProDetail extends Component {
     this.setState({
       current: value
     })
+    if (value === 1) {
+      const pid = this.state.id
+      get('imgFun')(pid)
+    }
   }
+
+  // getProDetail () {
+  //   const { id } = this.state
+  //   const sign = util.md5ParsePro(id)
+  //   ask(api.pro_detail,{ productid: id || 101030597384, sign }).then((res) => {
+  //     let key = 'data'
+  //     let data = { data: res }
+  //     Taro.setStorage({ key, data })
+  //     .then(res => console.log('setStorage',res))
+  //   })
+  // }
 
   render() {
     const tabList = [{ title: '产品' }, { title: '图片' }]
