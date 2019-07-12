@@ -47,11 +47,19 @@ export default class Search extends Component{
       }
       onActionClick () {
         // console.log('开始搜索')
-        this.ss_btn()
+        this.setState({kw_show:false})
+        if(this.state.current==0){
+          this.ss_btn()
+        }else if(this.state.current==1){
+          this.get_video()
+        }else {
+          this.get_company_list()
+        }
+       
       }
 
  ss_btn=()=>{
-  this.setState({kw_show:false})
+ 
   console.log('this.state.city_id:',this.state.city_id)
   Taro.request({
     url: api.product_list,
@@ -68,14 +76,17 @@ export default class Search extends Component{
     }
   }).then(res=>{
     console.log('product_list:',res)
-     this.setState({
-      product_cpc_list:res.data.data.product_cpc_list,
-      list_arr:res.data.data.list_arr,
-      wangkelai_data:res.data.data.wangkelai_data,
-      pages:res.data.data.pages,
-      pro_city_list:res.data.data.pro_city_list,
-      k_data:[],
-     })
+     if(res.data.no==1){
+      this.setState({
+        product_cpc_list:res.data.data.product_cpc_list,
+        list_arr:res.data.data.list_arr,
+        wangkelai_data:res.data.data.wangkelai_data,
+        pages:res.data.data.pages,
+        pro_city_list:res.data.data.pro_city_list,
+        k_data:[],
+       })
+     }else {}
+     
     
   })
   .catch(err=>{
@@ -155,14 +166,16 @@ export default class Search extends Component{
    console.log('current:',value)
   this.setState({
     current: value
+  },()=>{
+    if(value==0){
+      this.ss_btn()
+    }else if(value==1){
+      this.get_video()
+    }else {
+      this.get_company_list()
+    }
   })
-  if(value==0){
-    this.ss_btn()
-  }else if(value==1){
-    this.get_video()
-  }else {
-    this.get_company_list()
-  }
+  
 }
 handleClick2 (value) {
   this.setState({
@@ -186,6 +199,7 @@ componentDidMount(){
      this.setState({
       current:1
      },()=>{this.get_video()})
+    // this.get_video()
    }
    this.setState({value:this.$router.params.key},()=>{
     this.state.value==undefined?null:this.ss_btn()
@@ -201,11 +215,18 @@ componentDidMount(){
          let list_arr =this.state.list_arr
          let wangkelai_data=this.state.wangkelai_data
          let pro_city_list=this.state.pro_city_list
-         console.log('kw',kw,product_cpc_list,list_arr,wangkelai_data,
-         'city:',pro_city_list,
+         let sp=this.$router.params.sp
+         console.log('kw',this.state.k_data,
+         'product_cpc_list',this.state.product_cpc_list,
+
+         'list_arr',this.state.list_arr
+         ,'wangkelai_data',this.state.wangkelai_data,
+         'city:',this.state.pro_city_list,
          'kw_show',this.state.kw_show,
-         'this.state.video',this.state.video_search
+         'this.state.video',this.state.video_search,
+         'company_list:',this.state.company_list
          )
+         
           return(
               <View className='container'>
                   <AtSearchBar 
@@ -233,8 +254,8 @@ componentDidMount(){
          {/*list  data */}
          
          {
-        this.state.value==undefined?null
-        : 
+        // this.state.value==undefined&&sp==undefined?null
+        // : 
          <AtTabs current={this.state.current} tabList={tabList} onClick={this.handleClick.bind(this)}>
         <AtTabsPane current={this.state.current} index={0} >
           <View  className='top-big'>
