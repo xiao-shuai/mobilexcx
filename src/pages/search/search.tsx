@@ -508,7 +508,7 @@ componentDidMount(){
                 return (
                   <View className='qiye-i' onClick={()=>{
                     Taro.navigateTo({
-                      url:`/pages/company/company?info=${i.addr}`
+                      url:`/pages/yellow/yellow?id=${i.crop_id}` 
                     })
                   }}>
                    <View>{i.title}</View>
