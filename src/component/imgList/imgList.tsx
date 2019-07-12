@@ -15,7 +15,6 @@ export default class ImgList extends Component {
   }
 
   jumpPlay (id) {
-    console.log(id)
     // Taro.clearStorageSync()
     // Taro.setStorageSync('vid', id)
     Taro.navigateTo({ url: `/pages/play/play?proId=${id}` })

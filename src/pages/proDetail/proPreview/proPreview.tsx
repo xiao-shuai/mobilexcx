@@ -38,17 +38,14 @@ export default class ProPreview extends Component {
   componentDidShow () {
   }
   componentWillReceiveProps (nextProps) {
-    console.log('收到：',nextProps)
   }
 
   getProId () {
     Taro.getStorage({
       key: 'pid'
     }).then((res) => {
-      console.log('this.res()',res)
       this.getProDetail(res.data.id)
       if (res.data.test) {
-        console.log('this.handleShowEnquiry()')
         this.handleShowEnquiry()
       }
     })
@@ -82,6 +79,11 @@ export default class ProPreview extends Component {
         corpId
       })
     })
+  }
+
+  handlePhoneCall () {
+    const phone = this.state.phone 
+    Taro.makePhoneCall({ phoneNumber: phone }).then()
   }
 
   handleShowEnquiry () {
@@ -131,7 +133,10 @@ export default class ProPreview extends Component {
             className='btn_item' 
             onClick={this.handleShowEnquiry.bind(this)}
           >请供应商联系我</Button>
-          <Button className='btn_item'>查看联系方式</Button>
+          <Button 
+            className='btn_item'
+            onClick={this.handlePhoneCall.bind(this)}
+          >查看联系方式</Button>
         </View>
         <View className='inner pro_attr'>
         {proAttr.map((item, i) => {
