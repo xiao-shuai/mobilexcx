@@ -149,10 +149,10 @@ export default class ProPreview extends Component {
         <View className='corp_info'>
           <View 
             className='corp_hd'
-            onClick={this.handleJumpYellow.bind(this,corpId)}
+            onClick={this.handleJumpYellow.bind(this, corpId)}
           >{corpName}</View>
           <View className='corp_bd'>
-            <View className='item'>
+            <View className='item' onClick={this.handleJumpYellow.bind(this, corpId)}>
               <Image className='icon_corp' src={Store} />
               <View className='item_text'>进入店铺</View>
             </View>
@@ -160,7 +160,7 @@ export default class ProPreview extends Component {
               <Image className='icon_corp' src={Phone} />
               <View className='item_text'>{phone}</View>
             </View>
-            <View className='item'>
+            <View className='item' onClick={this.handleShowEnquiry.bind(this)}>
               <Image className='icon_corp' src={Cart} />
               <View className='item_text'>询价</View>
             </View>
