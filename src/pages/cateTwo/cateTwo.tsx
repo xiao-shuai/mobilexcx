@@ -1,6 +1,7 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button} from '@tarojs/components';
 import { api } from '@/util/api'
+import ask from '@/util/ask'
 import './cateTwo.scss'
 
 export default class CateTwo extends Component {
@@ -22,48 +23,32 @@ export default class CateTwo extends Component {
   } 
 
   getCateTwoList () {
-    Taro.setNavigationBarTitle({title: this.$router.params.name})
-    const id = this.$router.params.id
-    const that = this
-    Taro.request({
-      url: api.cat_class,
-      data: {cid: id},
-      success: function (res) {
-        const brother = res.data.data.brother
-        const firstBrother = brother[0].catid
-        const son = res.data.data.son
-        console.log(brother)
-        console.log(son)
-        that.setState({
-          cateBrother: brother,
-          cateSon: son,
-          chooseId: firstBrother
-        })
-      },
-      fail: function (err) {
-        console.log('调用失败',err)
-      }
-    })
-    .catch((err) => {
-      console.log(err)
+    const { id, name } = this.$router.params
+    Taro.setNavigationBarTitle({ title: name })
+    ask(api.cat_class,{ cid: id }).then((res) => {
+      const brother = res.data.brother
+      const firstBrother = brother[0].catid
+      const son = res.data.son
+      console.log(brother)
+      console.log(son)
+      this.setState({
+        cateBrother: brother,
+        cateSon: son,
+        chooseId: firstBrother
+      })
     })
   }
 
   getSonList (id) {
-    const that = this
-    Taro.request({
-      url: api.cat_class,
-      data: {cid: id},
-      success: function (res) {
-        const brother = res.data.data.brother
-        const firstBrother = id
-        const son = res.data.data.son
-        that.setState({
-          cateBrother: brother,
-          cateSon: son,
-          chooseId: firstBrother
-        })
-      }
+    ask(api.cat_class, { cid: id }).then((res) => {
+      const brother = res.data.brother
+      const firstBrother = id
+      const son = res.data.son
+      this.setState({
+        cateBrother: brother,
+        cateSon: son,
+        chooseId: firstBrother
+      })
     })
   }
 

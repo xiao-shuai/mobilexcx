@@ -1,9 +1,11 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Video , Button} from '@tarojs/components';
 import { api } from '@/util/api'
+import ask from '@/util/ask'
 import gril from '@/asset/gril.png'
 import phone from '@/asset/phone.gif'
 import ImgList from '@/component/imgList/imgList'
+import Enquiry from '@/component/enquiry/enquiry'
 // import TaroBdparse from '@/component/taroBdparse/taroBdparse'
 import './play.scss'
 import { fail } from 'assert';
@@ -19,7 +21,9 @@ export default class Play extends Component {
     info: {},
     videoInfo: {},
     videoList: [],
-    proRecommendList: []
+    proRecommendList: [],
+    isShow: false,
+    corpId: null
   }
 
   componentWillMount () {}
@@ -27,10 +31,6 @@ export default class Play extends Component {
     this.getVideoData()
     console.log('666:',)
   } 
-  componentWillReceiveProps (nextProps,nextContext) {} 
-  componentWillUnmount () {} 
-  componentDidShow () {} 
-  componentDidHide () {} 
 
   getVideoData () {
     console.log('this.$router.params',this.$router.params)
@@ -42,6 +42,7 @@ export default class Play extends Component {
       }
     }
     setTimeout(() => {
+<<<<<<< HEAD
       Taro.request({
         url: api.play,
         // data: { pid: proId || 101033969955 },
@@ -59,13 +60,34 @@ export default class Play extends Component {
         fail: (err) => {
           console.log('err',err)
         }      
+=======
+      ask(api.play, { pid: proId || 101033969955 }).then((res) => {
+        const { info, list_arr, video_list, corp_info } = res.data
+        this.setState({
+          info,
+          videoInfo: info.pconf,
+          videoList: video_list.vlist,
+          proRecommendList: list_arr,
+          corpId: corp_info.corpid
+        })
+        Taro.clearStorage()
+        Taro.setStorage({key: 'pid', data: { id: info.proid }})
+>>>>>>> dev
       })
     })
+  }
 
+  handleJumpYellow (id) {
+    Taro.navigateTo({ url: `/pages/yellow/yellow?id=${id}` })
+  }
+
+  handleShowEnquiry () {
+    let isShow = !this.state.isShow
+    this.setState({ isShow: isShow })
   }
 
   render() {
-    const { videoInfo, info, proRecommendList, videoList } = this.state
+    const { videoInfo, info, proRecommendList, videoList, corpId, isShow } = this.state
     return (
       <View>
         <Video
@@ -82,11 +104,14 @@ export default class Play extends Component {
         </View>
 
         <View className='corp_wrap'>
-          <View className='title'>{info.corpname}</View>
+          <View 
+            className='title'
+            onClick={this.handleJumpYellow.bind(this, corpId)}
+          >{info.corpname}</View>
           <View className='bd'>
             <View>
               <Image src={gril} className='img' />
-              <Text>让供应商联系我</Text>
+              <Text onClick={this.handleShowEnquiry.bind(this)}>让供应商联系我</Text>
             </View>
             <View>
               <Image src={phone} className='img' />
@@ -99,6 +124,8 @@ export default class Play extends Component {
           <View className='pro_introduce'>产品介绍</View>
           {/* <View className='content'>{info.detail}</View> */}
         </View>
+
+        {isShow && <Enquiry isShow={this.handleShowEnquiry.bind(this)} />}
 
         <ImgList 
           recommendList={videoList}

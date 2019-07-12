@@ -68,13 +68,11 @@ export default class Cate extends Component {
 
   getCateList () {
     let that = this
-    Taro.request({
-      url: api.cat,
-      success: function (res) {
-        that.setState({
-          cateList: res.data.data
-        })
-      }
+    ask(api.cat).then((res) => {
+      console.log(res)
+      this.setState({
+        cateList: res.data
+      })
     })
   }
 

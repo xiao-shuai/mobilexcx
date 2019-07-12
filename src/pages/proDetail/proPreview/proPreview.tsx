@@ -1,13 +1,13 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Swiper, SwiperItem, Image, Button, Block } from '@tarojs/components';
 import { api } from '@/util/api'
+import ask from '@/util/ask'
 import util from '@/util/util'
 import Phone from '@/asset/phone.gif'
 import Cart from '@/asset/cart.gif'
 import Store from '@/asset/store.gif'
 import ImgList from '@/component/imgList/imgList'
 import Keywords from '@/component/keywords/keywords'
-// import NavBar from '@/component/navBar/navBar'
 import Enquiry from '@/component/enquiry/enquiry'
 import './proPreview.scss'
 // import TaroBdparse from '@/component/taroBdparse/taroBdparse'
@@ -43,53 +43,44 @@ export default class ProPreview extends Component {
 
   getProId () {
     Taro.getStorage({
-      key: 'pid',
-      success: (res) => {
-        console.log('this.res()',res)
-        this.getProDetail(res.data.id)
-        if (res.data.test) {
-          console.log('this.handleShowEnquiry()')
-          this.handleShowEnquiry()
-        }
+      key: 'pid'
+    }).then((res) => {
+      console.log('this.res()',res)
+      this.getProDetail(res.data.id)
+      if (res.data.test) {
+        console.log('this.handleShowEnquiry()')
+        this.handleShowEnquiry()
       }
     })
   }
   
   getProDetail (id) {
     const sign = util.md5ParsePro(id)
-    Taro.request({
-      url: api.pro_detail,
-      data: {
-        productid: id || 101030597384,
-        sign: sign
-      },
-      success: (res) => {
-        console.log(res.data)
-        let imgList = res.data.data.images_list
-        let title = res.data.data.title
-        let price = res.data.data.unit_price_show
-        let minOrder = res.data.data.min_order
-        let proAttr = res.data.data.product_std_attr      
-        let corpName = res.data.data.corpname      
-        let phone = res.data.data.mobile      
-        let recommendList = res.data.data.tuijian_arr
-        let keywords = res.data.data.relate_keyword_array
-        let product_desc = res.data.data.product_desc
-        let corpId = res.data.data.corpid
-        this.setState({
-          imgList,
-          title,
-          price,
-          minOrder,
-          proAttr,
-          corpName,
-          phone,
-          recommendList,
-          keywords,
-          product_desc,
-          corpId
-        })
-      }
+    ask(api.pro_detail,{ productid: id || 101030597384, sign }).then((res) => {
+      let imgList = res.data.images_list
+      let title = res.data.title
+      let price = res.data.unit_price_show
+      let minOrder = res.data.min_order
+      let proAttr = res.data.product_std_attr      
+      let corpName = res.data.corpname      
+      let phone = res.data.mobile      
+      let recommendList = res.data.tuijian_arr
+      let keywords = res.data.relate_keyword_array
+      let product_desc = res.data.product_desc
+      let corpId = res.data.corpid
+      this.setState({
+        imgList,
+        title,
+        price,
+        minOrder,
+        proAttr,
+        corpName,
+        phone,
+        recommendList,
+        keywords,
+        product_desc,
+        corpId
+      })
     })
   }
 
