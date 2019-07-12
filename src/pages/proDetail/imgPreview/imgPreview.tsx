@@ -1,6 +1,7 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button} from '@tarojs/components';
 import { api } from '@/util/api'
+import { set, get } from '@/util/global_data'
 import ask from '@/util/ask'
 import ImgList from '@/component/imgList/imgList'
 import Keywords from '@/component/keywords/keywords'
@@ -26,24 +27,28 @@ export default class ImgPreview extends Component {
 
   componentWillMount () {
     this.getProId()
-
   }
-  componentDidMount () {} 
+  componentDidMount () {
+    // this.getData()
+  } 
   componentWillReceiveProps (nextProps,nextContext) {} 
 
   getProImgDetail (pid) {
-    ask(api.pro_img, { pid }).then((res) => {
-      const { product_imgs, list_arr, list_arr2, relate_keyword_array, relate_keyword_array2, breadcrumb, info } = res.data
-      this.setState({
-        proImgList: product_imgs,
-        proList: list_arr,
-        relatedList: list_arr2,
-        keywordFirst: relate_keyword_array,
-        keywordSecond: relate_keyword_array2,
-        curPosition: breadcrumb,
-        corpInfo: info
+    const that = this
+    return function (pid) {
+      ask(api.pro_img, { pid }).then((res) => {
+        const { product_imgs, list_arr, list_arr2, relate_keyword_array, relate_keyword_array2, breadcrumb, info } = res.data
+        that.setState({
+          proImgList: product_imgs,
+          proList: list_arr,
+          relatedList: list_arr2,
+          keywordFirst: relate_keyword_array,
+          keywordSecond: relate_keyword_array2,
+          curPosition: breadcrumb,
+          corpInfo: info
+        })
       })
-    })
+    }
   }
 
   getProId () {
@@ -51,9 +56,27 @@ export default class ImgPreview extends Component {
     .then(res => {
       const pid = res.data.id
       this.setState({ pid })      
-      this.getProImgDetail(pid)
+      set('imgFun', this.getProImgDetail(pid))
     })
   }
+
+  // getData () {
+  //   console.log('img:')
+  //   Taro.getStorage({key: 'data'})
+  //   .then((res) => {
+  //     console.log('img:',res)
+  //     const { product_imgs, list_arr, list_arr2, relate_keyword_array, relate_keyword_array2, breadcrumb, info } = res.data.data
+  //     this.setState({
+  //       proImgList: product_imgs,
+  //       proList: list_arr,
+  //       relatedList: list_arr2,
+  //       keywordFirst: relate_keyword_array,
+  //       keywordSecond: relate_keyword_array2,
+  //       curPosition: breadcrumb,
+  //       corpInfo: info
+  //     })
+  //   })
+  // }
 
   jumpProDetail () {
     const { pid } = this.state
