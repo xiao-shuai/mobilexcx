@@ -34,7 +34,7 @@ export default class Play extends Component {
 
   getVideoData () {
     console.log('this.$router.params',this.$router.params)
-    let proId = this.$router.params.proId
+    let proId = this.$router.params.id
     if (!proId) {
       proId = Taro.getStorageSync('vid')
       if (!proId) {
