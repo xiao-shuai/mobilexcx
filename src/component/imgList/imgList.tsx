@@ -15,7 +15,6 @@ export default class ImgList extends Component {
   }
 
   jumpPlay (id) {
-    console.log(id)
     // Taro.clearStorageSync()
     // Taro.setStorageSync('vid', id)
     Taro.navigateTo({ url: `/pages/play/play?id=${id}` })
@@ -44,10 +43,12 @@ export default class ImgList extends Component {
               }),
               'img': recommendList.map((item, i) => {
                 return (
-                  <View className='item' key={item.product_id} onClick={this.jumpProDetail.bind(this, item.product_id)}>
-                    <Image className='img' src={item.img_url} />
+                  <View className='item' key={item.product_id} onClick={this.jumpProDetail.bind(this, item.product_id ? item.product_id : item.proid)}>
+                    {item.img_url && <Image className='img' src={item.img_url} />}
+                    {item.hot_pro_img && <Image className='img' src={item.hot_pro_img} />}
                     <View className='pro_title'>{item.title}</View>
-                    <View className='price'>{item.unit_price}</View>
+                    {item.unit_price && <View className='price'>{item.unit_price}</View>}
+                    {item.product_price_unit && <View className='price'>{item.product_price_unit}</View>}
                   </View>
                 )
               }),

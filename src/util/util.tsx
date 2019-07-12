@@ -12,7 +12,6 @@ let md5ParsePro = (productid) => {
   let timestamp = getTimestamp()
   let code = `aid=${aid}&productid=${productid}&ts=${timestamp}&${key}`
   const sign = md5(code)
-  console.log('sign')
   return sign
 }
 

@@ -69,7 +69,6 @@ export default class Cate extends Component {
   getCateList () {
     let that = this
     ask(api.cat).then((res) => {
-      console.log(res)
       this.setState({
         cateList: res.data
       })

@@ -38,17 +38,14 @@ export default class ProPreview extends Component {
   componentDidShow () {
   }
   componentWillReceiveProps (nextProps) {
-    console.log('收到：',nextProps)
   }
 
   getProId () {
     Taro.getStorage({
       key: 'pid'
     }).then((res) => {
-      console.log('this.res()',res)
       this.getProDetail(res.data.id)
       if (res.data.test) {
-        console.log('this.handleShowEnquiry()')
         this.handleShowEnquiry()
       }
     })
@@ -82,6 +79,10 @@ export default class ProPreview extends Component {
         corpId
       })
     })
+  }
+
+  handlePhoneCall (phone) {
+    Taro.makePhoneCall({ phoneNumber: phone }).then()
   }
 
   handleShowEnquiry () {
@@ -131,7 +132,10 @@ export default class ProPreview extends Component {
             className='btn_item' 
             onClick={this.handleShowEnquiry.bind(this)}
           >请供应商联系我</Button>
-          <Button className='btn_item'>查看联系方式</Button>
+          <Button 
+            className='btn_item'
+            onClick={this.handlePhoneCall.bind(this, phone)}
+          >查看联系方式</Button>
         </View>
         <View className='inner pro_attr'>
         {proAttr.map((item, i) => {
@@ -149,10 +153,10 @@ export default class ProPreview extends Component {
         <View className='corp_info'>
           <View 
             className='corp_hd'
-            onClick={this.handleJumpYellow.bind(this,corpId)}
+            onClick={this.handleJumpYellow.bind(this, corpId)}
           >{corpName}</View>
           <View className='corp_bd'>
-            <View className='item'>
+            <View className='item' onClick={this.handleJumpYellow.bind(this, corpId)}>
               <Image className='icon_corp' src={Store} />
               <View className='item_text'>进入店铺</View>
             </View>
@@ -160,7 +164,7 @@ export default class ProPreview extends Component {
               <Image className='icon_corp' src={Phone} />
               <View className='item_text'>{phone}</View>
             </View>
-            <View className='item'>
+            <View className='item' onClick={this.handleShowEnquiry.bind(this)}>
               <Image className='icon_corp' src={Cart} />
               <View className='item_text'>询价</View>
             </View>

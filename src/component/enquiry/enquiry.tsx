@@ -52,7 +52,7 @@ export default class Enquiry extends Component {
     if (!mobile) return Taro.showToast({title: '请输入手机号',icon: 'none',duration: 1500})
     if (!linkman) return Taro.showToast({title: '请输入联系人',icon: 'none',duration: 1500})
     if (!code) return Taro.showToast({title: '请输入验证码',icon: 'none',duration: 1500})
-    let timestamp = util.getTimestamp
+    let timestamp = util.getTimestamp()
     const sign = util.md5ParseEnquiry({ proId, mobile, linkman, code })
     const data = {
       aid: '61010',
@@ -64,7 +64,7 @@ export default class Enquiry extends Component {
       sign
     }
     ask(api.enquiry, data).then((res) => {
-      Taro.showToast({ title: '询价成功',icon: 'none',duration: 1500 })
+      Taro.showToast({ title: res.msg, icon: 'none', duration: 1500 })
       this.onIsShow()
     })
   }
@@ -72,7 +72,7 @@ export default class Enquiry extends Component {
   // 验证码
   getCode () {
     let { mobile, currentTime } = this.state
-    let timestamp = util.getTimestamp
+    let timestamp = util.getTimestamp()
     const sign = util.md5ParseCode(mobile)
     if (!mobile) return Taro.showToast({title:'请输入手机号',icon:'none'})
     const codeData = {
@@ -83,7 +83,8 @@ export default class Enquiry extends Component {
       sign
     }
     ask(api.code, codeData).then((res) => {
-      Taro.showToast({ title: res.data.msg, icon: 'none',duration: 1500 })
+      if (res.errno !== 1) return Taro.showToast({ title: res.msg, icon: 'none',duration: 1500 })
+      Taro.showToast({ title: res.msg, icon: 'none',duration: 1500 })
       let interval = setInterval(() => {
         currentTime --
         this.setState({ timeText: `${currentTime}秒` })
