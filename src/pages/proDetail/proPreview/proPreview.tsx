@@ -81,8 +81,7 @@ export default class ProPreview extends Component {
     })
   }
 
-  handlePhoneCall () {
-    const phone = this.state.phone 
+  handlePhoneCall (phone) {
     Taro.makePhoneCall({ phoneNumber: phone }).then()
   }
 
@@ -135,7 +134,7 @@ export default class ProPreview extends Component {
           >请供应商联系我</Button>
           <Button 
             className='btn_item'
-            onClick={this.handlePhoneCall.bind(this)}
+            onClick={this.handlePhoneCall.bind(this, phone)}
           >查看联系方式</Button>
         </View>
         <View className='inner pro_attr'>

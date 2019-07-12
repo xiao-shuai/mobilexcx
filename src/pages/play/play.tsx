@@ -65,6 +65,10 @@ export default class Play extends Component {
     this.setState({ isShow: isShow })
   }
 
+  handlePhoneCall (phone) {
+    Taro.makePhoneCall({ phoneNumber: phone }).then()
+  }
+
   render() {
     const { videoInfo, info, proRecommendList, videoList, corpId, isShow } = this.state
     return (
@@ -88,11 +92,15 @@ export default class Play extends Component {
             onClick={this.handleJumpYellow.bind(this, corpId)}
           >{info.corpname}</View>
           <View className='bd'>
-            <View>
+            <View
+              onClick={this.handleShowEnquiry.bind(this)}
+            >
               <Image src={gril} className='img' />
-              <Text onClick={this.handleShowEnquiry.bind(this)}>让供应商联系我</Text>
+              <Text>让供应商联系我</Text>
             </View>
-            <View>
+            <View
+              onClick={this.handlePhoneCall.bind(this, info.fix_phone)}
+            >
               <Image src={phone} className='img' />
               <Text>{info.fix_phone}</Text>
             </View>
