@@ -42,25 +42,6 @@ export default class Play extends Component {
       }
     }
     setTimeout(() => {
-<<<<<<< HEAD
-      Taro.request({
-        url: api.play,
-        // data: { pid: proId || 101033969955 },
-        data:{pid:this.$router.params.id},
-        success: (res) => {
-          console.log(res.data.data)
-          const { info, list_arr, video_list } = res.data.data
-          this.setState({
-            info,
-            videoInfo: info.pconf,
-            videoList: video_list.vlist,
-            proRecommendList: list_arr
-          })
-        },
-        fail: (err) => {
-          console.log('err',err)
-        }      
-=======
       ask(api.play, { pid: proId || 101033969955 }).then((res) => {
         const { info, list_arr, video_list, corp_info } = res.data
         this.setState({
@@ -72,7 +53,6 @@ export default class Play extends Component {
         })
         Taro.clearStorage()
         Taro.setStorage({key: 'pid', data: { id: info.proid }})
->>>>>>> dev
       })
     })
   }
