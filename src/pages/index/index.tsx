@@ -170,8 +170,8 @@ export default class Index extends Component {
             url: `/pages/search/search`
           })
            }}>
-         <Icon type={'search'} size='20' className='search-icon' />
-         <Text className='serch-text,hui-text'>搜索</Text>
+         <Icon type={'search'} size='16' className='search-icon' color='#666666' />
+         <Text className='serch-text '>搜索</Text>
          </View>
 
         </View>               
