@@ -148,7 +148,9 @@ export default class Yellow extends Component {
               <Image src={home} className='img' />
               <Text className='info'>{corp.corpname}</Text>
             </View>
-            <Image className='right' src={phone} />
+            <Image className='right' src={phone} onClick={()=>{
+              Taro.makePhoneCall({phoneNumber:corpInfo.contact_mobile})
+            }} />
           </View>
           <View className='content'>
             <Text>店铺总评价:</Text>

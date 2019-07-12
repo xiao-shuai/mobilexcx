@@ -17,10 +17,10 @@ export default class ImgList extends Component {
   jumpPlay (id) {
     // Taro.clearStorageSync()
     // Taro.setStorageSync('vid', id)
-    Taro.navigateTo({ url: `/pages/play/play?proId=${id}` })
+    Taro.navigateTo({ url: `/pages/play/play?id=${id}` })
   }
 
-  render() {
+  render() { 
     const { recommendList, name, type } = this.props
     return (
       <View className='ImgList inner'>

@@ -113,7 +113,7 @@ export default class Search extends Component{
     Taro.request({
       url:api.video_search,
       data:{ 
-        cid:'',
+        cid:this.$router.params.catid,
         keyword:this.state.value,
         page:this.state.page2,
       }
@@ -170,7 +170,7 @@ handleClick2 (value) {
   })
 }
 
-handleJumpProDetail (id) {
+handleJumpProDetail (id) { 
   Taro.navigateTo({
     url: `/pages/proDetail/proDetail?id=${id}`
   })
@@ -178,9 +178,15 @@ handleJumpProDetail (id) {
 
 componentWillMount(){
   console.log('参数:',this.$router.params)
-}
+} 
 componentDidMount(){
-   console.log('this.$router.params.key:',this.$router.params.key)
+   console.log('this.$router.params.key:',this.$router.params.key,
+   'this.$router.params.sp',this.$router.params.sp)
+   if(this.$router.params.sp=='ok'){
+     this.setState({
+      current:1
+     },()=>{this.get_video()})
+   }
    this.setState({value:this.$router.params.key},()=>{
     this.state.value==undefined?null:this.ss_btn()
    })
@@ -500,7 +506,11 @@ componentDidMount(){
             {
               this.state.company_list.length!==0&&this.state.company_list.map((i,k)=>{
                 return (
-                  <View className='qiye-i'>
+                  <View className='qiye-i' onClick={()=>{
+                    Taro.navigateTo({
+                      url:`/pages/yellow/yellow?id=${i.crop_id}` 
+                    })
+                  }}>
                    <View>{i.title}</View>
                    <View className='hui-text addr'>{i.addr}</View>
                    <View className='qiye_under'>
