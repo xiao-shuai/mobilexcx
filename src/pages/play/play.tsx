@@ -33,15 +33,18 @@ export default class Play extends Component {
 
   getVideoData () {
     console.log('this.$router.params',this.$router.params)
-    let proId = this.$router.params.proId
-    if (!proId) {
-      proId = Taro.getStorageSync('vid')
-      if (!proId) {
-        proId = 101033969955
-      }
+    let pid
+    let { proId, id }= this.$router.params
+    if (proId) {
+      pid = proId
+    } else if (id) {
+      pid = id
+    } else {
+      console.log('使用默认id')
+      pid = 101033969955
     }
     setTimeout(() => {
-      ask(api.play, { pid: proId || 101033969955 }).then((res) => {
+      ask(api.play, { pid }).then((res) => {
         const { info, list_arr, video_list, corp_info } = res.data
         this.setState({
           info,
@@ -50,8 +53,6 @@ export default class Play extends Component {
           proRecommendList: list_arr,
           corpId: corp_info.corpid
         })
-        Taro.clearStorage()
-        Taro.setStorage({key: 'pid', data: { id: info.proid }})
       })
     })
   }

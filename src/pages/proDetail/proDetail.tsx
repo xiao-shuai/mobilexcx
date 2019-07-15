@@ -50,17 +50,6 @@ export default class ProDetail extends Component {
     }
   }
 
-  // getProDetail () {
-  //   const { id } = this.state
-  //   const sign = util.md5ParsePro(id)
-  //   ask(api.pro_detail,{ productid: id || 101030597384, sign }).then((res) => {
-  //     let key = 'data'
-  //     let data = { data: res }
-  //     Taro.setStorage({ key, data })
-  //     .then(res => console.log('setStorage',res))
-  //   })
-  // }
-
   render() {
     const tabList = [{ title: '产品' }, { title: '图片' }]
     return (
