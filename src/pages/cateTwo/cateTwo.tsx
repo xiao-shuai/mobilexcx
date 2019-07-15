@@ -18,6 +18,18 @@ export default class CateTwo extends Component {
 
   componentWillMount () {
     this.getCateTwoList()
+    swan.setPageInfo({
+      title: '「行业设备」-行业设备网-专业行业设备-马可波罗网',
+      keywords: '行业设备,行业设备网,专业行业设备',
+      description: '马可波罗网行业设备频道提供了行业分类及其产品信息,其中主要以it行业设备、机械行业设备、通信行业设备、电器行业设备及特种行业设备等产品信息，找行业设备相关的产品就上马可波罗网行业设备信息频道!',
+      
+      success: function () {
+          console.log('setPageInfo success');
+      },
+      fail: function (err) {
+          console.log('setPageInfo fail', err);
+      }
+  })
   }
   componentDidMount () {
   } 

@@ -19,7 +19,20 @@ export default class ProDetail extends Component {
     }
   }
 
-  componentWillMount () {}
+  componentWillMount () {
+    swan.setPageInfo({
+      title: '马可波罗,B2B网站,免费B2B网站,B2B平台',
+      keywords: '马可波罗,B2B网站,免费B2B网站,B2B平台',
+      description: '马可波罗网(Makepolo.com)，精确采购搜索引擎，是中小企业实现“精确采购搜索”和“精确广告投放”的B2B电子商务平台。马可波罗网满足中小企业用户低投入，高回报的发展需求，帮助中小企业更快,更有效的达成交易。',
+      
+      success: function () {
+          console.log('setPageInfo success');
+      },
+      fail: function (err) {
+          console.log('setPageInfo fail', err);
+      }
+  })
+  }
   componentDidMount () {
     this.setProId()
   } 

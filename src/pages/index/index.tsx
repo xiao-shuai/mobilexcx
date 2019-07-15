@@ -36,7 +36,24 @@ export default class Index extends Component {
     navigationBarTitleText: '首页'
   } 
 
-  componentWillMount () { }
+  componentWillMount () {
+    swan.setPageInfo({
+      title: '马可波罗-精准B2B采购搜索引擎（makepolo.com',
+      keywords: '马可波罗,B2B网站,免费B2B网站,B2B平台',
+      description: '马可波罗网(Makepolo.com)，精确采购搜索引擎，是中小企业实现“精确采购搜索”和“精确广告投放”的B2B电子商务平台。马可波罗网满足中小企业用户低投入，高回报的发展需求，帮助中小企业更快,更有效的达成交易。',
+      image: [
+        // 'http://c.hiphotos.baidu.com/forum/w%3D480/sign=73c62dda83b1cb133e693d1bed5456da/f33725109313b07e8dee163d02d7912396dd8cfe.jpg',
+        // 'https://hiphotos.baidu.com/fex/%70%69%63/item/43a7d933c895d143e7b745607ef082025baf07ab.jpg'
+    ],
+
+      success: function () {
+          console.log('setPageInfo success');
+      },
+      fail: function (err) {
+          console.log('setPageInfo fail', err);
+      }
+  })
+   }
 
   componentDidMount () { 
    

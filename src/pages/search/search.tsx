@@ -179,6 +179,7 @@ export default class Search extends Component{
   
 }
 handleClick2 (value) {
+  swan.setPageInfo
   this.setState({
     open: value
   })
@@ -192,6 +193,18 @@ handleJumpProDetail (id) {
 
 componentWillMount(){
   console.log('参数:',this.$router.params)
+  swan.setPageInfo({
+    title: 'wap_马可波罗网 -',
+    keywords: '马可波罗，精确采购，商业智能，精确搜索，采购搜索，B2B，电子商务，采购宝典，采购论坛，采购知道，政策法规，行业展会，行业资讯',
+    description: '马可波罗（www.makepolo.com）是全球最大、最专业、最精确的采购搜索引擎，是一家以采购需求为导向，通过深度数据挖掘匹配、人工智能干预筛选，使采购人员能在最短的时间内找到他们所需要的有价值信息。从而较大地提高了工作效率，使采购人员在最短的时间内以最低的成本，采购最好的产品及服务。',
+    
+    success: function () {
+        console.log('setPageInfo success');
+    },
+    fail: function (err) {
+        console.log('setPageInfo fail', err);
+    }
+})
 } 
 componentDidMount(){
    console.log('this.$router.params.key:',this.$router.params.key,
