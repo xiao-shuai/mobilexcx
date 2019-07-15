@@ -68,15 +68,15 @@ export default class Search extends Component{
       'content-type': 'application/json'
     },
     data:{
-      catid:this.$router.params.catid, 
+      catid:this.$router.params.catid,  
       keywords:this.state.value,
       page :this.state.page,
       area:this.state.city_id, 
       attr:''
-    }
+    } 
   }).then(res=>{
     console.log('product_list:',res)
-     if(res.data.no==1){
+     if(res.data.no===1){
       this.setState({
         product_cpc_list:res.data.data.product_cpc_list,
         list_arr:res.data.data.list_arr,
@@ -85,7 +85,7 @@ export default class Search extends Component{
         pro_city_list:res.data.data.pro_city_list,
         k_data:[],
        })
-     }else {}
+     }
      
     
   })
@@ -260,6 +260,7 @@ componentDidMount(){
         <AtTabsPane current={this.state.current} index={0} >
           <View  className='top-big'>
            {/* top */}
+           {pro_city_list.length!==0&&
             <View className='cp_top'>
             <AtButton size='small' >综合</AtButton>
 
@@ -267,6 +268,7 @@ componentDidMount(){
               this.setState({show:true})
             }} >{this.state.city_name==undefined?'全国':this.state.city_name}</AtButton>
             </View>
+          }
             {/* product_cpc_list */} 
             <View className='cp_list'>
               {
@@ -386,7 +388,7 @@ componentDidMount(){
             </View>
        {
         product_cpc_list.length==0&&list_arr.length==0&&wangkelai_data.length==0?
-        <View style={{textAlign:'center',color:'#CCCCCC'}}>
+        <View style={{textAlign:'center',color:'#CCCCCC',marginTop:'20px'}}>
           暂无信息
         </View>
         :
@@ -470,7 +472,7 @@ componentDidMount(){
             </View> 
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={1}>
-          <View  className='video-big'>
+          <View  className='video-big'> 
            {
              this.state.video_search.length!==0&&this.state.video_search.map((i,k)=>{
               return (
@@ -479,7 +481,7 @@ componentDidMount(){
                     url:`/pages/play/play?id=${i.proid}`
                   })
                 }}> 
-                   <Image src={i.show_image_url} className='video-img'/>
+                   <Image src={this.state.value==undefined?i.show_img_url:i.img_url} className='video-img'/>
                    <Image src={play} className='play'/>
                    <View className='list_title'>{i.title}</View>
                 </View>
