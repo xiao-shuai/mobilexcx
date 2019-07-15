@@ -29,7 +29,6 @@ export default class ImgPreview extends Component {
     this.getProId()
   }
   componentDidMount () {
-    // this.getData()
   } 
   componentWillReceiveProps (nextProps,nextContext) {} 
 
@@ -60,24 +59,6 @@ export default class ImgPreview extends Component {
     })
   }
 
-  // getData () {
-  //   console.log('img:')
-  //   Taro.getStorage({key: 'data'})
-  //   .then((res) => {
-  //     console.log('img:',res)
-  //     const { product_imgs, list_arr, list_arr2, relate_keyword_array, relate_keyword_array2, breadcrumb, info } = res.data.data
-  //     this.setState({
-  //       proImgList: product_imgs,
-  //       proList: list_arr,
-  //       relatedList: list_arr2,
-  //       keywordFirst: relate_keyword_array,
-  //       keywordSecond: relate_keyword_array2,
-  //       curPosition: breadcrumb,
-  //       corpInfo: info
-  //     })
-  //   })
-  // }
-
   jumpProDetail () {
     const { pid } = this.state
     Taro.navigateTo({ url: `/pages/proDetail/proDetail?id=${pid}`})
@@ -87,9 +68,6 @@ export default class ImgPreview extends Component {
     const { proImgList, proList, relatedList, keywordFirst, keywordSecond, curPosition, corpInfo } = this.state
     return (
       <View>
-        {/* <NavBar
-          imgPreview='selected'
-        /> */}
         <Swiper 
           className='inner'
           circular
