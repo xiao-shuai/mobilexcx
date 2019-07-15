@@ -472,7 +472,7 @@ componentDidMount(){
             </View> 
         </AtTabsPane>
         <AtTabsPane current={this.state.current} index={1}>
-          <View  className='video-big'>
+          <View  className='video-big'> 
            {
              this.state.video_search.length!==0&&this.state.video_search.map((i,k)=>{
               return (
@@ -481,7 +481,7 @@ componentDidMount(){
                     url:`/pages/play/play?id=${i.proid}`
                   })
                 }}> 
-                   <Image src={i.show_img_url} className='video-img'/>
+                   <Image src={this.state.value==undefined?i.show_img_url:i.img_url} className='video-img'/>
                    <Image src={play} className='play'/>
                    <View className='list_title'>{i.title}</View>
                 </View>
