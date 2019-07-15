@@ -55,7 +55,9 @@
 }
 .cp_video{
     width: 100%;
-    height: 20vh;
+    height: 30vh;
+    // z-index: 10;
+    // position: absolute;
 }
 .list_i{
     display: flex;
@@ -110,7 +112,8 @@
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-    padding: 20px
+    padding: 20px;
+    z-index: 10;
 }
 .video-i{
     width: 45%;
@@ -165,4 +168,8 @@ z-index: 10px;
 }
 .cus-bt{
     margin-top: 5px;
+}
+.drawer{
+    z-index: 100;
+    position:absolute;
 }

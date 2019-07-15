@@ -27,15 +27,16 @@ export default class Search extends Component{
           company_list:[],
           open: false,
           city_id:'',
+          tit:'搜索'
          
         }
       }
     config: Config = {
-        navigationBarTitleText: '搜索'
+        navigationBarTitleText:'搜索'
       } 
 
       onChange (value) {
-          
+      
         this.setState({
           value: value,
           kw_show:value==undefined||value==''?false:true
@@ -204,6 +205,10 @@ componentDidMount(){
    this.setState({value:this.$router.params.key},()=>{
     this.state.value==undefined?null:this.ss_btn()
    })
+   if(this.$router.params.key!==undefined){
+    Taro.setNavigationBarTitle({ title:this.$router.params.key })
+   }
+   
   //  this.get_video()
   //  this.get_company_list()
 }
@@ -286,31 +291,36 @@ componentDidMount(){
                     :
                     null
                   }
-                  <View className='list_i' onClick={()=>{
-                    Taro.navigateTo({
-                      url:`/pages/proDetail/proDetail?id=${i.product_id}`
-                    })
-                  }}>
-
-                   <View className='list_i_left'>
-                     <Image src={pp} className='pp'/>
-                     <Image src={i.img_url} mode='center' className='list_i_img' />
-                    </View> 
-
-                    <View className='list_i_right'>
-                     <View className='list_title' style={{width:'80%'}} onClick={this.handleJumpProDetail.bind(this,i.product_id)}>{i.title}</View>
-                     <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
-                     <View className='list_i_under'>
-                       <Text className='list_title'>面议</Text>
-                       <AtButton className='xj_btn' size='small' onClick={()=>{
-                         Taro.navigateTo({
-                           url:`/pages/proDetail/proDetail?id=${i.product_id}&en=true`
-                         })
-                       }}>点此询价</AtButton>
-                     </View>
+                  {
+                    i.title==undefined?null
+                    :
+                    <View className='list_i' onClick={()=>{
+                      Taro.navigateTo({
+                        url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                      })
+                    }}>
+  
+                     <View className='list_i_left'>
+                       <Image src={pp} className='pp'/>
+                       <Image src={i.img_url} mode='center' className='list_i_img' />
+                      </View> 
+  
+                      <View className='list_i_right'>
+                       <View className='list_title' style={{width:'80%'}} onClick={this.handleJumpProDetail.bind(this,i.product_id)}>{i.title}</View>
+                       <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
+                       <View className='list_i_under'>
+                         <Text className='list_title'>面议</Text>
+                         <AtButton className='xj_btn' size='small' onClick={()=>{
+                           Taro.navigateTo({
+                             url:`/pages/proDetail/proDetail?id=${i.product_id}&en=true`
+                           })
+                         }}>点此询价</AtButton>
+                       </View>
+                      </View>
+                
                     </View>
-              
-                  </View>
+                  }
+                 
                   
 
                 </View>
@@ -323,6 +333,8 @@ componentDidMount(){
            {
              list_arr.length!==0&&list_arr.map((i,k)=>{
                return(
+                 i.title==undefined?null
+                 :
                 <View className='list_i' key={k} onClick={()=>{
                   Taro.navigateTo({
                     url:`/pages/proDetail/proDetail?id=${i.product_id}`
@@ -420,6 +432,7 @@ componentDidMount(){
         <AtDrawer
   show={this.state.show}
   right={true} 
+  className='drawer'
   
 >
   
@@ -442,16 +455,7 @@ componentDidMount(){
                          this.ss_btn()
                       console.log('ooook:',this.state.city_id) 
                   })
-                  // this.setState({city_index:j},()=>{ 
-                  //   this.state.city_index==j?
-                  //   this.setState({city_id:city.id},()=>{
-                  //     this.ss_btn()
-                  //     console.log('ooook:',this.state.city_id)
-                  //   })
-                  //   :null
-                  // console.log('ooook:',this.state.city_id)
-                  
-                  // })
+
                 }}>{city.name}</AtButton>
               })
             }
