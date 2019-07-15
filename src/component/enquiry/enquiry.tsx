@@ -166,7 +166,7 @@ export default class Enquiry extends Component {
                 className='btn'
                 onClick={this.handleSendEnquiry.bind(this)}
               >发布询价单</Button>
-              <Button className='more'>点此发布更详细的采购信息</Button>
+              {/* <Button className='more'>点此发布更详细的采购信息</Button> */}
             </View>
             <Button className='close' onClick={this.onIsShow.bind(this)}>关闭</Button>
           </Form>
