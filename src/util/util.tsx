@@ -38,3 +38,4 @@ let util = {
 export default util
 
 // $str = 'aid=61010&mobile='.$_REQUEST['mobile'].'&ts='.$_REQUEST['ts'].'&type='.$_REQUEST['type'].'&smallprogram20180716rmaekd8d4ds9';
+// 100007741659

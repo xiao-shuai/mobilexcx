@@ -89,6 +89,8 @@ export default class ProPreview extends Component {
   }
 
   handleShowEnquiry () {
+    Taro.pageScrollTo({  scrollTop: 0,
+      duration: 300})
     let isShow = !this.state.isShow
     this.setState({ isShow: isShow })
   }

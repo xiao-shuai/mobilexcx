@@ -46,7 +46,7 @@ export default class Yellow extends Component {
   getCorpIndex () {
     let id = this.$router.params.id
     if (!id) {
-      id = 100019820814
+      id = 100007741659
     }
     ask(api.corpIndex, { corpid: id }).then((res) => {
       const corp = res.data.corp_info
@@ -107,8 +107,10 @@ export default class Yellow extends Component {
       current: value
     })
     if (value === 1) {
+      Taro.pageScrollTo({scrollTop: 0, duration: 200 })
       this.getCorpPro()
     } else if (value === 2) {
+      Taro.pageScrollTo({scrollTop: 0, duration: 200 })
       this.getCorpIntro()
     }
   }
@@ -136,6 +138,10 @@ export default class Yellow extends Component {
         this.getCorpPro()
       })
     }
+  }
+
+  handleIntro () {
+    this.handleClick(2)
   }
 
   render() {
@@ -213,6 +219,10 @@ export default class Yellow extends Component {
                   <View className='right'>{indexData.biz_mode}</View>
                 </View>
               </View>
+              <Button 
+                className='btn_desc'
+                onClick={this.handleIntro.bind(this)}
+              >查看详情</Button>
               <ImgList 
                 recommendList={proList}
                 name='精品推荐'
