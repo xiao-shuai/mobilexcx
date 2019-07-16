@@ -11,6 +11,9 @@ const ask = (url, data = {}) => {
     data: data,
     header: 'application/json'
   }).then((res) => {
+    if (!res.data) {
+      return ask(url, data)
+    }
     let code = null
     try {
       if (res.data.no) {
