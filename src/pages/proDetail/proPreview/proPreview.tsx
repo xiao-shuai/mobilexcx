@@ -1,5 +1,5 @@
 import Taro , { Component } from '@tarojs/taro';
-import { View, Text , Swiper, SwiperItem, Image, Button, Block } from '@tarojs/components';
+import { View, Text , Swiper, SwiperItem, Image, Button, Block ,RichText} from '@tarojs/components';
 import { api } from '@/util/api'
 import ask from '@/util/ask'
 import util from '@/util/util'
@@ -12,6 +12,8 @@ import Enquiry from '@/component/enquiry/enquiry'
 import './proPreview.scss'
 // import TaroBdparse from '@/component/taroBdparse/taroBdparse'
 import md5 from 'md5'
+// import '../../../../wxParse/wxParse'
+
 
 export default class ProPreview extends Component {
 
@@ -27,7 +29,8 @@ export default class ProPreview extends Component {
     keywords: [],
     product_desc: '',
     isShow: false,
-    corpId: ''
+    corpId: '',
+    show:false
   }
 
   componentWillMount () {
@@ -95,9 +98,23 @@ export default class ProPreview extends Component {
       url: `/pages/yellow/yellow?id=${id}`
     })
   }
- 
+ show=()=>{
+   this.setState({show:!this.state.show})
+ }
   render() {
     const { imgList, title, price, minOrder, proAttr, corpName, phone, recommendList, keywords, product_desc, isShow, corpId } = this.state
+    // let nodes= [{
+    //   name: 'div',
+    //   attrs: {
+    //     class: 'div_class',
+    //     style: 'line-height: 60px; color: red;'
+    //   },
+    //   children: [{
+    //     type: 'div',
+    //     text: product_desc
+    //   }]
+    // }]
+    let nodes=product_desc
     return (
       <View>
         <Block>
@@ -148,7 +165,19 @@ export default class ProPreview extends Component {
           })}
         </View>
 
-        <Button className='view_info' onClick={this.handleGetDesc.bind(this)}>点击查看详细>></Button>
+        <Button className='view_info'
+         onClick={()=>{
+           this.show()
+         }}
+           >点击查看详细>></Button>
+           {
+             this.state.show?
+            <View>
+           <RichText nodes={nodes} />
+           </View>
+           :null
+           }
+           
 
         <View className='corp_info'>
           <View 

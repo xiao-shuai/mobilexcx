@@ -9,8 +9,7 @@ import sj from '../asset/sj.png'
 import sp from '../asset/sp.png' 
 import company from '../asset/company.png'
 import { api } from '../../util/api' 
-import DescRichText from '../../component/taroWxParse-master/DescRichText'
-
+ 
 export default class Index extends Component {
 
   constructor (props) {
