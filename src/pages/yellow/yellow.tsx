@@ -1,5 +1,5 @@
 import Taro , { Component } from '@tarojs/taro';
-import { View, Text , Button, Image } from '@tarojs/components';
+import { View, Text , Button, Image ,RichText} from '@tarojs/components';
 import { AtPagination, AtTabs, AtTabsPane  } from 'taro-ui'
 import { api } from '@/util/api'
 import ask from '@/util/ask'
@@ -8,6 +8,7 @@ import phone from '@/asset/blue_phone.png'
 import star from '@/asset/fine_star.png'
 import ImgList from '@/component/imgList/imgList'
 import './Yellow.scss'
+import { node } from 'prop-types';
 
 export default class Yellow extends Component {
 
@@ -43,12 +44,13 @@ export default class Yellow extends Component {
     this.getCorpIndex()
   } 
 
-  getCorpIndex () {
+  getCorpIndex () { //首页
     let id = this.$router.params.id
     if (!id) {
       id = 100007741659
     }
     ask(api.corpIndex, { corpid: id }).then((res) => {
+      console.log('首页res:',res,'idid:',id)
       const corp = res.data.corp_info
       const corpId = res.data.corp_info.corpid
       const corpInfo = res.data.corp_info.corpinfo
@@ -64,9 +66,11 @@ export default class Yellow extends Component {
     })
   }
 
-  getCorpPro () {
+  getCorpPro () {//产品
     const { corpId, pages } = this.state
-    ask(api.corpPro, { corpid: corpId, page: pages }).then((res) => {
+    let id = this.$router.params.id
+    ask(api.corpPro, { corpid: id, page: pages }).then((res) => {
+      console.log('产品 res:',res)
       const corpProList = res.data.list_arr
       const pagesCount = res.data.pages
       this.setState({
@@ -76,9 +80,11 @@ export default class Yellow extends Component {
     })
   }
 
-  getCorpIntro () {
-    const corpId = this.state.corpId
-    ask(api.corpIntro, { corpid: corpId }).then((res) => {
+  getCorpIntro () { //介绍
+    // const corpId = this.state.corpId
+    let id = this.$router.params.id
+    ask(api.corpIntro, { corpid: id }).then((res) => {
+      console.log('介绍res',res)
       const corpIntro = res.data.corp_info
       const corpIntroInfo = res.data.corp_info.corpinfo
       const employeeNum = res.data.employee_num
@@ -148,7 +154,8 @@ export default class Yellow extends Component {
     
     const tabList = [{ title: '公司首页' }, { title: '公司产品' }, { title: '公司介绍' }]
     const { corp, proList, corpInfo, corpProList, corpIntro, corpIntroInfo, data, pages, pagesCount, indexData } = this.state
-
+      let nodes=corpInfo.introduction
+      console.log('nodes',nodes)
     swan.setPageInfo({
       title: corp.corpname,
       keywords: corp.corpname,
@@ -369,7 +376,8 @@ export default class Yellow extends Component {
               <View className='corp_wrap'>
                 <View className='title'>公司详情</View>
               </View>
-
+              <RichText  nodes={nodes} />
+                
             </View>
           </AtTabsPane>
         </AtTabs>
