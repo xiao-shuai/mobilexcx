@@ -155,7 +155,7 @@ export default class ProPreview extends Component {
           this.state.show
           ?
           <View>
-            <View className='item'>产品介绍</View>
+            <View className='pro_item'>产品介绍</View>
             <RichText nodes={nodes} />
           </View>
           :
