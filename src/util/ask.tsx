@@ -11,7 +11,7 @@ const ask = (url, data = {}) => {
     data: data,
     header: 'application/json'
   }).then((res) => {
-    if (!res.data) {
+    if (res.data === undefined) {
       return ask(url, data)
     }
     let code = null

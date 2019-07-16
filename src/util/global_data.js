@@ -1,4 +1,6 @@
-const globalData = {}
+const globalData = {
+  imgFun: null
+}
 
 export function set (key, val) {
   globalData[key] = val
