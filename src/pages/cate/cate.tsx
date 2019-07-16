@@ -61,6 +61,18 @@ export default class Cate extends Component {
 
   componentWillMount () {
     this.getCateList()
+    swan.setPageInfo({
+      title: '行业分类_行业设备型号-马可波罗网',
+      keywords: '行业分类,行业设备型号',
+      description: '马可波罗网提供了行业分类信息，包含行业设备信息、行业设备型号信息，整合领先的行业分类信息，给您最优质的选择!',
+      
+      success: function () {
+          console.log('setPageInfo success');
+      },
+      fail: function (err) {
+          console.log('setPageInfo fail', err);
+      }
+  })
   }
   componentDidMount () {
     this.getCateList()

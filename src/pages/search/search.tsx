@@ -27,15 +27,16 @@ export default class Search extends Component{
           company_list:[],
           open: false,
           city_id:'',
+          tit:'搜索'
          
         }
       }
     config: Config = {
-        navigationBarTitleText: '搜索'
+        navigationBarTitleText:'搜索'
       } 
 
       onChange (value) {
-          
+      
         this.setState({
           value: value,
           kw_show:value==undefined||value==''?false:true
@@ -178,6 +179,7 @@ export default class Search extends Component{
   
 }
 handleClick2 (value) {
+  swan.setPageInfo
   this.setState({
     open: value
   })
@@ -191,6 +193,18 @@ handleJumpProDetail (id) {
 
 componentWillMount(){
   console.log('参数:',this.$router.params)
+  swan.setPageInfo({
+    title: 'wap_马可波罗网 -',
+    keywords: '马可波罗，精确采购，商业智能，精确搜索，采购搜索，B2B，电子商务，采购宝典，采购论坛，采购知道，政策法规，行业展会，行业资讯',
+    description: '马可波罗（www.makepolo.com）是全球最大、最专业、最精确的采购搜索引擎，是一家以采购需求为导向，通过深度数据挖掘匹配、人工智能干预筛选，使采购人员能在最短的时间内找到他们所需要的有价值信息。从而较大地提高了工作效率，使采购人员在最短的时间内以最低的成本，采购最好的产品及服务。',
+    
+    success: function () {
+        console.log('setPageInfo success');
+    },
+    fail: function (err) {
+        console.log('setPageInfo fail', err);
+    }
+})
 } 
 componentDidMount(){
    console.log('this.$router.params.key:',this.$router.params.key,
@@ -204,6 +218,10 @@ componentDidMount(){
    this.setState({value:this.$router.params.key},()=>{
     this.state.value==undefined?null:this.ss_btn()
    })
+   if(this.$router.params.key!==undefined){
+    Taro.setNavigationBarTitle({ title:this.$router.params.key })
+   }
+   
   //  this.get_video()
   //  this.get_company_list()
 }
@@ -286,31 +304,36 @@ componentDidMount(){
                     :
                     null
                   }
-                  <View className='list_i' onClick={()=>{
-                    Taro.navigateTo({
-                      url:`/pages/proDetail/proDetail?id=${i.product_id}`
-                    })
-                  }}>
-
-                   <View className='list_i_left'>
-                     <Image src={pp} className='pp'/>
-                     <Image src={i.img_url} mode='center' className='list_i_img' />
-                    </View> 
-
-                    <View className='list_i_right'>
-                     <View className='list_title' style={{width:'80%'}} onClick={this.handleJumpProDetail.bind(this,i.product_id)}>{i.title}</View>
-                     <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
-                     <View className='list_i_under'>
-                       <Text className='list_title'>面议</Text>
-                       <AtButton className='xj_btn' size='small' onClick={()=>{
-                         Taro.navigateTo({
-                           url:`/pages/proDetail/proDetail?id=${i.product_id}&en=true`
-                         })
-                       }}>点此询价</AtButton>
-                     </View>
+                  {
+                    i.title==undefined?null
+                    :
+                    <View className='list_i' onClick={()=>{
+                      Taro.navigateTo({
+                        url:`/pages/proDetail/proDetail?id=${i.product_id}`
+                      })
+                    }}>
+  
+                     <View className='list_i_left'>
+                       <Image src={pp} className='pp'/>
+                       <Image src={i.img_url} mode='center' className='list_i_img' />
+                      </View> 
+  
+                      <View className='list_i_right'>
+                       <View className='list_title' style={{width:'80%'}} onClick={this.handleJumpProDetail.bind(this,i.product_id)}>{i.title}</View>
+                       <View className='hui-text' style='margin-top: 10px;'>{i.crop_name}</View>
+                       <View className='list_i_under'>
+                         <Text className='list_title'>面议</Text>
+                         <AtButton className='xj_btn' size='small' onClick={()=>{
+                           Taro.navigateTo({
+                             url:`/pages/proDetail/proDetail?id=${i.product_id}&en=true`
+                           })
+                         }}>点此询价</AtButton>
+                       </View>
+                      </View>
+                
                     </View>
-              
-                  </View>
+                  }
+                 
                   
 
                 </View>
@@ -323,6 +346,8 @@ componentDidMount(){
            {
              list_arr.length!==0&&list_arr.map((i,k)=>{
                return(
+                 i.title==undefined?null
+                 :
                 <View className='list_i' key={k} onClick={()=>{
                   Taro.navigateTo({
                     url:`/pages/proDetail/proDetail?id=${i.product_id}`
@@ -420,6 +445,7 @@ componentDidMount(){
         <AtDrawer
   show={this.state.show}
   right={true} 
+  className='drawer'
   
 >
   
@@ -442,16 +468,7 @@ componentDidMount(){
                          this.ss_btn()
                       console.log('ooook:',this.state.city_id) 
                   })
-                  // this.setState({city_index:j},()=>{ 
-                  //   this.state.city_index==j?
-                  //   this.setState({city_id:city.id},()=>{
-                  //     this.ss_btn()
-                  //     console.log('ooook:',this.state.city_id)
-                  //   })
-                  //   :null
-                  // console.log('ooook:',this.state.city_id)
-                  
-                  // })
+
                 }}>{city.name}</AtButton>
               })
             }

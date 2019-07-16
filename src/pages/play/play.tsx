@@ -73,6 +73,7 @@ export default class Play extends Component {
 
   render() {
     const { videoInfo, info, proRecommendList, videoList, corpId, isShow } = this.state
+    console.log('videoInfo:',videoInfo.vido_url)
     return (
       <View>
         <Video

@@ -36,7 +36,9 @@ export default class Yellow extends Component {
     indexData: {}
   }
 
-  componentWillMount () {}
+  componentWillMount () {
+    
+  }
   componentDidMount () {
     this.getCorpIndex()
   } 
@@ -143,8 +145,22 @@ export default class Yellow extends Component {
   }
 
   render() {
+    
     const tabList = [{ title: '公司首页' }, { title: '公司产品' }, { title: '公司介绍' }]
     const { corp, proList, corpInfo, corpProList, corpIntro, corpIntroInfo, data, pages, pagesCount, indexData } = this.state
+
+    swan.setPageInfo({
+      title: corp.corpname,
+      keywords: corp.corpname,
+      description: corpIntroInfo.sales_product, 
+      
+      success: function () {
+          console.log('setPageInfo success');
+      },
+      fail: function (err) {
+          console.log('setPageInfo fail', err);
+      }
+  })
     return (
       <View>
 
