@@ -175,7 +175,7 @@ export default class ProPreview extends Component {
               <Image className='icon_corp' src={Store} />
               <View className='item_text'>进入店铺</View>
             </View>
-            <View className='item'>
+            <View className='item' onClick={this.handlePhoneCall.bind(this, phone)}>
               <Image className='icon_corp' src={Phone} />
               <View className='item_text'>{phone}</View>
             </View>
