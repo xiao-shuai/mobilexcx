@@ -1,5 +1,5 @@
 import Taro , { Component } from '@tarojs/taro';
-import { View, Text , Button} from '@tarojs/components';
+import { View } from '@tarojs/components';
 import { api } from '@/util/api'
 import ask from '@/util/ask'
 import './cateTwo.scss'

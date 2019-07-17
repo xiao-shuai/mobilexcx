@@ -1,6 +1,5 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button, Image} from '@tarojs/components';
-// import { api } from '@/util/api'
 import { api } from '@/util/api'
 import ask from '@/util/ask'
 import './cate.scss'
@@ -60,6 +59,9 @@ export default class Cate extends Component {
   }
 
   componentWillMount () {
+
+  }
+  componentDidMount () {
     this.getCateList()
     swan.setPageInfo({
       title: '行业分类_行业设备型号-马可波罗网',
@@ -73,13 +75,9 @@ export default class Cate extends Component {
           console.log('setPageInfo fail', err);
       }
   })
-  }
-  componentDidMount () {
-    this.getCateList()
   } 
 
   getCateList () {
-    let that = this
     ask(api.cat).then((res) => {
       this.setState({
         cateList: res.data

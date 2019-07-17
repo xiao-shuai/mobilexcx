@@ -1,5 +1,5 @@
 import Taro , { Component } from '@tarojs/taro';
-import { View, Video , Button} from '@tarojs/components';
+import { View, Video , RichText, Button } from '@tarojs/components';
 import { api } from '@/util/api'
 import ask from '@/util/ask'
 import gril from '@/asset/gril.png'
@@ -23,13 +23,13 @@ export default class Play extends Component {
     videoList: [],
     proRecommendList: [],
     isShow: false,
+    isShowRich: false,
     corpId: null
   }
 
   componentWillMount () {}
   componentDidMount () {
     this.getVideoData()
-    console.log('666:',)
   } 
 
   getVideoData () {
@@ -71,11 +71,16 @@ export default class Play extends Component {
     Taro.makePhoneCall({ phoneNumber: phone }).then()
   }
 
+  handleShowDesc () {
+    const { isShowRich } = this.state
+    this.setState({ isShowRich: !isShowRich })
+  }
+
   render() {
-    const { videoInfo, info, proRecommendList, videoList, corpId, isShow } = this.state
+    const { videoInfo, info, proRecommendList, videoList, corpId, isShow, isShowRich } = this.state
     console.log('videoInfo:',videoInfo.vido_url)
     return (
-      <View>
+      <View className='content'>
         <Video
           src={videoInfo.vido_url}
           controls={true}
@@ -112,7 +117,19 @@ export default class Play extends Component {
 
         <View className='introduce_wrap inner'>
           <View className='pro_introduce'>产品介绍</View>
-          {/* <View className='content'>{info.detail}</View> */}
+          {
+            isShowRich 
+            ? 
+            <View className='rich'>
+              <RichText nodes={info.detail} />
+            </View>
+            :
+            <Button 
+              className='btn_desc'
+              onClick={this.handleShowDesc.bind(this)}
+            >展开详情</Button>
+          }
+          
         </View>
 
         {isShow && <Enquiry isShow={this.handleShowEnquiry.bind(this)} />}

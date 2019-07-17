@@ -1,9 +1,8 @@
 import Taro, { Component } from '@tarojs/taro';
-import { View, Text, Swiper, SwiperItem, Image, Button, Block, RichText } from '@tarojs/components';
+import { View, Text, Swiper, SwiperItem, Image, Button, RichText } from '@tarojs/components';
 import { api } from '@/util/api'
 import ask from '@/util/ask'
 import util from '@/util/util'
-import { set, get } from '@/util/global_data'
 import Phone from '@/asset/phone.gif'
 import Cart from '@/asset/cart.gif'
 import Store from '@/asset/store.gif'
@@ -11,10 +10,6 @@ import ImgList from '@/component/imgList/imgList'
 import Keywords from '@/component/keywords/keywords'
 import Enquiry from '@/component/enquiry/enquiry'
 import './proPreview.scss'
-// import TaroBdparse from '@/component/taroBdparse/taroBdparse'
-import md5 from 'md5'
-// import '../../../../wxParse/wxParse'
-
 
 export default class ProPreview extends Component {
 
@@ -107,7 +102,7 @@ export default class ProPreview extends Component {
     let nodes = product_desc
     return (
       <View>
-        { isShow ? <Enquiry isShow={this.handleShowEnquiry.bind(this)} /> : null }
+        { isShow && <Enquiry isShow={this.handleShowEnquiry.bind(this)} /> }
         <Swiper
           className='inner'
           circular

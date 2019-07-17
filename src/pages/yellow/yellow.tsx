@@ -1,6 +1,6 @@
 import Taro , { Component } from '@tarojs/taro';
 import { View, Text , Button, Image ,RichText} from '@tarojs/components';
-import { AtPagination, AtTabs, AtTabsPane  } from 'taro-ui'
+import { AtTabs, AtTabsPane  } from 'taro-ui'
 import { api } from '@/util/api'
 import ask from '@/util/ask'
 import home from '@/asset/home.png'
@@ -8,7 +8,6 @@ import phone from '@/asset/blue_phone.png'
 import star from '@/asset/fine_star.png'
 import ImgList from '@/component/imgList/imgList'
 import './Yellow.scss'
-import { node } from 'prop-types';
 
 export default class Yellow extends Component {
 
@@ -51,7 +50,6 @@ export default class Yellow extends Component {
       id = 100007741659
     }
     ask(api.corpIndex, { corpid: id }).then((res) => {
-      console.log('首页res:',res,'idid:',id)
       const corp = res.data.corp_info
       const corpId = res.data.corp_info.corpid
       const corpInfo = res.data.corp_info.corpinfo
@@ -68,10 +66,9 @@ export default class Yellow extends Component {
   }
 
   getCorpPro () {//产品
-    const { corpId, pages } = this.state
+    const { pages } = this.state
     let id = this.$router.params.id
     ask(api.corpPro, { corpid: id, page: pages }).then((res) => {
-      console.log('产品 res:',res)
       const corpProList = res.data.list_arr
       const pagesCount = res.data.pages
       this.setState({
@@ -82,10 +79,8 @@ export default class Yellow extends Component {
   }
 
   getCorpIntro () { //介绍
-    // const corpId = this.state.corpId
     let id = this.$router.params.id
     ask(api.corpIntro, { corpid: id }).then((res) => {
-      console.log('介绍res',res)
       const corpIntro = res.data.corp_info
       const corpIntroInfo = res.data.corp_info.corpinfo
       const employeeNum = res.data.employee_num
