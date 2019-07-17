@@ -40,8 +40,6 @@ export default class ProPreview extends Component {
   }
   componentDidShow() {
   }
-  componentWillReceiveProps(nextProps) {
-  }
 
   getProId() {
     Taro.getStorage({
