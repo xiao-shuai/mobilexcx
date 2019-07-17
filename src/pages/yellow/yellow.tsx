@@ -145,6 +145,7 @@ export default class Yellow extends Component {
         this.getCorpPro()
       })
     }
+    Taro.pageScrollTo({scrollTop: 0, duration: 100 })
   }
 
   handleIntro () {
