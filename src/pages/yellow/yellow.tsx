@@ -232,14 +232,10 @@ export default class Yellow extends Component {
                   <View className='right'>{indexData.biz_mode}</View>
                 </View>
               </View>
-              {isShow && <Button 
+              <Button 
                 className='btn_desc'
-                onClick={this.handleShowDesc.bind(this)}
-              >查看详情</Button>}
-              {!isShow && <View className='corp_wrap'>
-                <View className='title'>公司详情</View>
-                <RichText  nodes={nodes} className='rich' />
-              </View>}
+                onClick={this.handleClick.bind(this,2)}
+              >查看详情</Button>
               <ImgList 
                 recommendList={proList}
                 name='精品推荐'

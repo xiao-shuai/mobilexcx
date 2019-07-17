@@ -154,7 +154,7 @@ export default class ProPreview extends Component {
           ?
           <View>
             <View className='pro_item'>产品介绍</View>
-            <RichText nodes={nodes} />
+            <RichText nodes={nodes} className='rich' />
           </View>
           :
           <Button className='view_info'
