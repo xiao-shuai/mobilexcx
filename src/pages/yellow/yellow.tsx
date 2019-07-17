@@ -17,6 +17,7 @@ export default class Yellow extends Component {
   }
 
   state = {
+    isShow: true,
     current: 0,
     pages: 1,
     pagesCount: 10,
@@ -150,10 +151,15 @@ export default class Yellow extends Component {
     this.handleClick(2)
   }
 
+  handleShowDesc () {
+    let { isShow } = this.state 
+    this.setState({ isShow: !isShow })
+  }
+
   render() {
     
     const tabList = [{ title: '公司首页' }, { title: '公司产品' }, { title: '公司介绍' }]
-    const { corp, proList, corpInfo, corpProList, corpIntro, corpIntroInfo, data, pages, pagesCount, indexData } = this.state
+    const { corp, proList, corpInfo, corpProList, corpIntro, corpIntroInfo, data, pages, pagesCount, indexData, isShow } = this.state
       let nodes=corpInfo.introduction
       console.log('nodes',nodes)
     swan.setPageInfo({
@@ -226,10 +232,14 @@ export default class Yellow extends Component {
                   <View className='right'>{indexData.biz_mode}</View>
                 </View>
               </View>
-              <Button 
+              {isShow && <Button 
                 className='btn_desc'
-                onClick={this.handleIntro.bind(this)}
-              >查看详情</Button>
+                onClick={this.handleShowDesc.bind(this)}
+              >查看详情</Button>}
+              {!isShow && <View className='corp_wrap'>
+                <View className='title'>公司详情</View>
+                <RichText  nodes={nodes} className='rich' />
+              </View>}
               <ImgList 
                 recommendList={proList}
                 name='精品推荐'
@@ -375,9 +385,8 @@ export default class Yellow extends Component {
               </View>
               <View className='corp_wrap'>
                 <View className='title'>公司详情</View>
+                <RichText  nodes={nodes} className='rich' />
               </View>
-              <RichText  nodes={nodes} className='rich' />
-                
             </View>
           </AtTabsPane>
         </AtTabs>
