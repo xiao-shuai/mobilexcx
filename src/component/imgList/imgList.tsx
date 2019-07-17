@@ -18,6 +18,18 @@ export default class ImgList extends Component {
     Taro.navigateTo({ url: `/pages/play/play?proId=${id}` })
   }
 
+  filter (text) {
+    let str
+    if (!text) {
+      str = '面议'
+    } else if (text.match(/^\s+$/)) {
+      str = '面议'
+    } else {
+      str = text
+    }
+    return str
+  }
+
   render() { 
     const { recommendList, name, type } = this.props
     return (
@@ -35,7 +47,7 @@ export default class ImgList extends Component {
                   <View className='item' key={item.proid} onClick={this.jumpProDetail.bind(this, item.proid)}>
                     <Image className='img' src={item.hot_pro_img} />
                     <View className='pro_title'>{item.title}</View>
-                    <View className='price'>{item.product_price_unit ? item.product_price_unit : '面议'}</View>
+                    <View className='price'>{this.filter(item.product_price_unit)}</View>
                   </View>
                 )
               }),
