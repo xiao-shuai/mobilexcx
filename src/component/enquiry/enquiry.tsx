@@ -23,7 +23,9 @@ export default class Enquiry extends Component {
   componentDidMount () {} 
 
   onIsShow () {
-    this.props.isShow()
+    setTimeout(() => {
+      this.props.isShow()
+    })
   }
 
   handleInput (key, ele) {

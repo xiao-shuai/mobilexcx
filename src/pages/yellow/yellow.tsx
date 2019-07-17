@@ -376,7 +376,7 @@ export default class Yellow extends Component {
               <View className='corp_wrap'>
                 <View className='title'>公司详情</View>
               </View>
-              <RichText  nodes={nodes} />
+              <RichText  nodes={nodes} className='rich' />
                 
             </View>
           </AtTabsPane>
