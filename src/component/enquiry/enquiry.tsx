@@ -4,7 +4,6 @@ import { api } from '@/util/api'
 import ask from '@/util/ask'
 import util from '@/util/util'
 import './enquiry.scss'
-import md5 from 'md5'
 
 export default class Enquiry extends Component {
 
@@ -18,9 +17,10 @@ export default class Enquiry extends Component {
   }
 
   componentWillMount () {
-    this.getProId()
   }
-  componentDidMount () {} 
+  componentDidMount () {
+    this.getProId()
+  } 
 
   onIsShow () {
     setTimeout(() => {

@@ -3,6 +3,7 @@ import { View, Text, Swiper, SwiperItem, Image, Button, Block, RichText } from '
 import { api } from '@/util/api'
 import ask from '@/util/ask'
 import util from '@/util/util'
+import { set, get } from '@/util/global_data'
 import Phone from '@/asset/phone.gif'
 import Cart from '@/asset/cart.gif'
 import Store from '@/asset/store.gif'
@@ -37,8 +38,6 @@ export default class ProPreview extends Component {
   }
   componentDidMount() {
     this.getProId()
-  }
-  componentDidShow() {
   }
 
   getProId() {
@@ -108,8 +107,7 @@ export default class ProPreview extends Component {
     let nodes = product_desc
     return (
       <View>
-        {isShow && <Enquiry isShow={this.handleShowEnquiry.bind(this)} />}
-        {isShow && ''}
+        { isShow ? <Enquiry isShow={this.handleShowEnquiry.bind(this)} /> : null }
         <Swiper
           className='inner'
           circular

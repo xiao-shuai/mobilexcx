@@ -1,7 +1,7 @@
 import Taro , { Component } from '@tarojs/taro';
-import { View, Text , Button} from '@tarojs/components';
+import { View, Button} from '@tarojs/components';
 import { api } from '@/util/api'
-import { set, get } from '@/util/global_data'
+import { set } from '@/util/global_data'
 import ask from '@/util/ask'
 import ImgList from '@/component/imgList/imgList'
 import Keywords from '@/component/keywords/keywords'
@@ -16,6 +16,7 @@ export default class ImgPreview extends Component {
 
   state = {
     pid: '',
+    isShow: false,
     proImgList: [],
     proList: [],
     relatedList: [],
@@ -26,9 +27,9 @@ export default class ImgPreview extends Component {
   }
 
   componentWillMount () {
-    this.getProId()
   }
   componentDidMount () {
+    this.getProId()
   } 
   componentWillReceiveProps (nextProps,nextContext) {} 
 
@@ -64,8 +65,13 @@ export default class ImgPreview extends Component {
     Taro.navigateTo({ url: `/pages/proDetail/proDetail?id=${pid}`})
   }
 
+  handleCallPhone () {
+    const phone = this.state.corpInfo.contact_mobile
+    Taro.makePhoneCall({ phoneNumber: phone }).then()
+  }
+
   render() {
-    const { proImgList, proList, relatedList, keywordFirst, keywordSecond, curPosition, corpInfo } = this.state
+    const { proImgList, proList, relatedList, keywordFirst, keywordSecond, curPosition, corpInfo, isShow } = this.state
     return (
       <View>
         <Swiper 
@@ -84,8 +90,14 @@ export default class ImgPreview extends Component {
           <View className='pro_title'>{corpInfo.title}</View>
         </View>
         <View className='contect'>
-          <Button className='btn_item' onClick={this.jumpProDetail.bind(this)}>返回产品</Button>
-          <Button className='btn_item'>联系供应商</Button>
+          <Button 
+            className='btn_item' 
+            onClick={this.jumpProDetail.bind(this)}
+          >返回产品</Button>
+          <Button 
+            className='btn_item'
+            onClick={this.handleCallPhone.bind(this)}
+          >联系供应商</Button>
         </View>
         <ImgList 
           recommendList={proList}
