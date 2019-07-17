@@ -57,8 +57,8 @@ export default class ImgList extends Component {
                     {item.img_url && <Image className='img' src={item.img_url} />}
                     {item.hot_pro_img && <Image className='img' src={item.hot_pro_img} />}
                     <View className='pro_title'>{item.title}</View>
-                    {item.unit_price && <View className='price'>{item.unit_price}</View>}
-                    {item.product_price_unit && <View className='price'>{item.product_price_unit}</View>}
+                    {item.unit_price && <View className='price'>{this.filter(item.unit_price)}</View>}
+                    {item.product_price_unit && <View className='price'>{this.filter(item.product_price_unit)}</View>}
                   </View>
                 )
               }),
@@ -76,7 +76,7 @@ export default class ImgList extends Component {
                   <View className='item goods' key={item.product_id} onClick={this.jumpProDetail.bind(this, item.product_id)}>
                     <Image className='img' src={item.img_url} />
                     <View className='pro_title'>{item.title}</View>
-                    <View className='price'>{item.unit_price}</View>
+                    <View className='price'>{this.filter(item.unit_price)}</View>
                   </View>
                 )
               })
