@@ -157,7 +157,6 @@ export default class Yellow extends Component {
     const tabList = [{ title: '公司首页' }, { title: '公司产品' }, { title: '公司介绍' }]
     const { corp, proList, corpInfo, corpProList, corpIntro, corpIntroInfo, data, pages, pagesCount, indexData, isShow } = this.state
       let nodes=corpInfo.introduction
-      console.log('nodes',nodes)
     swan.setPageInfo({
       title: corp.corpname,
       keywords: corp.corpname,
