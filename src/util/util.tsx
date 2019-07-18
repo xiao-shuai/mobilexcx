@@ -28,14 +28,18 @@ const md5ParseEnquiry = (options) => {
   return md5(md5Code)
 }
 
-const debounce = (fun, delay) => {
-  return function (args) {
+const debounce = (fn, wait, immediate) => {
+  let timer
+  return () => {
+    let args = arguments
     let that = this
-    let _args = args
-    clearTimeout(fun.id)
-    fun.id = setTimeout(function () {
-      fun.call(that, _args)
-    }, delay)
+    if (immediate && !timer) {
+      fn.apply(that, args)
+    }
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn.apply(that, args)
+    }, wait)
   }
 }
 
@@ -43,7 +47,8 @@ const util = {
   md5ParsePro,
   md5ParseCode,
   md5ParseEnquiry,
-  getTimestamp
+  getTimestamp,
+  debounce
 }
 
 export default util

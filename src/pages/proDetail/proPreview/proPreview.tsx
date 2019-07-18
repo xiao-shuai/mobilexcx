@@ -85,8 +85,10 @@ export default class ProPreview extends Component {
       scrollTop: 0,
       duration: 100
     })
-    let isShow = !this.state.isShow
-    this.setState({ isShow: isShow })
+    let isShow = this.state.isShow
+    setTimeout(() => {
+      this.setState({ isShow: !isShow })
+    })
   }
 
   handleJumpYellow(id) {
@@ -94,6 +96,7 @@ export default class ProPreview extends Component {
       url: `/pages/yellow/yellow?id=${id}`
     })
   }
+  
   show = () => {
     this.setState({ show: !this.state.show })
   }

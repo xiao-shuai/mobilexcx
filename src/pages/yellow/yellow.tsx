@@ -3,6 +3,7 @@ import { View, Text , Button, Image ,RichText} from '@tarojs/components';
 import { AtTabs, AtTabsPane  } from 'taro-ui'
 import { api } from '@/util/api'
 import ask from '@/util/ask'
+import util from '@/util/util'
 import home from '@/asset/home.png'
 import phone from '@/asset/blue_phone.png'
 import star from '@/asset/fine_star.png'
