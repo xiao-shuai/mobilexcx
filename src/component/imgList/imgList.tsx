@@ -55,10 +55,10 @@ export default class ImgList extends Component {
                 return (
                   <View className='item' key={item.product_id} onClick={this.jumpProDetail.bind(this, item.product_id ? item.product_id : item.proid)}>
                     {item.img_url && <Image className='img' src={item.img_url} />}
-                    {item.hot_pro_img && <Image className='img' src={item.hot_pro_img} />}
+                    {!item.img_url && <Image className='img' src={item.hot_pro_img} />}
                     <View className='pro_title'>{item.title}</View>
                     {item.unit_price && <View className='price'>{this.filter(item.unit_price)}</View>}
-                    {item.product_price_unit && <View className='price'>{this.filter(item.product_price_unit)}</View>}
+                    {!item.unit_price && <View className='price'>{this.filter(item.product_price_unit)}</View>}
                   </View>
                 )
               }),
