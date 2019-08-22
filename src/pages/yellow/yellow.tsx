@@ -157,19 +157,21 @@ export default class Yellow extends Component {
     
     const tabList = [{ title: '公司首页' }, { title: '公司产品' }, { title: '公司介绍' }]
     const { corp, proList, corpInfo, corpProList, corpIntro, corpIntroInfo, data, pages, pagesCount, indexData, isShow } = this.state
-      let nodes=corpInfo.introduction
-    swan.setPageInfo({
-      title: corp.corpname,
-      keywords: corp.corpname,
-      description: corpIntroInfo.sales_product, 
-      
-      success: function () {
-          console.log('setPageInfo success');
-      },
-      fail: function (err) {
-          console.log('setPageInfo fail', err);
-      }
-  })
+    let nodes=corpInfo.introduction
+    const context = Taro.getEnv()
+    if (context === 'SWAN') {
+      swan.setPageInfo({
+        title: corp.corpname,
+        keywords: corp.corpname,
+        description: corpIntroInfo.sales_product, 
+        success: function () {
+            console.log('setPageInfo success');
+        },
+        fail: function (err) {
+            console.log('setPageInfo fail', err);
+        }
+      })
+    }
     return (
       <View>
 
